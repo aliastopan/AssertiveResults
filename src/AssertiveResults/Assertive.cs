@@ -74,11 +74,11 @@ namespace AssertiveResults
 
         internal Assertive(T value, Assertive assertive)
         {
-            Value = value;
             this._errors = assertive._errors;
             this._counter = assertive._counter;
             this._breakPoint = assertive._breakPoint;
             this.Success = assertive.Success;
+            Value = Success ? value : default;
         }
     }
 }
