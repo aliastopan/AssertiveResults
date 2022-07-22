@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -60,6 +61,18 @@ namespace AssertiveResults.Assertions
             if(!_isSatisfied)
                 Errors.Add(new Error());
 
+            return this;
+        }
+
+        public Assertion Empty(IEnumerable collection)
+        {
+            _isSatisfied = !collection.GetEnumerator().MoveNext();
+            return this;
+        }
+
+        public Assertion NotEmpty(IEnumerable collection)
+        {
+            _isSatisfied = collection.GetEnumerator().MoveNext();
             return this;
         }
 
