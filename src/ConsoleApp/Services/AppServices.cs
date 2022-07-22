@@ -27,13 +27,11 @@ public class AppService : IAppService
         var mocks = new List<Mock>(){ username, email, password };
 
         var result = Assertive.Result()
-            .Assert(assert =>
-            {
+            .Assert(assert => {
                 var lookUp = mocks.FirstOrDefault(v => v.Value == "einharan");
                 assert.Null(lookUp).WithError("Username is already taken.");
             })
-            .Assert(x =>
-            {
+            .Assert(x => {
                 var lookUp = mocks.FirstOrDefault(v => v.Value == "@mail");
                 x.Null(lookUp).WithError("Email is already in use.");
             })

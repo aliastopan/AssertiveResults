@@ -8,6 +8,24 @@ namespace AssertiveResults.Assertions
         public bool Fail => !_isSatisfied;
         public Error Error { get; private set; }
 
+        public Assertion True(bool condition)
+        {
+            _isSatisfied = condition;
+            if(Fail)
+                Error = new Error();
+
+            return this;
+        }
+
+        public Assertion False(bool condition)
+        {
+            _isSatisfied = !condition;
+            if(Fail)
+                Error = new Error();
+
+            return this;
+        }
+
         public Assertion Null(object @object)
         {
             _isSatisfied = @object == null;
