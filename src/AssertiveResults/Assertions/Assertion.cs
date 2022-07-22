@@ -25,5 +25,11 @@ namespace AssertiveResults.Assertions
 
             return this;
         }
+
+        public Assertion WithError(string errorMessage)
+        {
+            Error = new Error(errorMessage);
+            return this;
+        }
     }
 }
