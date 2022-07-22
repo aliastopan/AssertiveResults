@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
@@ -10,6 +11,15 @@ namespace AssertiveResults.Assertions
 
         public List<Error> Errors { get; } = new List<Error>();
         public bool Failed => Errors.Count > 0;
+
+        public Assertion Match(string input, Regex regex)
+        {
+            _isSatisfied = regex.IsMatch(input);
+            if(!_isSatisfied)
+                Errors.Add(new Error());
+
+            return this;
+        }
 
         public Assertion True(bool condition)
         {

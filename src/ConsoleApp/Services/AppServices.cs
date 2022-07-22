@@ -21,18 +21,23 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        string user = "einharan";
+        string user = "Einharan09";
+        var hasMinChar = new Regex(@".{8,}");
+        var hasMaxChar = new Regex(@".{8,15}");
         var hasNumber = new Regex(@"[0-9]+");
+        var hasLowerChar = new Regex(@"[a-z]+");
         var hasUpperChar = new Regex(@"[A-Z]+");
-        var hasMinimum8Chars = new Regex(@".{8,}");
+        var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
-        var x = hasNumber.IsMatch(user);
+        var x = hasLowerChar.IsMatch("");
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.True(hasNumber.IsMatch(user)).WithError("Must have number.");
-                x.True(hasUpperChar.IsMatch(user)).WithError("Must have Uppercase character.");
-                x.True(hasMinimum8Chars.IsMatch(user)).WithError("Must at least 8 characters.");
+                x.Match(user, hasNumber).WithError("Must have number.");
+                x.Match(user, hasUpperChar).WithError("Must have uppercase character.");
+                x.Match(user, hasLowerChar).WithError("Must have lower character.");
+                x.Match(user, hasMinChar).WithError("Must at least 8 characters.");
+                x.Match(user, hasMaxChar).WithError("Must not exceed 15 characters.");
             })
             .Return();
 
