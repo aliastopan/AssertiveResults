@@ -1,4 +1,5 @@
 using AssertiveResults;
+using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
@@ -19,14 +20,37 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        string user = null!;
+        var username = new Mock("einharan");
+        var email = new Mock("@mail");
+        var password = new Mock("longpassword");
+
+        var mocks = new List<Mock>(){ username, email, password };
 
         var result = Assertive.Result()
-            .Assert(x => {
-                x.Null(user);
+            .Assert(assert =>
+            {
+                var lookUp = mocks.FirstOrDefault(v => v.Value == "einharan");
+                assert.Null(lookUp).WithError("Username is already taken.");
+            })
+            .Break()
+            .Assert(x =>
+            {
+                var lookUp = mocks.FirstOrDefault(v => v.Value == "@mail");
+                x.Null(email.Value).WithError("Email is already in use.");
+            })
+            .Assert(x =>
+            {
+                x.NotNull(password.Value);
             })
             .Return();
 
+        var verdict = result.Success ? "Success" : "Failed";
+        _logger.LogInformation("Result: {0}", verdict);
         _logger.LogInformation("Error(s): {0}", result.Errors.Count);
+
+        foreach (var error in result.Errors)
+        {
+            _logger.LogWarning("Error: {0}", error.Message);
+        }
     }
 }
