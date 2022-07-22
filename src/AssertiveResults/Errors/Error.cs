@@ -1,17 +1,39 @@
 namespace AssertiveResults.Errors
 {
-    public class Error
+    public struct Error
     {
-        public string Message { get; internal set; }
+        public ErrorType ErrorType { get; }
+        public string Message { get; }
 
-        public Error()
+        private Error(ErrorType errorType, string message)
         {
-            Message = "Unspecified error has occurred.";
+            ErrorType = errorType;
+            Message = message;
         }
 
-        public Error(string errorMessage)
+        public static Error Failure(string message = "A failure has occured.")
         {
-            Message = errorMessage;
+            return new Error(ErrorType.Failure, message);
+        }
+
+        public static Error Conflict(string message = "A conflict error has occured.")
+        {
+            return new Error(ErrorType.Conflict, message);
+        }
+
+        public static Error NotFound(string message = "A 'Not Found' error has occured.")
+        {
+            return new Error(ErrorType.NotFound, message);
+        }
+
+        public static Error Unexpected(string message = "An unexpected error has occured.")
+        {
+            return new Error(ErrorType.Unexpected, message);
+        }
+
+        public static Error Validation(string message = "A validation error has occured.")
+        {
+            return new Error(ErrorType.Validation, message);
         }
     }
 }

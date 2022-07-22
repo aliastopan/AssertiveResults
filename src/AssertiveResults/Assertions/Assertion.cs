@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
@@ -21,7 +20,10 @@ namespace AssertiveResults.Assertions
         public Assertion WithError(string errorMessage)
         {
             if(!IsSatisfied)
-                Errors.Last().Message = errorMessage;
+            {
+                Errors.RemoveAt(Errors.Count - 1);
+                Errors.Add(Error.Failure(message: errorMessage));
+            }
 
             return this;
         }

@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using AssertiveResults;
+using AssertiveResults.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
