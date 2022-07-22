@@ -8,9 +8,9 @@ namespace AssertiveResults
 {
     public class Assertive : IAssertiveResult, IAssertive, IResult, IBreakPoint
     {
-        private List<Error> _errors;
-        private int _counter;
-        private int _breakPoint;
+        protected internal List<Error> _errors;
+        protected internal int _counter;
+        protected internal int _breakPoint;
 
         public bool Success { get; protected internal set;}
         public bool Failed => !Success;
@@ -18,7 +18,7 @@ namespace AssertiveResults
         public bool IsBreakPoint => _counter > _breakPoint && _breakPoint != 0;
         public bool HasError => _errors.Count > 0;
 
-        private Assertive()
+        protected Assertive()
         {
             _errors = new List<Error>();
         }
@@ -48,6 +48,12 @@ namespace AssertiveResults
             return this;
         }
 
+        public IBreakPoint Break()
+        {
+            _breakPoint = _counter;
+            return this;
+        }
+
         public IAssertiveResult Return()
         {
             if(!HasError)
@@ -56,10 +62,23 @@ namespace AssertiveResults
             return this;
         }
 
-        public IBreakPoint Break()
+        public IAssertiveResult<T> Return<T>(T value)
         {
-            _breakPoint = _counter;
-            return this;
+            return new Assertive<T>(value, this);
+        }
+    }
+
+    internal class Assertive<T> : Assertive, IAssertiveResult<T>
+    {
+        public T Value { get; internal set; }
+
+        internal Assertive(T value, Assertive assertive)
+        {
+            Value = value;
+            this._errors = assertive._errors;
+            this._counter = assertive._counter;
+            this._breakPoint = assertive._breakPoint;
+            this.Success = assertive.Success;
         }
     }
 }

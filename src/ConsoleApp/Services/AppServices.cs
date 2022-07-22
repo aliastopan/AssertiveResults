@@ -20,8 +20,8 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var username = new Mock("einharan");
-        var email = new Mock("@mail");
+        var username = new Mock("_einharan");
+        var email = new Mock("_@mail");
         var password = new Mock("longpassword");
 
         var mocks = new List<Mock>(){ username, email, password };
@@ -32,25 +32,26 @@ public class AppService : IAppService
                 var lookUp = mocks.FirstOrDefault(v => v.Value == "einharan");
                 assert.Null(lookUp).WithError("Username is already taken.");
             })
-            .Break()
             .Assert(x =>
             {
                 var lookUp = mocks.FirstOrDefault(v => v.Value == "@mail");
-                x.Null(email.Value).WithError("Email is already in use.");
+                x.Null(lookUp).WithError("Email is already in use.");
             })
             .Assert(x =>
             {
                 x.NotNull(password.Value);
             })
-            .Return();
+            .Return<Mock>(username);
 
         var verdict = result.Success ? "Success" : "Failed";
-        _logger.LogInformation("Result: {0}", verdict);
+        _logger.LogInformation("Status: {0}", verdict);
         _logger.LogInformation("Error(s): {0}", result.Errors.Count);
 
         foreach (var error in result.Errors)
         {
             _logger.LogWarning("Error: {0}", error.Message);
         }
+
+        _logger.LogInformation("Result: {0}", result.Value);
     }
 }

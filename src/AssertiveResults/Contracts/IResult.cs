@@ -8,5 +8,6 @@ namespace AssertiveResults.Contracts
         IResult Assert(Action<Assertion> assert);
         IBreakPoint Break();
         IAssertiveResult Return();
+        IAssertiveResult<T> Return<T>(T value);
     }
 }

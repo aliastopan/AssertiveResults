@@ -9,4 +9,9 @@ namespace AssertiveResults
         bool Failed { get; }
         IReadOnlyCollection<Error> Errors { get; }
     }
+
+    public interface IAssertiveResult<T> : IAssertiveResult
+    {
+        T Value { get; }
+    }
 }
