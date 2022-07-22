@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>AssertiveResults</RootNamespace>
+    <AssemblyName>AssertiveResults</AssemblyName>
+    <PackageId>AssertiveResults</PackageId>
+    <Version>1.0.0-alpha</Version>
+  </PropertyGroup>
+</Project>
