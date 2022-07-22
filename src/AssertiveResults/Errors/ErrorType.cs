@@ -5,6 +5,7 @@ namespace AssertiveResults.Errors
         Failure,
         Conflict,
         NotFound,
+        Invalid,
         Unexpected,
         Validation
     }
