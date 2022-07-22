@@ -6,13 +6,17 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult
+    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreakPoint
     {
         private List<Error> _errors;
+        private int _counter;
+        private int _breakPoint;
 
         public bool Success { get; protected internal set;}
         public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => _errors.AsReadOnly();
+        public bool IsBreakPoint => _counter > _breakPoint && _breakPoint != 0;
+        public bool HasError => _errors.Count > 0;
 
         private Assertive()
         {
@@ -26,6 +30,13 @@ namespace AssertiveResults
 
         public IResult Assert(Action<Assertion> assert)
         {
+            _counter++;
+
+            if(IsBreakPoint && HasError)
+            {
+                return this;
+            }
+
             var assertion = new Assertion();
             assert?.Invoke(assertion);
 
@@ -39,6 +50,12 @@ namespace AssertiveResults
 
         public IAssertiveResult Return()
         {
+            return this;
+        }
+
+        public IBreakPoint Break()
+        {
+            _breakPoint = _counter;
             return this;
         }
     }

@@ -19,9 +19,21 @@ public class AssertiveResultTest
         var result = Assertive.Result()
             .Assert(x => {
                 x.NotNull(user);
+                output.WriteLine("Assert");
+
             })
             .Assert(x => {
                 x.NotNull(user);
+                output.WriteLine("Assert");
+            })
+            .Assert(x => {
+                x.NotNull(user);
+                output.WriteLine("Assert");
+            })
+            .Break()
+            .Assert(x => {
+                x.NotNull(user);
+                output.WriteLine("Assert");
             })
             .Return();
 
