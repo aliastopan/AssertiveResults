@@ -50,6 +50,9 @@ namespace AssertiveResults
 
         public IAssertiveResult Return()
         {
+            if(!HasError)
+                Success = true;
+
             return this;
         }
 
