@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using AssertiveResults;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
@@ -20,13 +21,18 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        // string user = "einharan";
+        string user = "einharan";
+        var hasNumber = new Regex(@"[0-9]+");
+        var hasUpperChar = new Regex(@"[A-Z]+");
+        var hasMinimum8Chars = new Regex(@".{8,}");
+
+        var x = hasNumber.IsMatch(user);
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.True(true).WithError("1st");
-                x.True(false).WithError("2nd");
-                x.True(false).WithError("3rd");
+                x.True(hasNumber.IsMatch(user)).WithError("Must have number.");
+                x.True(hasUpperChar.IsMatch(user)).WithError("Must have Uppercase character.");
+                x.True(hasMinimum8Chars.IsMatch(user)).WithError("Must at least 8 characters.");
             })
             .Return();
 
