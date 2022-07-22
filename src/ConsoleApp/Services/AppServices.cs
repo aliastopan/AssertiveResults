@@ -28,15 +28,13 @@ public class AppService : IAppService
         var hasUpperChar = new Regex(@"[A-Z]+");
         var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
-        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "longpassword");
+        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "!longpassword+");
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Match(user.password, hasNumber).WithError("Must have number.");
-                x.Match(user.password, hasUpperChar).WithError("Must have uppercase character.");
-                x.Match(user.password, hasLowerChar).WithError("Must have lower character.");
-                x.Match(user.password, hasMinChar).WithError("Must at least 8 characters.");
-                x.Match(user.password, hasMaxChar).WithError("Must not exceed 15 characters.");
+                x.Match(user.password, @"[0-9]+").WithError("Must have number.");
+                x.Match(user.password, @"[a-z]+").WithError("Must have uppercase character.");
+                x.Match(user.password, @"[A-Z]+").WithError("Must have lower character.");
             })
             .Return();
 

@@ -21,6 +21,12 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
+        public Assertion Match(string input, string pattern)
+        {
+            var regex = new Regex(pattern);
+            return Match(input, regex);
+        }
+
         public Assertion True(bool condition)
         {
             _isSatisfied = condition;
