@@ -3,7 +3,7 @@ using AssertiveResults.Assertions;
 
 namespace AssertiveResults.Contracts
 {
-    public interface IBreakPoint
+    public interface IBreak
     {
         IResult Assert(Action<Assertion> assert);
     }

@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreakPoint
+    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak
     {
         protected internal List<Error> _errors;
         protected internal int _counter;
@@ -48,7 +48,7 @@ namespace AssertiveResults
             return this;
         }
 
-        public IBreakPoint Break()
+        public IBreak Break()
         {
             _breakPoint = _counter;
             return this;
