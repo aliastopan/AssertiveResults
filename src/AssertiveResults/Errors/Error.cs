@@ -3,37 +3,49 @@ namespace AssertiveResults.Errors
     public struct Error
     {
         public ErrorType ErrorType { get; }
+        public string Code { get; }
         public string Message { get; }
 
-        private Error(ErrorType errorType, string message)
+        private Error(ErrorType type, string code, string message)
         {
-            ErrorType = errorType;
+            ErrorType = type;
+            Code = code;
             Message = message;
         }
 
-        public static Error Failure(string message = "A failure has occured.")
+        public static Error Failure(
+            string code = "General.Failure",
+            string message = "A failure has occured.")
         {
-            return new Error(ErrorType.Failure, message);
+            return new Error(ErrorType.Failure, code, message);
         }
 
-        public static Error Conflict(string message = "A conflict error has occured.")
+        public static Error Conflict(
+            string code = "General.Conflict",
+            string message = "A conflict error has occured.")
         {
-            return new Error(ErrorType.Conflict, message);
+            return new Error(ErrorType.Conflict, code, message);
         }
 
-        public static Error NotFound(string message = "A 'Not Found' error has occured.")
+        public static Error NotFound(
+            string code = "General.NotFound",
+            string message = "A 'Not Found' error has occured.")
         {
-            return new Error(ErrorType.NotFound, message);
+            return new Error(ErrorType.NotFound, code, message);
         }
 
-        public static Error Unexpected(string message = "An unexpected error has occured.")
+        public static Error Unexpected(
+            string code = "General.Unexpected",
+            string message = "An unexpected error has occured.")
         {
-            return new Error(ErrorType.Unexpected, message);
+            return new Error(ErrorType.Unexpected, code, message);
         }
 
-        public static Error Validation(string message = "A validation error has occured.")
+        public static Error Validation(
+            string code = "General.Validation",
+            string message = "A validation error has occured.")
         {
-            return new Error(ErrorType.Validation, message);
+            return new Error(ErrorType.Validation, code, message);
         }
     }
 }
