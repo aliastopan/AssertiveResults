@@ -20,6 +20,31 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
+        string user = "einharan";
+
+        var result = Assertive.Result()
+            .Assert(x => {
+                x.True(false);
+                x.True(false);
+                x.True(false);
+            })
+            .Return<string>(user);
+
+        var verdict = result.Success ? "Success" : "Failed";
+        _logger.LogInformation("Status: {0}", verdict);
+        _logger.LogInformation("Error(s): {0}", result.Errors.Count);
+
+        if(result.Errors.Count > 0)
+        {
+            foreach (var error in result.Errors)
+            {
+                _logger.LogWarning("Error: {0}", error.Message);
+            }
+        }
+    }
+
+    public void Module()
+    {
         var username = new Mock("_einharan");
         var email = new Mock("_@mail");
         var password = new Mock("longpassword");
