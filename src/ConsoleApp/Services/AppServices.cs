@@ -29,22 +29,11 @@ public class AppService : IAppService
         var hasLowerChar = new Regex(@"[a-z]+");
         var hasUpperChar = new Regex(@"[A-Z]+");
         var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
-
-        // var reg = hasNumber.
-
-
         var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "longpassword");
 
         var result = Assertive.Result()
             .Assert(x => {
-                var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == user.Username);
-                x.Null(lookUp).WithError("Username is already taken.");
-            })
-            .Break()
-            .Assert(x => {
-                x.Match(user.password, @"[0-9]+").WithError("Must have number.");
-                x.Match(user.password, @"[A-Z]+").WithError("Must have uppercase character.");
-                x.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
+                x.Must.Satisfy(true);
             })
             .Return();
 
@@ -58,40 +47,19 @@ public class AppService : IAppService
                 _logger.LogWarning("Error: {0}", error.Message);
             }
         }
-    }
 
-    public void Module()
-    {
-        var username = new Mock("_einharan");
-        var email = new Mock("_@mail");
-        var password = new Mock("longpassword");
+        // var result = Assertive.Result()
+        //     .Assert(x => {
+        //         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == user.Username);
+        //         x.Null(lookUp).WithError("Username is already taken.");
+        //     })
+        //     .Break()
+        //     .Assert(x => {
+        //         x.Match(user.password, @"[0-9]+").WithError("Must have number.");
+        //         x.Match(user.password, @"[A-Z]+").WithError("Must have uppercase character.");
+        //         x.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
+        //     })
+        //     .Return();
 
-        var mocks = new List<Mock>(){ username, email, password };
-
-        var result = Assertive.Result()
-            .Assert(assert => {
-                var lookUp = mocks.FirstOrDefault(v => v.Value == "einharan");
-                assert.Null(lookUp).WithError("Username is already taken.");
-            })
-            .Assert(x => {
-                var lookUp = mocks.FirstOrDefault(v => v.Value == "@mail");
-                x.Null(lookUp).WithError("Email is already in use.");
-            })
-            .Assert(x =>
-            {
-                x.NotNull(password.Value);
-            })
-            .Return<Mock>(username);
-
-        var verdict = result.Success ? "Success" : "Failed";
-        _logger.LogInformation("Status: {0}", verdict);
-        _logger.LogInformation("Error(s): {0}", result.Errors.Count);
-
-        foreach (var error in result.Errors)
-        {
-            _logger.LogWarning("Error: {0}", error.Message);
-        }
-
-        _logger.LogInformation("Result: {0}", result.Value);
     }
 }
