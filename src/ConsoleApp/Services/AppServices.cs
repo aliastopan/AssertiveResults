@@ -20,15 +20,15 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        string user = "einharan";
+        // string user = "einharan";
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.True(false);
-                x.True(false);
-                x.True(false);
+                x.True(true).WithError("1st");
+                x.True(false).WithError("2nd");
+                x.True(false).WithError("3rd");
             })
-            .Return<string>(user);
+            .Return();
 
         var verdict = result.Success ? "Success" : "Failed";
         _logger.LogInformation("Status: {0}", verdict);

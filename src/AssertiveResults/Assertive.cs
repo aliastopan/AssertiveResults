@@ -40,9 +40,9 @@ namespace AssertiveResults
             var assertion = new Assertion();
             assert?.Invoke(assertion);
 
-            if(assertion.Fail)
+            if(assertion.Failed)
             {
-                _errors.Add(assertion.Error);
+                _errors.AddRange(assertion.Errors);
             }
 
             return this;
