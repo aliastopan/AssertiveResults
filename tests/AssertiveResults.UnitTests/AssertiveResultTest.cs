@@ -4,8 +4,15 @@ namespace AssertiveResults.UnitTests;
 
 public class AssertiveResultTest
 {
+    private ITestOutputHelper output;
+
+    public AssertiveResultTest(ITestOutputHelper output)
+    {
+        this.output = output;
+    }
+
     [Fact]
-    public void Test()
+    public void AssertTest()
     {
         string user = null!;
 
@@ -19,5 +26,6 @@ public class AssertiveResultTest
             .Return();
 
         Assert.True(true);
+        output.WriteLine("Error(s): {0}", result.Errors.Count);
     }
 }
