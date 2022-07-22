@@ -26,12 +26,20 @@ namespace AssertiveResults
 
         public IResult Assert(Action<Assertion> assert)
         {
-            throw new NotImplementedException();
+            var assertion = new Assertion();
+            assert?.Invoke(assertion);
+
+            if(assertion.Fail)
+            {
+                _errors.Add(assertion.Error);
+            }
+
+            return this;
         }
 
         public IAssertiveResult Return()
         {
-            throw new NotImplementedException();
+            return this;
         }
     }
 }
