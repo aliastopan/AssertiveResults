@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using AssertiveResults;
-using AssertiveResults.Errors;
+using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
@@ -31,9 +31,8 @@ public class AppService : IAppService
                 x.Must.Satisfy(user.Id != Guid.Empty).WithError($"GUID cannot be {Guid.Empty}.");
                 x.Must.NotSatisfy(false);
             })
-            .Break()
             .Assert(x => {
-                x.Regex.Match(user.password, @"[0-9]+").WithError("Must have number.");
+                x.Regex.Match(user.password, @"[0-9]+").WithError(Invalid.PasswordFormat);
                 x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
                 x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");
             })

@@ -27,5 +27,16 @@ namespace AssertiveResults.Assertions
 
             return this;
         }
+
+        public Assertion WithError(Error error)
+        {
+            if(!IsSatisfied)
+            {
+                Errors.RemoveAt(Errors.Count - 1);
+                Errors.Add(error);
+            }
+
+            return this;
+        }
     }
 }
