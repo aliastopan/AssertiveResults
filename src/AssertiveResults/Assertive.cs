@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using AssertiveResults.Assertions;
 using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
 
@@ -20,6 +22,16 @@ namespace AssertiveResults
         public static IAssertive Result()
         {
             return new Assertive();
+        }
+
+        public IResult Assert(Action<Assertion> assert)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAssertiveResult Return()
+        {
+            throw new NotImplementedException();
         }
     }
 }
