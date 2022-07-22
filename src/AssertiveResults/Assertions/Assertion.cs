@@ -4,7 +4,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Assertion : IMust, IRegex
+    public class Assertion : IAssert, IMust, IRegex
     {
         public Must Must { get; internal set; }
         public Regex Regex { get; internal set; }

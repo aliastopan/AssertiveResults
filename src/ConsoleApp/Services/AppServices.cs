@@ -23,17 +23,18 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var hasMinChar = new Regex(@".{8,}");
-        var hasMaxChar = new Regex(@".{8,15}");
-        var hasNumber = new Regex(@"[0-9]+");
-        var hasLowerChar = new Regex(@"[a-z]+");
-        var hasUpperChar = new Regex(@"[A-Z]+");
-        var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
-        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "longpassword");
+        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "&longpassword");
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Must.Satisfy(true);
+                x.Must.Satisfy(user.Id != Guid.Empty).WithError($"GUID cannot be {Guid.Empty}.");
+                x.Must.NotSatisfy(false);
+            })
+            .Break()
+            .Assert(x => {
+                x.Regex.Match(user.password, @"[0-9]+").WithError("Must have number.");
+                x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
+                x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");
             })
             .Return();
 
@@ -47,19 +48,17 @@ public class AppService : IAppService
                 _logger.LogWarning("Error: {0}", error.Message);
             }
         }
+    }
 
-        // var result = Assertive.Result()
-        //     .Assert(x => {
-        //         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == user.Username);
-        //         x.Null(lookUp).WithError("Username is already taken.");
-        //     })
-        //     .Break()
-        //     .Assert(x => {
-        //         x.Match(user.password, @"[0-9]+").WithError("Must have number.");
-        //         x.Match(user.password, @"[A-Z]+").WithError("Must have uppercase character.");
-        //         x.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
-        //     })
-        //     .Return();
+    public void RegularExpression()
+    {
+        var hasMinChar = new Regex(@".{8,}");
+        var hasMaxChar = new Regex(@".{8,15}");
+        var hasNumber = new Regex(@"[0-9]+");
+        var hasLowerChar = new Regex(@"[a-z]+");
+        var hasUpperChar = new Regex(@"[A-Z]+");
+        var hasSpecialChar = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
+        var regex = hasMaxChar.Match("einharan");
     }
 }

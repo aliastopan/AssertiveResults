@@ -5,6 +5,6 @@ namespace AssertiveResults.Contracts
 {
     public interface IBreak
     {
-        IResult Assert(Action<Assertion> assert);
+        IResult Assert(Action<IAssert> assert);
     }
 }
