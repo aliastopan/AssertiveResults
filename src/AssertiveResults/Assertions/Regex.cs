@@ -42,50 +42,56 @@ namespace AssertiveResults.Assertions
         public IAssertion MinLength(int min)
         {
             var pattern = string.Concat(@".{", min, @",}");
-            var error = Error.Invalid();
+            var predicate = _invalid ? $"not exceed {min-1}" : $"have at least {min}";
+            var error = Error.Invalid(message: $"Regex: must {predicate} characters");
             return Match(pattern, error);
         }
 
         public IAssertion MaxLength(int max)
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
-            System.Console.WriteLine(pattern);
-            var error = Error.Invalid();
+            var predicate = _invalid ? "exceed" : "not exceed";
+            var error = Error.Invalid(message: $"Regex: must {predicate} {max} characters");
             return Match(pattern, error);
         }
 
         public IAssertion Length(int min, int max)
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
-            var error = Error.Invalid();
+            var predicate = _invalid ? "not have" : "have";
+            var error = Error.Invalid(message: $"Regex: length must {predicate} between {min} to {max} characters");
             return Match(pattern, error);
         }
 
         public IAssertion Numbers()
         {
             var pattern = @"[0-9]+";
-            var error = Error.Invalid();
+            var predicate = _invalid ? "not have" : "have";
+            var error = Error.Invalid(message: $"Regex: must {predicate} numeric character");
             return Match(pattern, error);
         }
 
         public IAssertion LowerCaseCharacters()
         {
             var pattern = @"[a-z]+";
-            var error = Error.Invalid();
+            var predicate = _invalid ? "not have" : "have";
+            var error = Error.Invalid(message: $"Regex: must {predicate} lower case character");
             return Match(pattern, error);
         }
 
         public IAssertion UpperCaseCharacters()
         {
             var pattern = @"[A-Z]+";
-            var error = Error.Invalid();
+            var predicate = _invalid ? "not have" : "have";
+            var error = Error.Invalid(message: $"Regex: must {predicate} upper case character");
             return Match(pattern, error);
         }
 
         public IAssertion SpecialCharacters()
         {
             var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
-            var error = Error.Invalid();
+            var predicate = _invalid ? "not have" : "have";
+            var error = Error.Invalid(message: $"Regex: must {predicate} special character");
             return Match(pattern, error);
         }
 
