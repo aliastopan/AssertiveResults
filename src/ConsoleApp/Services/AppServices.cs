@@ -28,6 +28,42 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
+                x.Must.Satisfy(false);
+            })
+            .Return();
+
+        LogConsole(result);
+    }
+
+    private void LogConsole(IAssertiveResult result)
+    {
+        _logger.LogInformation("Status: {0}", result.Success ? "Success" : "Failed");
+        _logger.LogInformation("Error(s): {0}", result.Errors.Count);
+
+        if (result.Errors.Count > 0)
+        {
+            foreach (var error in result.Errors)
+            {
+                _logger.LogWarning("Error: {0}", error.Message);
+            }
+        }
+    }
+
+    public void RegularExpression()
+    {
+        var hasMinChar = new Regex(@".{8,}");
+        var hasMaxChar = new Regex(@".{8,15}");
+        var hasNumber = new Regex(@"[0-9]+");
+        var hasLowerChar = new Regex(@"[a-z]+");
+        var hasUpperChar = new Regex(@"[A-Z]+");
+        var hasSpecialChar = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+
+        var regex = hasMaxChar.Match("einharan");
+
+        var user = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "&longpassword");
+
+        var result = Assertive.Result()
+            .Assert(x => {
                 x.Must.Satisfy(user.Id != Guid.Empty);
             })
             .Assert(x => {
@@ -48,21 +84,4 @@ public class AppService : IAppService
             }
         }
     }
-
-    public void RegularExpression()
-    {
-        var hasMinChar = new Regex(@".{8,}");
-        var hasMaxChar = new Regex(@".{8,15}");
-        var hasNumber = new Regex(@"[0-9]+");
-        var hasLowerChar = new Regex(@"[a-z]+");
-        var hasUpperChar = new Regex(@"[A-Z]+");
-        var hasSpecialChar = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
-
-        var regex = hasMaxChar.Match("einharan");
-    }
 }
-
-// x.Regex.Match(user.password).SpecialCharacters().WithError(Invalid.PasswordFormat);
-                // x.Regex.Invalid(user.password).SpecialCharacters().WithError("MUST NOT CONTAIN SPECIAL CHARACTERS.");
-                // x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
-                // x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");

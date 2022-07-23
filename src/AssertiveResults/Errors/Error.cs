@@ -13,6 +13,13 @@ namespace AssertiveResults.Errors
             Message = message;
         }
 
+        internal static Error Unspecified(
+            string code = "General.Error",
+            string message = "An error has occured.")
+        {
+            return new Error(ErrorType.Failure, code, message);
+        }
+
         public static Error Failure(
             string code = "General.Failure",
             string message = "A failure has occured.")
