@@ -31,8 +31,9 @@ public class AppService : IAppService
                 x.Must.Satisfy(user.Id != Guid.Empty);
             })
             .Assert(x => {
-                x.Regex.Invalid(user.password).SpecialCharacters();
-                // x.Regex.Match(user.password).Numbers();
+                // x.Regex.Match(user.Username).MinLength(1).WithError(Invalid.UsernameTooShort);
+                // x.Regex.Match(user.Username).MaxLength(3).WithError(Invalid.UsernameTooLong);
+                x.Regex.Match(user.Username).Length(min: 3, max: 5).WithError(Invalid.UsernameLength);
             })
             .Return();
 

@@ -48,14 +48,15 @@ namespace AssertiveResults.Assertions
 
         public IAssertion MaxLength(int max)
         {
-            var pattern = string.Concat(@".{0,", max, @"}");
+            var pattern = string.Concat(@"^.{1,", max, @"}$");
+            System.Console.WriteLine(pattern);
             var error = Error.Invalid();
             return Match(pattern, error);
         }
 
         public IAssertion Length(int min, int max)
         {
-            var pattern = string.Concat(@".{", min, @",", max, @"}");
+            var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var error = Error.Invalid();
             return Match(pattern, error);
         }
