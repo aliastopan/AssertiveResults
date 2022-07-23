@@ -88,5 +88,11 @@ namespace AssertiveResults.Assertions
             var error = Error.Invalid();
             return Match(pattern, error);
         }
+
+        public IAssertion Pattern(string pattern)
+        {
+            var error = Error.Invalid();
+            return Match(pattern, error);
+        }
     }
 }

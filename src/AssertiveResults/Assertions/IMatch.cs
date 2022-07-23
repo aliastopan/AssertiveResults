@@ -9,5 +9,6 @@ namespace AssertiveResults.Assertions
         IAssertion LowerCaseCharacters();
         IAssertion UpperCaseCharacters();
         IAssertion SpecialCharacters();
+        IAssertion Pattern(string pattern);
     }
 }
