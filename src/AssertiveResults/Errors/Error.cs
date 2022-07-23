@@ -41,13 +41,6 @@ namespace AssertiveResults.Errors
             return new Error(ErrorType.NotFound, code, message);
         }
 
-        public static Error Invalid(
-            string code = "General.Invalid",
-            string message = "A invalid error has occured.")
-        {
-            return new Error(ErrorType.NotFound, code, message);
-        }
-
         public static Error Unexpected(
             string code = "General.Unexpected",
             string message = "An unexpected error has occured.")

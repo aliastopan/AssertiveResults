@@ -24,16 +24,16 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "XXX");
+        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "&pwd");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
         var result = Assertive.Result()
             .Assert(password => {
-                password.Regex.Match(register.password).MaxLength(8);
-                // password.Regex.Match(register.password).LowerCaseCharacters();
-                // password.Regex.Invalid(register.password).UpperCaseCharacters();
-                // password.Regex.Match(register.password).Numbers();
-                // password.Regex.Match(register.password).SpecialCharacters();
+                password.Regex.Match(register.password).MinLength(8);
+                password.Regex.Match(register.password).LowerCaseCharacters();
+                password.Regex.Match(register.password).UpperCaseCharacters();
+                password.Regex.Match(register.password).NumericCharacters();
+                password.Regex.Invalid(register.password).SpecialCharacters();
             })
             .Break()
             .Assert(user => {
@@ -58,7 +58,7 @@ public class AppService : IAppService
         {
             foreach (var error in result.Errors)
             {
-                _logger.LogWarning("Error: {0}", error.Message);
+                _logger.LogWarning("Error [{0}]: {1}", error.Code, error.Message);
             }
         }
     }
