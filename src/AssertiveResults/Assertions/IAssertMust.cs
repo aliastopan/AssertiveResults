@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace AssertiveResults.Assertions
 {
-    public interface IMust
+    public interface IAssertMust
     {
         IAssertion Satisfy(bool condition);
         IAssertion NotSatisfy(bool condition);

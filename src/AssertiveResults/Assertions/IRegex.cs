@@ -2,7 +2,10 @@ namespace AssertiveResults.Assertions
 {
     public interface IRegex
     {
-        IMatch Match(string input);
-        IMatch Invalid(string input);
+        IAssertion NumericCharacters();
+        IAssertion LowerCaseCharacters();
+        IAssertion UpperCaseCharacters();
+        IAssertion SpecialCharacters();
+        IAssertion Pattern(string pattern);
     }
 }

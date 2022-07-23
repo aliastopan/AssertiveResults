@@ -5,16 +5,16 @@ namespace AssertiveResults.Assertions
 {
     public class Assertion : IAssert, IAssertion
     {
-        public IMust Must { get; internal set; }
-        public IRegex Regex { get; internal set; }
+        public IAssertMust Must { get; internal set; }
+        public IAssertRegex Regex { get; internal set; }
         internal List<Error> Errors { get; } = new List<Error>();
         internal bool IsSatisfied { get; set; }
         internal bool Failed => Errors.Count > 0;
 
         internal Assertion()
         {
-            Must = new Must(this);
-            Regex = new Regex(this);
+            Must = new AssertMust(this);
+            Regex = new AssertRegex(this);
         }
 
         public Assertion WithError(Error error)

@@ -3,25 +3,25 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Regex : IRegex, IMatch
+    public class AssertRegex : IAssertRegex, IRegexMatch, IRegexInvalid
     {
         private Assertion _assertion;
         private string _input;
         private bool _invalid;
 
-        internal Regex(Assertion assertion)
+        internal AssertRegex(Assertion assertion)
         {
             _assertion = assertion;
         }
 
-        public IMatch Match(string input)
+        public IRegexMatch Match(string input)
         {
             _input = input;
             _invalid = false;
             return this;
         }
 
-        public IMatch Invalid(string input)
+        public IRegexInvalid Invalid(string input)
         {
             _input = input;
             _invalid = true;
@@ -42,28 +42,25 @@ namespace AssertiveResults.Assertions
         public IAssertion MinLength(int min)
         {
             var pattern = string.Concat(@".{", min, @",}");
-            var predicate = _invalid ? $"not exceed {min-1}" : $"have at least {min}";
-            var error = Error.Invalid(message: $"Regex: must {predicate} characters");
+            var error = Error.Invalid(message: $"Regex: must have at least {min} characters");
             return Match(pattern, error);
         }
 
         public IAssertion MaxLength(int max)
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
-            var predicate = _invalid ? "exceed" : "not exceed";
-            var error = Error.Invalid(message: $"Regex: must {predicate} {max} characters");
+            var error = Error.Invalid(message: $"Regex: must not exceed {max} characters");
             return Match(pattern, error);
         }
 
         public IAssertion Length(int min, int max)
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
-            var predicate = _invalid ? "not have" : "have";
-            var error = Error.Invalid(message: $"Regex: length must {predicate} between {min} to {max} characters");
+            var error = Error.Invalid(message: $"Regex: length must be between {min} to {max} characters");
             return Match(pattern, error);
         }
 
-        public IAssertion Numbers()
+        public IAssertion NumericCharacters()
         {
             var pattern = @"[0-9]+";
             var predicate = _invalid ? "not have" : "have";

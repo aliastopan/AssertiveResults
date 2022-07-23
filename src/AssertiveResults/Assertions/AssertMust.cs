@@ -3,11 +3,11 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Must : IMust
+    public class AssertMust : IAssertMust
     {
         private Assertion _assertion;
 
-        internal Must(Assertion assertion)
+        internal AssertMust(Assertion assertion)
         {
             _assertion = assertion;
         }
