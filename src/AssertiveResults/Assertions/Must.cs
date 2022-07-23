@@ -59,5 +59,17 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
             return _assertion;
         }
+
+        public IAssertion Equal(object former, object latter)
+        {
+            _assertion.IsSatisfied = former.Equals(latter);
+            return _assertion;
+        }
+
+        public IAssertion NotEqual(object former, object latter)
+        {
+            _assertion.IsSatisfied = !former.Equals(latter);
+            return _assertion;
+        }
     }
 }

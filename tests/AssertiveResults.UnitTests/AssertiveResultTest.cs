@@ -15,6 +15,5 @@ public class AssertiveResultTest
     public void AssertTest()
     {
         Assert.True(true);
-        // Assert.Empty()
     }
 }

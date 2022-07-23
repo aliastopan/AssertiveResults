@@ -10,5 +10,7 @@ namespace AssertiveResults.Assertions
         IAssertion NotNull(object @object);
         IAssertion Empty(IEnumerable collection);
         IAssertion NotEmpty(IEnumerable collection);
+        IAssertion Equal(object former, object latter);
+        IAssertion NotEqual(object former, object latter);
     }
 }
