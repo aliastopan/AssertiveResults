@@ -43,7 +43,7 @@ namespace AssertiveResults.Assertions
         {
             var pattern = string.Concat(@".{", min, @",}");
             var errorCode = "Regex.Validation";
-            var errorMessage = $"Regex: must have at least {min} characters";
+            var errorMessage = $"Input must have at least {min} characters";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -52,7 +52,7 @@ namespace AssertiveResults.Assertions
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: must not exceed {max} characters";
+            var errorMesage = $"Input must not exceed {max} characters";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -61,7 +61,7 @@ namespace AssertiveResults.Assertions
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: length must be between {min} to {max} characters";
+            var errorMesage = $"Input length must be between {min} to {max} characters";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -71,7 +71,7 @@ namespace AssertiveResults.Assertions
             var pattern = @"[0-9]+";
             var predicate = _invalid ? "not have" : "have";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: must {predicate} numeric character";
+            var errorMesage = $"Input must {predicate} numeric character";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -81,7 +81,7 @@ namespace AssertiveResults.Assertions
             var pattern = @"[a-z]+";
             var predicate = _invalid ? "not have" : "have";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: must {predicate} lower case character";
+            var errorMesage = $"Input must {predicate} lower case character";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -91,7 +91,7 @@ namespace AssertiveResults.Assertions
             var pattern = @"[A-Z]+";
             var predicate = _invalid ? "not have" : "have";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: must {predicate} upper case character";
+            var errorMesage = $"Input must {predicate} upper case character";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -101,7 +101,7 @@ namespace AssertiveResults.Assertions
             var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
             var predicate = _invalid ? "not have" : "have";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Regex: must {predicate} special character";
+            var errorMesage = $"Input must {predicate} special character";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
