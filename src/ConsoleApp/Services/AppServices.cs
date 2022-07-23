@@ -24,17 +24,18 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "longpassword");
+        var user = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "&longpassword");
 
         var result = Assertive.Result()
             .Assert(x => {
                 x.Must.Satisfy(user.Id != Guid.Empty).WithError($"GUID cannot be {Guid.Empty}.");
-                x.Must.NotSatisfy(false);
             })
-            .Assert(x => {
-                x.Regex.Match(user.password).SpecialCharacters().WithError("SPECIAL CHARACTERS.");
-                // x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
-                // x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");
+            .Assert(x =>
+            {
+                x.Regex
+                    .Invalid(user.password)
+                    .SpecialCharacters();
+                    // .WithError(Invalid.PasswordFormat);
             })
             .Return();
 
@@ -62,3 +63,8 @@ public class AppService : IAppService
         var regex = hasMaxChar.Match("einharan");
     }
 }
+
+// x.Regex.Match(user.password).SpecialCharacters().WithError(Invalid.PasswordFormat);
+                // x.Regex.Invalid(user.password).SpecialCharacters().WithError("MUST NOT CONTAIN SPECIAL CHARACTERS.");
+                // x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
+                // x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");

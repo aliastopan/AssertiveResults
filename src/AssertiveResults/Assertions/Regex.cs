@@ -6,42 +6,42 @@ namespace AssertiveResults.Assertions
     public class Regex : IMatch
     {
         private Assertion _assertion;
+        private string _input;
+        private bool _invalid;
 
         internal Regex(Assertion assertion)
         {
             _assertion = assertion;
         }
 
-        internal string Input { get; set; }
-
         public IMatch Match(string input)
         {
-            Input = input;
+            _input = input;
+            _invalid = false;
+            return this;
+        }
+
+        public IMatch Invalid(string input)
+        {
+            _input = input;
+            _invalid = true;
             return this;
         }
 
         public IRegex SpecialCharacters()
         {
-            string pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
-            return Matching(pattern);
+            var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
-        internal Assertion Matching(string pattern)
+        internal Assertion Match(string pattern, Error error)
         {
             var regex = new RegularExpression(pattern);
-            _assertion.IsSatisfied = regex.IsMatch(Input);
+            var isMatch = regex.IsMatch(_input);
+            _assertion.IsSatisfied = _invalid ? !isMatch : isMatch;
             if(!_assertion.IsSatisfied)
-                _assertion.Errors.Add(new Error());
-
-            return _assertion;
-        }
-
-        internal Assertion NotMatching(string pattern)
-        {
-            var regex = new RegularExpression(pattern);
-            _assertion.IsSatisfied = !regex.IsMatch(Input);
-            if(!_assertion.IsSatisfied)
-                _assertion.Errors.Add(new Error());
+                _assertion.Errors.Add(error);
 
             return _assertion;
         }
