@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Regex
+    public class Regex : IMatch
     {
         private Assertion _assertion;
 
@@ -12,34 +12,38 @@ namespace AssertiveResults.Assertions
             _assertion = assertion;
         }
 
-        public Assertion Match(string input, RegularExpression regex)
+        internal string Input { get; set; }
+
+        public IMatch Match(string input)
         {
-            _assertion.IsSatisfied = regex.IsMatch(input);
+            Input = input;
+            return this;
+        }
+
+        public IRegex SpecialCharacters()
+        {
+            string pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
+            return Matching(pattern);
+        }
+
+        internal Assertion Matching(string pattern)
+        {
+            var regex = new RegularExpression(pattern);
+            _assertion.IsSatisfied = regex.IsMatch(Input);
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(new Error());
 
             return _assertion;
         }
 
-        public Assertion Match(string input, string pattern)
+        internal Assertion NotMatching(string pattern)
         {
             var regex = new RegularExpression(pattern);
-            return Match(input, regex);
-        }
-
-        public Assertion NotMatch(string input, RegularExpression regex)
-        {
-            _assertion.IsSatisfied = !regex.IsMatch(input);
+            _assertion.IsSatisfied = !regex.IsMatch(Input);
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(new Error());
 
             return _assertion;
-        }
-
-        public Assertion NotMatch(string input, string pattern)
-        {
-            var regex = new RegularExpression(pattern);
-            return NotMatch(input, regex);
         }
     }
 }

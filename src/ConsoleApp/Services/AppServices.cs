@@ -24,7 +24,7 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "&longpassword");
+        var user = new UserAccount(Guid.Empty, "einharan", "mail@proton.me", "longpassword");
 
         var result = Assertive.Result()
             .Assert(x => {
@@ -32,9 +32,9 @@ public class AppService : IAppService
                 x.Must.NotSatisfy(false);
             })
             .Assert(x => {
-                x.Regex.Match(user.password, @"[0-9]+").WithError(Invalid.PasswordFormat);
-                x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
-                x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");
+                x.Regex.Match(user.password).SpecialCharacters().WithError("SPECIAL CHARACTERS.");
+                // x.Regex.Match(user.password, @"[a-z]+").WithError("Must have lower character.");
+                // x.Regex.NotMatch(user.password, @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]").WithError("Must not have special characters");
             })
             .Return();
 
