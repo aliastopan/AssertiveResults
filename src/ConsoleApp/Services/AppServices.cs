@@ -28,14 +28,11 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Must.Satisfy(user.Id != Guid.Empty).WithError($"GUID cannot be {Guid.Empty}.");
+                x.Must.Satisfy(user.Id != Guid.Empty);
             })
-            .Assert(x =>
-            {
-                x.Regex
-                    .Invalid(user.password)
-                    .SpecialCharacters();
-                    // .WithError(Invalid.PasswordFormat);
+            .Assert(x => {
+                x.Regex.Invalid(user.password).SpecialCharacters();
+                // x.Regex.Match(user.password).Numbers();
             })
             .Return();
 

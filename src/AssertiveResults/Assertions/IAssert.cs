@@ -2,7 +2,7 @@ namespace AssertiveResults.Assertions
 {
     public interface IAssert
     {
-        Must Must { get; }
-        Regex Regex { get; }
+        IMust Must { get; }
+        IRegex Regex { get; }
     }
 }

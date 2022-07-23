@@ -1,10 +1,14 @@
-using AssertiveResults.Errors;
+using System.Collections;
 
 namespace AssertiveResults.Assertions
 {
     public interface IMust
     {
-        Assertion WithError(string errorMessage);
-        Assertion WithError(Error error);
+        IAssertion Satisfy(bool condition);
+        IAssertion NotSatisfy(bool condition);
+        IAssertion Null(object @object);
+        IAssertion NotNull(object @object);
+        IAssertion Empty(IEnumerable collection);
+        IAssertion NotEmpty(IEnumerable collection);
     }
 }

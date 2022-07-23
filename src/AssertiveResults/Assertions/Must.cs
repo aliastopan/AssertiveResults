@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Must
+    public class Must : IMust
     {
         private Assertion _assertion;
 
@@ -12,7 +12,7 @@ namespace AssertiveResults.Assertions
             _assertion = assertion;
         }
 
-        public IMust Satisfy(bool condition)
+        public IAssertion Satisfy(bool condition)
         {
             _assertion.IsSatisfied = condition;
             if(!_assertion.IsSatisfied)
@@ -21,7 +21,7 @@ namespace AssertiveResults.Assertions
             return _assertion;
         }
 
-        public IMust NotSatisfy(bool condition)
+        public IAssertion NotSatisfy(bool condition)
         {
             _assertion.IsSatisfied = !condition;
             if(!_assertion.IsSatisfied)
@@ -30,7 +30,7 @@ namespace AssertiveResults.Assertions
             return _assertion;
         }
 
-        public IMust Null(object @object)
+        public IAssertion Null(object @object)
         {
             _assertion.IsSatisfied = @object == null;
             if(!_assertion.IsSatisfied)
@@ -39,7 +39,7 @@ namespace AssertiveResults.Assertions
             return _assertion;
         }
 
-        public IMust NotNull(object @object)
+        public IAssertion NotNull(object @object)
         {
             _assertion.IsSatisfied = @object != null;
             if(!_assertion.IsSatisfied)
@@ -48,13 +48,13 @@ namespace AssertiveResults.Assertions
             return _assertion;
         }
 
-        public IMust Empty(IEnumerable collection)
+        public IAssertion Empty(IEnumerable collection)
         {
             _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
             return _assertion;
         }
 
-        public IMust NotEmpty(IEnumerable collection)
+        public IAssertion NotEmpty(IEnumerable collection)
         {
             _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
             return _assertion;
