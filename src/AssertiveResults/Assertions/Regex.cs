@@ -39,34 +39,46 @@ namespace AssertiveResults.Assertions
             return _assertion;
         }
 
-        public IAssertion MinLength()
+        public IAssertion MinLength(int min)
         {
-            throw new System.NotImplementedException();
+            var pattern = string.Concat(@".{", min, @",}");
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
-        public IAssertion MaxLength()
+        public IAssertion MaxLength(int max)
         {
-            throw new System.NotImplementedException();
+            var pattern = string.Concat(@".{0,", max, @"}");
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
         public IAssertion Length(int min, int max)
         {
-            throw new System.NotImplementedException();
+            var pattern = string.Concat(@".{", min, @",", max, @"}");
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
         public IAssertion Numbers()
         {
-            throw new System.NotImplementedException();
+            var pattern = @"[0-9]+";
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
         public IAssertion LowerCaseCharacters()
         {
-            throw new System.NotImplementedException();
+            var pattern = @"[a-z]+";
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
         public IAssertion UpperCaseCharacters()
         {
-            throw new System.NotImplementedException();
+            var pattern = @"[A-Z]+";
+            var error = Error.Invalid();
+            return Match(pattern, error);
         }
 
         public IAssertion SpecialCharacters()
