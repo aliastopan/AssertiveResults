@@ -27,7 +27,7 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotSatisfy(bool condition)
         {
-            _assertion.IsSatisfied = condition;
+            _assertion.IsSatisfied = !condition;
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = "Must.NotSatisfy";
