@@ -29,11 +29,11 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(password => {
-                password.Regex.Match(register.password).MinLength(8);
-                password.Regex.Match(register.password).LowerCaseCharacters();
-                password.Regex.Match(register.password).UpperCaseCharacters();
-                password.Regex.Match(register.password).NumericCharacters();
-                password.Regex.Invalid(register.password).SpecialCharacters();
+                // password.Regex.Matches(register.password).MinLength(8);
+                // password.Regex.Matches(register.password).LowerCaseCharacters();
+                // password.Regex.Matches(register.password).UpperCaseCharacters();
+                // password.Regex.Matches(register.password).NumericCharacters();
+                // password.Regex.Invalid(register.password).SpecialCharacters();
             })
             .Break()
             .Assert(user => {
@@ -83,7 +83,7 @@ public class AppService : IAppService
             .Assert(x => {
                 // x.Regex.Match(user.Username).MinLength(1).WithError(Invalid.UsernameTooShort);
                 // x.Regex.Match(user.Username).MaxLength(3).WithError(Invalid.UsernameTooLong);
-                x.Regex.Match(user.Username).Length(min: 3, max: 5).WithError(Invalid.UsernameLength);
+                // x.Regex.Matches(user.Username).Length(min: 3, max: 5).WithError(Invalid.UsernameLength);
             })
             .Return();
 
