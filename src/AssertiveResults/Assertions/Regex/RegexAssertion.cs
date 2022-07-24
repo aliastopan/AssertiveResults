@@ -68,5 +68,35 @@ namespace AssertiveResults.Assertions.Regex
 
             return this;
         }
+
+        public IRegexAssert MinLength(int min)
+        {
+            var pattern = string.Concat(@".{", min, @",}");
+            var predicate = _invalid ? "must be less than" : "must be least";
+            var errorCode = "Regex.Validation";
+            var errorMessage = $"Input {predicate} {min} characters.";
+            var error = Error.Validation(errorCode, errorMessage);
+            return Match(pattern, error);
+        }
+
+        public IRegexAssert MaxLength(int max)
+        {
+            var pattern = string.Concat(@"^.{1,", max, @"}$");
+            var predicate = _invalid ? "must be more than" : "cannot be more than";
+            var errorCode = "Regex.Validation";
+            var errorMesage = $"Input {predicate} {max} characters.";
+            var error = Error.Validation(errorCode, errorMesage);
+            return Match(pattern, error);
+        }
+
+        public IRegexAssert Length(int min, int max)
+        {
+            var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
+            var errorCode = "Regex.Validation";
+            var predicate = _invalid ? "must be more than" : $"must be between {min} and {max}";
+            var errorMesage = $"Input {predicate} characters.";
+            var error = Error.Validation(errorCode, errorMesage);
+            return Match(pattern, error);
+        }
     }
 }
