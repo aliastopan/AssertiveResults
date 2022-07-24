@@ -1,16 +1,9 @@
-using System.Collections;
+using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public interface IAssert
+    public interface IAssert : IAssertion
     {
-        IAssertMust Satisfy(bool condition);
-        IAssertMust NotSatisfy(bool condition);
-        IAssertMust Null(object @object);
-        IAssertMust NotNull(object @object);
-        IAssertMust Equal(object former, object latter);
-        IAssertMust NotEqual(object former, object latter);
-        IAssertMust Empty(IEnumerable collection);
-        IAssertMust NotEmpty(IEnumerable collection);
+        IAssertion WithError(Error error);
     }
 }

@@ -5,11 +5,11 @@ namespace AssertiveResults.Assertions
 {
     public class AssertRegex : IAssertRegex, IRegex, IRegexMatch
     {
-        private Assertion _assertion;
+        private Assertation _assertion;
         private string _input;
         private bool _invalid;
 
-        internal AssertRegex(Assertion assertion)
+        internal AssertRegex(Assertation assertion)
         {
             _assertion = assertion;
         }

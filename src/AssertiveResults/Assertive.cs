@@ -28,7 +28,7 @@ namespace AssertiveResults
             return new Assertive();
         }
 
-        public IResult Assert(Action<IAssertion> assert)
+        public IResult Assert(Action<IAssertation> assert)
         {
             _counter++;
 
@@ -37,7 +37,7 @@ namespace AssertiveResults
                 return this;
             }
 
-            var assertion = new Assertion();
+            var assertion = new Assertation();
             assert?.Invoke(assertion);
 
             if(assertion.Failed)

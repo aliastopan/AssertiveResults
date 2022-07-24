@@ -5,7 +5,7 @@ namespace AssertiveResults.Contracts
 {
     public interface IResult
     {
-        IResult Assert(Action<IAssertion> assert);
+        IResult Assert(Action<IAssertation> assert);
         IBreak Break();
         IAssertiveResult Return();
         IAssertiveResult<T> Return<T>(T value);
