@@ -28,7 +28,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        internal Assertion Matches(string pattern, Error error)
+        internal IRegex Matches(string pattern, Error error)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
@@ -36,13 +36,26 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(error);
 
-            return _assertion;
+            return this;
         }
 
-        public IAssertion Pattern(string pattern)
+        public IRegex Pattern(string pattern)
         {
-            var error = Error.Validation();
+            var errorCode = "Regex.Validation";
+            var errorMessage = "Regex validation error has occured";
+            var error = Error.Validation(errorCode, errorMessage);
             return Matches(pattern, error);
+        }
+
+        public IRegex WithError(Error error)
+        {
+            if(!_assertion.IsSatisfied)
+            {
+                _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
         }
     }
 }

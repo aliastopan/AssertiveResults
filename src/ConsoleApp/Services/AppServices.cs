@@ -28,12 +28,10 @@ public class AppService : IAppService
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
         var result = Assertive.Result()
-            .Assert(password => {
-                // password.Regex.Matches(register.password).MinLength(8);
-                // password.Regex.Matches(register.password).LowerCaseCharacters();
-                // password.Regex.Matches(register.password).UpperCaseCharacters();
-                // password.Regex.Matches(register.password).NumericCharacters();
-                // password.Regex.Invalid(register.password).SpecialCharacters();
+            .Assert(x => {
+                x.Regex.Matches(register.password)
+                    .Pattern(@"[A-Z]+").WithError(Errors.Invalid.PasswordFormat)
+                    .Pattern(@".{8,}").WithError(Errors.Invalid.UsernameTooShort);
             })
             .Break()
             .Assert(user => {
