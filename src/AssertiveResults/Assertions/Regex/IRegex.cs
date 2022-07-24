@@ -2,7 +2,7 @@ namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegex
     {
-        IRegexAssertion Matches(string input);
-        IRegexAssertion Invalid(string input);
+        IRegexAssertion Must(string input);
+        IRegexAssertion MustNot(string input);
     }
 }

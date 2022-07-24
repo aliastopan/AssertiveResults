@@ -14,23 +14,22 @@ namespace AssertiveResults.Assertions.Regex
             _assertion = assertion;
         }
 
-        public IRegexAssertion Matches(string input)
+        public IRegexAssertion Must(string input)
         {
             _input = input;
             _invalid = false;
             return this;
         }
 
-        public IRegexAssertion Invalid(string input)
+        public IRegexAssertion MustNot(string input)
         {
             _input = input;
             _invalid = true;
             return this;
         }
 
-        internal IRegexAssert Matches(string pattern, Error error)
+        internal IRegexAssert Match(RegularExpression regex, Error error)
         {
-            var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
             _assertion.IsSatisfied = _invalid ? !isMatch : isMatch;
             if(!_assertion.IsSatisfied)
@@ -39,12 +38,24 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-        public IRegexAssert Pattern(string pattern)
+        internal IRegexAssert Match(string pattern, Error error)
+        {
+            var regex = new RegularExpression(pattern);
+            return Match(regex, error);
+        }
+
+        public IRegexAssert Match(RegularExpression regex)
         {
             var errorCode = "Regex.Validation";
             var errorMessage = "Regex validation error has occured.";
             var error = Error.Validation(errorCode, errorMessage);
-            return Matches(pattern, error);
+            return Match(regex, error);
+        }
+
+        public IRegexAssert Match(string pattern)
+        {
+            var regex = new RegularExpression(pattern);
+            return Match(regex);
         }
 
         public IRegexAssertion WithError(Error error)

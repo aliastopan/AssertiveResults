@@ -1,7 +1,10 @@
+using RegularExpression = System.Text.RegularExpressions.Regex;
+
 namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegexAssertion
     {
-        IRegexAssert Pattern(string pattern);
+        IRegexAssert Match(string pattern);
+        IRegexAssert Match(RegularExpression regex);
     }
 }

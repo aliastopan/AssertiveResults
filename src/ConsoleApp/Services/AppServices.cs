@@ -29,13 +29,13 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Matches(register.password)
-                    .Pattern(@"[a-z]+")
-                    .Pattern(@"[A-Z]+")
-                    .Pattern(@".{8,}");
+                x.Regex.Must(register.password)
+                    .Match(@"[a-z]+")
+                    .Match(@"[A-Z]+")
+                    .Match(@".{8,}");
 
-                x.Regex.Invalid(register.password)
-                    .Pattern(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+                x.Regex.MustNot(register.password)
+                    .Match(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
             })
             .Assert(x => {
                 x.Must
@@ -61,6 +61,13 @@ public class AppService : IAppService
                 _logger.LogWarning("Error [{0}]: {1}", error.Code, error.Message);
             }
         }
+    }
+
+    public void Regex()
+    {
+        var regex = new Regex(@"[A-Z]+");
+        var matches = regex.Matches("asdas");
+        var match = regex.Match("Hello");
     }
 
     public void RegularExpression()
