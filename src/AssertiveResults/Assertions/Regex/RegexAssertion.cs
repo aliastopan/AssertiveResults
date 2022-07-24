@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.Regex
 {
-    public class RegexAssertion : IRegexAssertion, IRegexAssert, IRegex
+    public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegexAssert, IRegex
     {
         private Assertation _assertion;
         private string _input;
@@ -14,14 +14,14 @@ namespace AssertiveResults.Assertions.Regex
             _assertion = assertion;
         }
 
-        public IRegexAssertion Must(string input)
+        public IMust Must(string input)
         {
             _input = input;
             _invalid = false;
             return this;
         }
 
-        public IRegexAssertion MustNot(string input)
+        public IMustNot MustNot(string input)
         {
             _input = input;
             _invalid = true;
@@ -72,9 +72,8 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert MinLength(int min)
         {
             var pattern = string.Concat(@".{", min, @",}");
-            var predicate = _invalid ? "must be less than" : "must be least";
             var errorCode = "Regex.Validation";
-            var errorMessage = $"Input {predicate} {min} characters.";
+            var errorMessage = $"Input must be least {min} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -82,9 +81,8 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert MaxLength(int max)
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
-            var predicate = _invalid ? "must be more than" : "cannot be more than";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Input {predicate} {max} characters.";
+            var errorMesage = $"Input cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -93,8 +91,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = "Regex.Validation";
-            var predicate = _invalid ? "must be more than" : $"must be between {min} and {max}";
-            var errorMesage = $"Input {predicate} characters.";
+            var errorMesage = $"Input must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }

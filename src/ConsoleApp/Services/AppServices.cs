@@ -29,7 +29,7 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Must(register.password).Length(3,5);
+                x.Regex.MustNot(register.password);
                 // x.Regex.MustNot(register.password).MaxLength(3);
 
             })
