@@ -1,6 +1,6 @@
 using AssertiveResults.Errors;
 
-namespace AssertiveResults.Assertions
+namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegexAssert : IRegexAssertion
     {

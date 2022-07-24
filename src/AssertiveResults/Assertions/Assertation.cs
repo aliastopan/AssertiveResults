@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AssertiveResults.Assertions.Regex;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions

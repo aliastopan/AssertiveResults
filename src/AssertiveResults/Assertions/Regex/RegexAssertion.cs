@@ -1,7 +1,7 @@
 using RegularExpression = System.Text.RegularExpressions.Regex;
 using AssertiveResults.Errors;
 
-namespace AssertiveResults.Assertions
+namespace AssertiveResults.Assertions.Regex
 {
     public class RegexAssertion : IRegexAssertion, IRegexAssert, IRegex
     {

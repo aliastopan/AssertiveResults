@@ -1,4 +1,4 @@
-namespace AssertiveResults.Assertions
+namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegexAssertion
     {

@@ -1,3 +1,5 @@
+using AssertiveResults.Assertions.Regex;
+
 namespace AssertiveResults.Assertions
 {
     public interface IAssertation
