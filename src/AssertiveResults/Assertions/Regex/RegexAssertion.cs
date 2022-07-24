@@ -1,5 +1,6 @@
 using RegularExpression = System.Text.RegularExpressions.Regex;
 using AssertiveResults.Errors;
+using AssertiveResults.Assertions.Regex.Verbs;
 
 namespace AssertiveResults.Assertions.Regex
 {
@@ -9,9 +10,12 @@ namespace AssertiveResults.Assertions.Regex
         private string _input;
         private bool _invalid;
 
+        public IContains Contains { get; internal set; }
+
         internal RegexAssertion(Assertation assertion)
         {
             _assertion = assertion;
+            Contains = new Contains(this);
         }
 
         public IMust Must(string input)

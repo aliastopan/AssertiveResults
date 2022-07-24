@@ -1,4 +1,5 @@
 using RegularExpression = System.Text.RegularExpressions.Regex;
+using AssertiveResults.Assertions.Regex.Verbs;
 
 namespace AssertiveResults.Assertions.Regex
 {
@@ -6,6 +7,7 @@ namespace AssertiveResults.Assertions.Regex
     {
         IRegexAssert Match(string pattern);
         IRegexAssert Match(RegularExpression regex);
+        IContains Contains { get; }
     }
 
     public interface IMust : IRegexAssertion
