@@ -2,6 +2,7 @@ namespace AssertiveResults.Assertions
 {
     public interface IRegex
     {
-        IRegexMatch Pattern(string pattern);
+        IRegexAssertion Matches(string input);
+        IRegexAssertion Invalid(string input);
     }
 }
