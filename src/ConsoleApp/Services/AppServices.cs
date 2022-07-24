@@ -32,15 +32,17 @@ public class AppService : IAppService
                 x.Regex.Matches(register.password)
                     .Pattern(@"[A-Z]+").WithError(Errors.Invalid.PasswordFormat)
                     .Pattern(@".{8,}").WithError(Errors.Invalid.UsernameTooShort);
+
+                x.Regex.Matches(register.Username);
             })
             .Break()
-            .Assert(user => {
-                var userLookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
-                user.Must.Null(userLookUp).WithError(Conflict.UsernameTaken);
+            .Assert(x => {
+                var user = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
+                x.Must.Null(user).WithError(Conflict.UsernameTaken);
             })
-            .Assert(email => {
-                var emailLookUp = Database.UserAccounts.FirstOrDefault(x => x.Email == register.Email);
-                email.Must.Null(emailLookUp).WithError(Conflict.EmailInUse);
+            .Assert(x => {
+                var email = Database.UserAccounts.FirstOrDefault(x => x.Email == register.Email);
+                x.Must.Null(email).WithError(Conflict.EmailInUse);
             })
             .Return();
 

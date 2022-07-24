@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class AssertRegex : IAssertRegex, IRegex
+    public class AssertRegex : IAssertRegex, IRegex, IRegexMatch
     {
         private Assertion _assertion;
         private string _input;
@@ -28,7 +28,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        internal IRegex Matches(string pattern, Error error)
+        internal IRegexMatch Matches(string pattern, Error error)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
@@ -39,7 +39,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IRegex Pattern(string pattern)
+        public IRegexMatch Pattern(string pattern)
         {
             var errorCode = "Regex.Validation";
             var errorMessage = "Regex validation error has occured";
