@@ -24,25 +24,22 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "&pwd");
+        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "LongPassword");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
         var result = Assertive.Result()
             .Assert(x => {
                 x.Regex.Matches(register.password)
-                    .Pattern(@"[A-Z]+").WithError(Errors.Invalid.PasswordFormat)
-                    .Pattern(@".{8,}").WithError(Errors.Invalid.UsernameTooShort);
-
-                x.Regex.Matches(register.Username);
+                    .Pattern(@"[A-Z]+")
+                    .Pattern(@".{8,}");
             })
             .Break()
             .Assert(x => {
-                var user = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
-                x.Must.Null(user).WithError(Conflict.UsernameTaken);
-            })
-            .Assert(x => {
-                var email = Database.UserAccounts.FirstOrDefault(x => x.Email == register.Email);
-                x.Must.Null(email).WithError(Conflict.EmailInUse);
+                x.Must
+                    .Satisfy(false).WithError(Errors.Conflict.UsernameTaken)
+                    .Satisfy(false);
+
+                x.Must.NotSatisfy(true).WithError(Errors.Conflict.EmailInUse);
             })
             .Return();
 

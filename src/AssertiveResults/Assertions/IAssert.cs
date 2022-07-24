@@ -2,7 +2,7 @@ namespace AssertiveResults.Assertions
 {
     public interface IAssert
     {
-        IAssertMust Must { get; }
-        IAssertRegex Regex { get; }
+        IAssertMust Satisfy(bool condition);
+        IAssertMust NotSatisfy(bool condition);
     }
 }

@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class AssertMust : IAssertMust
+    public class AssertMust : IAssert, IAssertMust
     {
         private Assertion _assertion;
 
@@ -12,7 +12,7 @@ namespace AssertiveResults.Assertions
             _assertion = assertion;
         }
 
-        public IAssertion Satisfy(bool condition)
+        public IAssertMust Satisfy(bool condition)
         {
             _assertion.IsSatisfied = condition;
             if(!_assertion.IsSatisfied)
@@ -21,91 +21,30 @@ namespace AssertiveResults.Assertions
                 _assertion.Errors.Add(error);
             }
 
-            return _assertion;
+            return this;
         }
 
-        public IAssertion NotSatisfy(bool condition)
+        public IAssertMust NotSatisfy(bool condition)
         {
-            _assertion.IsSatisfied = !condition;
+            _assertion.IsSatisfied = condition;
             if(!_assertion.IsSatisfied)
             {
                 var error = Error.Unspecified();
                 _assertion.Errors.Add(error);
             }
 
-            return _assertion;
+            return this;
         }
 
-        public IAssertion Null(object @object)
+        public IAssert WithError(Error error)
         {
-            _assertion.IsSatisfied = @object == null;
             if(!_assertion.IsSatisfied)
             {
-                var error = Error.Unspecified();
+                _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
                 _assertion.Errors.Add(error);
             }
 
-            return _assertion;
-        }
-
-        public IAssertion NotNull(object @object)
-        {
-            _assertion.IsSatisfied = @object != null;
-            if(!_assertion.IsSatisfied)
-            {
-                var error = Error.Unspecified();
-                _assertion.Errors.Add(error);
-            }
-
-            return _assertion;
-        }
-
-        public IAssertion Empty(IEnumerable collection)
-        {
-            _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
-            if(!_assertion.IsSatisfied)
-            {
-                var error = Error.Unspecified();
-                _assertion.Errors.Add(error);
-            }
-
-            return _assertion;
-        }
-
-        public IAssertion NotEmpty(IEnumerable collection)
-        {
-            _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
-            if(!_assertion.IsSatisfied)
-            {
-                var error = Error.Unspecified();
-                _assertion.Errors.Add(error);
-            }
-
-            return _assertion;
-        }
-
-        public IAssertion Equal(object former, object latter)
-        {
-            _assertion.IsSatisfied = former.Equals(latter);
-            if(!_assertion.IsSatisfied)
-            {
-                var error = Error.Unspecified();
-                _assertion.Errors.Add(error);
-            }
-
-            return _assertion;
-        }
-
-        public IAssertion NotEqual(object former, object latter)
-        {
-            _assertion.IsSatisfied = !former.Equals(latter);
-            if(!_assertion.IsSatisfied)
-            {
-                var error = Error.Unspecified();
-                _assertion.Errors.Add(error);
-            }
-
-            return _assertion;
+            return this;
         }
     }
 }

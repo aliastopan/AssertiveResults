@@ -28,7 +28,7 @@ namespace AssertiveResults
             return new Assertive();
         }
 
-        public IResult Assert(Action<IAssert> assert)
+        public IResult Assert(Action<IAssertion> assert)
         {
             _counter++;
 
