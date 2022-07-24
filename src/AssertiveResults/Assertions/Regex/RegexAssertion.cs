@@ -42,7 +42,7 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert Pattern(string pattern)
         {
             var errorCode = "Regex.Validation";
-            var errorMessage = "Regex validation error has occured";
+            var errorMessage = "Regex validation error has occured.";
             var error = Error.Validation(errorCode, errorMessage);
             return Matches(pattern, error);
         }
