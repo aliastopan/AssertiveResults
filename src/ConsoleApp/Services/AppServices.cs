@@ -36,8 +36,8 @@ public class AppService : IAppService
             .Break()
             .Assert(x => {
                 x.Must
-                    .Satisfy(false).WithError(Errors.Conflict.UsernameTaken)
-                    .Satisfy(false);
+                    .Satisfy(false)
+                    .Null(register);
 
                 x.Must.NotSatisfy(true).WithError(Errors.Conflict.EmailInUse);
             })

@@ -13,9 +13,9 @@ namespace AssertiveResults.Errors
             Message = message;
         }
 
-        internal static Error Unspecified(
-            string code = "General.Error",
-            string message = "An error has occured.")
+        internal static Error Assertion(
+            string code = "Assertion.Error",
+            string message = "An assertion error has occured.")
         {
             return new Error(ErrorType.Failure, code, message);
         }
