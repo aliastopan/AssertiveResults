@@ -6,9 +6,9 @@ namespace AssertiveResults.Assertions.Regex
 {
     public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegexAssert, IRegex
     {
+        internal bool isNot;
         private Assertation _assertion;
         private string _input;
-        private bool _invalid;
 
         public IContains Contains { get; internal set; }
 
@@ -21,21 +21,21 @@ namespace AssertiveResults.Assertions.Regex
         public IMust Must(string input)
         {
             _input = input;
-            _invalid = false;
+            isNot = false;
             return this;
         }
 
         public IMustNot MustNot(string input)
         {
             _input = input;
-            _invalid = true;
+            isNot = true;
             return this;
         }
 
         internal IRegexAssert Match(RegularExpression regex, Error error)
         {
             var isMatch = regex.IsMatch(_input);
-            _assertion.IsSatisfied = _invalid ? !isMatch : isMatch;
+            _assertion.IsSatisfied = isNot ? !isMatch : isMatch;
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(error);
 

@@ -14,8 +14,9 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         public IRegexAssert LowerCase()
         {
             var pattern = @"[a-z]+";
+            var predicate = _regexAssertion.isNot ? "not contain" : "contain";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Input must have lower case character.";
+            var errorMesage = $"Input must {predicate} lower case character.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
         }
@@ -23,8 +24,9 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         public IRegexAssert UpperCase()
         {
             var pattern = @"[A-Z]+";
+            var predicate = _regexAssertion.isNot ? "not contain" : "contain";
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Input must have upper case character.";
+            var errorMesage = $"Input must {predicate} upper case character.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
         }

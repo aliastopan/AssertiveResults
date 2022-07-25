@@ -24,13 +24,16 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword");
+        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "Qlongpassword");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Must(register.password)
-                    .Contains.LowerCase()
+
+                // x.Regex.MustNot(register.password)
+                //     .Contains.LowerCase();
+
+                x.Regex.MustNot(register.password)
                     .Contains.UpperCase();
 
             })
