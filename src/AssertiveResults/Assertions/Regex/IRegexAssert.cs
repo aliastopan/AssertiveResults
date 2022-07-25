@@ -4,7 +4,7 @@ namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegexAssert : IRegexAssertion
     {
-        IRegexAssertion WithArgName(string argName);
+        IRegexAssertion WithDefaultError(string argumentName);
         IRegexAssertion WithError(Error error);
     }
 

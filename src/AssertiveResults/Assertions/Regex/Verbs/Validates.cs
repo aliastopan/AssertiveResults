@@ -18,10 +18,10 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 
         public IRegexAssertValidates PasswordStrength()
         {
-            _regexAssertion.MinLength(8).WithArgName("Password");
-            _regexAssertion.Contains.LowerCase().WithArgName("Password");
-            _regexAssertion.Contains.UpperCase().WithArgName("Password");
-            _regexAssertion.Contains.Number().WithArgName("Password");
+            _regexAssertion.MinLength(8).WithDefaultError("Password");
+            _regexAssertion.Contains.LowerCase().WithDefaultError("Password");
+            _regexAssertion.Contains.UpperCase().WithDefaultError("Password");
+            _regexAssertion.Contains.Number().WithDefaultError("Password");
             return _regexAssertion;
         }
 
