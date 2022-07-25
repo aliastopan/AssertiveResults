@@ -6,7 +6,7 @@ namespace AssertiveResults.Assertions.Regex
 {
     public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegexAssert, IRegex
     {
-        internal bool isNot;
+        internal bool isMustNot;
         private Assertation _assertion;
         private string _argName;
         private string _argDefault = "Input";
@@ -25,14 +25,14 @@ namespace AssertiveResults.Assertions.Regex
         public IMust Must(string input)
         {
             _input = input;
-            isNot = false;
+            isMustNot = false;
             return this;
         }
 
         public IMustNot MustNot(string input)
         {
             _input = input;
-            isNot = true;
+            isMustNot = true;
             return this;
         }
 
@@ -87,7 +87,11 @@ namespace AssertiveResults.Assertions.Regex
             error = Error.Validation(errorCode, errorMessage);
             _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
             _assertion.Errors.Add(error);
-            return this;
+
+            if(isMustNot)
+                return this as IMustNot;
+            else
+                return this as IMust;
         }
 
         public IRegexAssertion WithError(Error error)
@@ -98,13 +102,16 @@ namespace AssertiveResults.Assertions.Regex
                 _assertion.Errors.Add(error);
             }
 
-            return this;
+            if(isMustNot)
+                return this as IMustNot;
+            else
+                return this as IMust;
         }
 
         internal IRegexAssert Match(RegularExpression regex, Error error)
         {
             var isMatch = regex.IsMatch(_input);
-            _assertion.IsSatisfied = isNot ? !isMatch : isMatch;
+            _assertion.IsSatisfied = isMustNot ? !isMatch : isMatch;
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(error);
 
