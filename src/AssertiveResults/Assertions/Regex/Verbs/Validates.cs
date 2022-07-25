@@ -1,3 +1,4 @@
+using System;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.Regex.Verbs
@@ -11,8 +12,16 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             _regexAssertion = regexAssertion;
         }
 
-        public IValidatesAssert Username()
+        public IValidatesAssert Username(int min = 1, int max = 32)
         {
+            if(min < 0 || max <= min)
+                throw new InvalidOperationException();
+
+            var pattern = string.Concat(@"^(?=.{", min, @",", max, @"}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            var errorCode = "Username.Validation";
+            var errorMesage = "Invalid username format.";
+            var error = Error.Validation(errorCode, errorMesage);
+            _regexAssertion.Match(pattern, error);
             return this;
         }
 

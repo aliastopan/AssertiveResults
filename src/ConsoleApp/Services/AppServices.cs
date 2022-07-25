@@ -27,13 +27,13 @@ public class AppService : IAppService
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
-        var pwd = "asd";
+        var usr = "asd";
 
         var result = Assertive.Result()
             .Assert(x => {
 
-                x.Regex.Must(pwd)
-                    .Validates.PasswordStrength();
+                x.Regex.Must(usr)
+                    .Validates.Username();
 
             })
             .Return();

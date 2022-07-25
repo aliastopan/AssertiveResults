@@ -2,7 +2,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 {
     public interface IValidates
     {
-        IValidatesAssert Username();
+        IValidatesAssert Username(int min = 1, int max = 32);
         IValidatesAssert PasswordStrength();
         IValidatesAssert Email();
     }
