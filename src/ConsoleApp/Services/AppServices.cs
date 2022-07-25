@@ -24,14 +24,16 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "LongPassword&0");
+        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
+
+        var input = "asd&";
 
         var result = Assertive.Result()
             .Assert(x => {
 
-                x.Regex.Must(register.password)
-                    .Validates.PasswordStrength();
+                x.Regex.Must(input)
+                    .Contains.Symbol();
 
             })
             .Return();
