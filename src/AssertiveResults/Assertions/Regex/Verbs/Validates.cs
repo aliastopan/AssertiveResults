@@ -29,8 +29,8 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         public IValidatesAssert Email()
         {
             var pattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-            var errorCode = "Regex.Validation";
-            var errorMesage = "Invalid email format.";
+            var errorCode = "Email.Validation";
+            var errorMesage = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorMesage);
             _regexAssertion.Match(pattern, error);
             return this;
