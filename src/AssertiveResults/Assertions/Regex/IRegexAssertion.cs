@@ -1,4 +1,3 @@
-using RegularExpression = System.Text.RegularExpressions.Regex;
 using AssertiveResults.Assertions.Regex.Verbs;
 
 namespace AssertiveResults.Assertions.Regex
