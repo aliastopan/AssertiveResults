@@ -103,7 +103,7 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssertion WithError(Error error)
         {
-            if(!_assertion.IsSatisfied)
+            if(_assertion.Failed)
             {
                 _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
                 _assertion.Errors.Add(error);
