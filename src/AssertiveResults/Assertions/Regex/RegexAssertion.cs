@@ -38,18 +38,13 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-        public IRegexAssert Match(RegularExpression regex)
+
+        public IRegexAssert Match(string pattern)
         {
             var errorCode = "Regex.Validation";
             var errorMessage = "Regex validation error has occured.";
             var error = Error.Validation(errorCode, errorMessage);
-            return Match(regex, error);
-        }
-
-        public IRegexAssert Match(string pattern)
-        {
-            var regex = new RegularExpression(pattern);
-            return Match(regex);
+            return Match(pattern, error);
         }
 
         public IRegexAssert MinLength(int min)
@@ -65,8 +60,8 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"{ArgName} cannot be more than {max} characters.";
-            var error = Error.Validation(errorCode, errorMesage);
+            var errorMessage = $"{ArgName} cannot be more than {max} characters.";
+            var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
 
@@ -74,8 +69,8 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"{ArgName} must be between {min} and {max} characters.";
-            var error = Error.Validation(errorCode, errorMesage);
+            var errorMessage = $"{ArgName} must be between {min} and {max} characters.";
+            var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
 
@@ -115,20 +110,15 @@ namespace AssertiveResults.Assertions.Regex
                 return this as IMust;
         }
 
-        internal IRegexAssert Match(RegularExpression regex, Error error)
+        internal IRegexAssert Match(string pattern, Error error)
         {
+            var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
             _assertion.IsSatisfied = isMustNot ? !isMatch : isMatch;
             if(!_assertion.IsSatisfied)
                 _assertion.Errors.Add(error);
 
             return this;
-        }
-
-        internal IRegexAssert Match(string pattern, Error error)
-        {
-            var regex = new RegularExpression(pattern);
-            return Match(regex, error);
         }
     }
 }

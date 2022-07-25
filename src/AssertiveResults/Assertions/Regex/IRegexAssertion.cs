@@ -7,7 +7,6 @@ namespace AssertiveResults.Assertions.Regex
     {
         IContains Contains { get; }
         IRegexAssert Match(string pattern);
-        IRegexAssert Match(RegularExpression regex);
     }
 
     public interface IMust : IRegexAssertion
