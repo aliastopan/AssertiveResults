@@ -84,14 +84,16 @@ namespace AssertiveResults.Assertions.Regex
             if(!_assertion.Failed)
                 return this;
 
-            _argName = name;
             var error =_assertion.Errors[_assertion.Errors.Count - 1];
             var errorCode = error.Code;
             var errorMessage = error.Message;
+
+            _argName = name;
             errorMessage = errorMessage.Replace(_argDefault, ArgName);
             error = Error.Validation(errorCode, errorMessage);
             _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
             _assertion.Errors.Add(error);
+            _argName = string.Empty;
 
             if(isMustNot)
                 return this as IMustNot;
