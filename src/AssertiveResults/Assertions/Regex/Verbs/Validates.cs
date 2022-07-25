@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.Regex.Verbs
 {
-    public class Validates : IValidates, IValidatesAssert
+    public class Validates : IValidates, IValidation
     {
         private RegexAssertion _regexAssertion;
 
@@ -12,7 +12,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             _regexAssertion = regexAssertion;
         }
 
-        public IValidatesAssert Username(int min = 1, int max = 32)
+        public IValidation Username(int min = 1, int max = 32)
         {
             if(min < 0 || max <= min)
                 throw new InvalidOperationException();
@@ -25,7 +25,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             return this;
         }
 
-        public IValidatesAssert PasswordStrength()
+        public IValidation PasswordStrength()
         {
             var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
             var errorCode = "PasswordStrength.Validation";
@@ -35,7 +35,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             return this;
         }
 
-        public IValidatesAssert Email()
+        public IValidation Email()
         {
             var pattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
             var errorCode = "Email.Validation";

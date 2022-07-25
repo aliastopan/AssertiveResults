@@ -2,12 +2,12 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 {
     public interface IValidates
     {
-        IValidatesAssert Username(int min = 1, int max = 32);
-        IValidatesAssert PasswordStrength();
-        IValidatesAssert Email();
+        IValidation Username(int min = 1, int max = 32);
+        IValidation PasswordStrength();
+        IValidation Email();
     }
 
-    public interface IValidatesAssert
+    public interface IValidation
     {
 
     }
