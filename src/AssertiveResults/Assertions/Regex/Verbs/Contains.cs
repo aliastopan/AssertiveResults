@@ -15,7 +15,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[a-z]+";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} lower case character.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
@@ -25,7 +25,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[A-Z]+";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} upper case character.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
@@ -35,7 +35,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[a-zA-Z]+";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} alphabet.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
@@ -45,7 +45,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[a-zA-Z0-9]+";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} alphabet or number.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
@@ -55,7 +55,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[0-9]+";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} number.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);
@@ -65,7 +65,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
             var predicate = _regexAssertion.isMustNot ? "not contain" : "contain";
-            var errorCode = "Regex.Validation";
+            var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} symbol.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Match(pattern, error);

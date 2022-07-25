@@ -9,12 +9,13 @@ namespace AssertiveResults.Assertions.Regex
         internal bool isMustNot;
         private Assertation _assertion;
         private string _argName;
-        private string _argDefault = "Input";
         private string _input;
 
         public IContains Contains { get; internal set; }
         public IValidates Validates { get; internal set; }
-        internal string ArgName => string.IsNullOrEmpty(_argName) ? _argDefault : _argName;
+        internal string PrefixError => "Regex";
+        internal string ArgDefault = "Input";
+        internal string ArgName => string.IsNullOrEmpty(_argName) ? ArgDefault : _argName;
 
         internal RegexAssertion(Assertation assertion)
         {
@@ -38,11 +39,10 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-
         public IRegexAssert Match(string pattern)
         {
-            var errorCode = "Regex.Validation";
-            var errorMessage = "Regex validation error has occured.";
+            var errorCode = $"{PrefixError}.Validation";
+            var errorMessage = $"Input doesn't match with the given regex {pattern}.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -50,8 +50,8 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert MinLength(int min)
         {
             var pattern = string.Concat(@".{", min, @",}");
-            var errorCode = "Regex.Validation";
-            var errorMessage = $"{ArgName} must be least {min} characters.";
+            var errorCode = $"{PrefixError}.Validation";
+            var errorMessage = $"Input must be least {min} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -59,8 +59,8 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert MaxLength(int max)
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
-            var errorCode = "Regex.Validation";
-            var errorMessage = $"{ArgName} cannot be more than {max} characters.";
+            var errorCode = $"{PrefixError}.Validation";
+            var errorMessage = $"Input cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -68,8 +68,8 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert Length(int min, int max)
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
-            var errorCode = "Regex.Validation";
-            var errorMessage = $"{ArgName} must be between {min} and {max} characters.";
+            var errorCode = $"{PrefixError}.Validation";
+            var errorMessage = $"Input must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -84,7 +84,8 @@ namespace AssertiveResults.Assertions.Regex
             var errorMessage = error.Message;
 
             _argName = name;
-            errorMessage = errorMessage.Replace(_argDefault, ArgName);
+            errorCode = errorCode.Replace(PrefixError, ArgName);
+            errorMessage = errorMessage.Replace(ArgDefault, ArgName);
             error = Error.Validation(errorCode, errorMessage);
             _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
             _assertion.Errors.Add(error);
