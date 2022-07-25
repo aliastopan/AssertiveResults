@@ -7,9 +7,4 @@ namespace AssertiveResults.Assertions.Regex
         IRegexAssertion WithDefaultError(string argumentName);
         IRegexAssertion WithError(Error error);
     }
-
-    public interface IRegexAssertValidates : IRegexAssertion
-    {
-        IRegexAssertion WithError(Error error);
-    }
 }

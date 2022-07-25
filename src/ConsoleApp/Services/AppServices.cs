@@ -35,6 +35,10 @@ public class AppService : IAppService
                 x.Regex.Must(usr)
                     .Validates.Username();
 
+                x.Regex.Must(usr)
+                    .Contains.Alphabet()
+                    .Contains.Number();
+
             })
             .Return();
 

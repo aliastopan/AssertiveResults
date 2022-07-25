@@ -4,7 +4,7 @@ using AssertiveResults.Assertions.Regex.Verbs;
 
 namespace AssertiveResults.Assertions.Regex
 {
-    public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegex, IRegexAssert, IRegexAssertValidates
+    public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegex, IRegexAssert
     {
         internal bool isMustNot;
         internal Assertation assertation;
