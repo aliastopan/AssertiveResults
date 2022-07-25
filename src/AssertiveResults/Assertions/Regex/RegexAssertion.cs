@@ -8,12 +8,16 @@ namespace AssertiveResults.Assertions.Regex
     {
         internal bool isNot;
         private Assertation _assertion;
+        private string _argName;
+        private string _argDefault = "Input";
         private string _input;
 
         public IContains Contains { get; internal set; }
+        internal string ArgName => string.IsNullOrEmpty(_argName) ? _argDefault : _argName;
 
         internal RegexAssertion(Assertation assertion)
         {
+            _argName = string.Empty;
             _assertion = assertion;
             Contains = new Contains(this);
         }
@@ -62,6 +66,19 @@ namespace AssertiveResults.Assertions.Regex
             return Match(regex);
         }
 
+        public IRegexAssertion WithArgName(string name)
+        {
+            _argName = name;
+            var error =_assertion.Errors[_assertion.Errors.Count - 1];
+            var errorCode = error.Code;
+            var errorMessage = error.Message;
+            errorMessage = errorMessage.Replace(_argDefault, ArgName);
+            error = Error.Validation(errorCode, errorMessage);
+            _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
+            _assertion.Errors.Add(error);
+            return this;
+        }
+
         public IRegexAssertion WithError(Error error)
         {
             if(!_assertion.IsSatisfied)
@@ -77,7 +94,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@".{", min, @",}");
             var errorCode = "Regex.Validation";
-            var errorMessage = $"Input must be least {min} characters.";
+            var errorMessage = $"{ArgName} must be least {min} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Match(pattern, error);
         }
@@ -86,7 +103,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Input cannot be more than {max} characters.";
+            var errorMesage = $"{ArgName} cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
@@ -95,7 +112,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = "Regex.Validation";
-            var errorMesage = $"Input must be between {min} and {max} characters.";
+            var errorMesage = $"{ArgName} must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
         }
