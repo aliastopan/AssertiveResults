@@ -81,6 +81,9 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssertion WithArgName(string name)
         {
+            if(!_assertion.Failed)
+                return this;
+
             _argName = name;
             var error =_assertion.Errors[_assertion.Errors.Count - 1];
             var errorCode = error.Code;
