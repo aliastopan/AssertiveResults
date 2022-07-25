@@ -11,21 +11,21 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             _regexAssertion = regexAssertion;
         }
 
-        public IRegexAssert Username()
+        public IRegexAssertValidates Username()
         {
             return _regexAssertion;
         }
 
-        public IRegexAssert PasswordStrength()
+        public IRegexAssertValidates PasswordStrength()
         {
             var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
-            var errorCode = "Regex.Validation";
-            var errorMesage = $"{_regexAssertion.ArgName}";
+            var errorCode = "Password.Validation";
+            var errorMesage = "Password must be at least 8 characters long and contain one uppercase and one lowercase character and a number.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return (IRegexAssertValidates) _regexAssertion.Match(pattern, error);
         }
 
-        public IRegexAssert Email()
+        public IRegexAssertValidates Email()
         {
             return _regexAssertion;
         }

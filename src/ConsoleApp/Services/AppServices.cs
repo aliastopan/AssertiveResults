@@ -24,7 +24,7 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "EINHARAN", "mail@proton.me", "pwd");
+        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "LongPassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
         var result = Assertive.Result()
