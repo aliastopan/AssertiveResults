@@ -33,7 +33,7 @@ public class AppService : IAppService
             .Assert(x => {
 
                 x.Regex.Must(input)
-                    .Contains.Symbol();
+                    .Validates.PasswordStrength();
 
             })
             .Return();
