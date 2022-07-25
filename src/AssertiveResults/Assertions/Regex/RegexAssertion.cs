@@ -36,22 +36,6 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-        internal IRegexAssert Match(RegularExpression regex, Error error)
-        {
-            var isMatch = regex.IsMatch(_input);
-            _assertion.IsSatisfied = isNot ? !isMatch : isMatch;
-            if(!_assertion.IsSatisfied)
-                _assertion.Errors.Add(error);
-
-            return this;
-        }
-
-        internal IRegexAssert Match(string pattern, Error error)
-        {
-            var regex = new RegularExpression(pattern);
-            return Match(regex, error);
-        }
-
         public IRegexAssert Match(RegularExpression regex)
         {
             var errorCode = "Regex.Validation";
@@ -64,30 +48,6 @@ namespace AssertiveResults.Assertions.Regex
         {
             var regex = new RegularExpression(pattern);
             return Match(regex);
-        }
-
-        public IRegexAssertion WithArgName(string name)
-        {
-            _argName = name;
-            var error =_assertion.Errors[_assertion.Errors.Count - 1];
-            var errorCode = error.Code;
-            var errorMessage = error.Message;
-            errorMessage = errorMessage.Replace(_argDefault, ArgName);
-            error = Error.Validation(errorCode, errorMessage);
-            _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
-            _assertion.Errors.Add(error);
-            return this;
-        }
-
-        public IRegexAssertion WithError(Error error)
-        {
-            if(!_assertion.IsSatisfied)
-            {
-                _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
-                _assertion.Errors.Add(error);
-            }
-
-            return this;
         }
 
         public IRegexAssert MinLength(int min)
@@ -115,6 +75,46 @@ namespace AssertiveResults.Assertions.Regex
             var errorMesage = $"{ArgName} must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorMesage);
             return Match(pattern, error);
+        }
+
+        public IRegexAssertion WithArgName(string name)
+        {
+            _argName = name;
+            var error =_assertion.Errors[_assertion.Errors.Count - 1];
+            var errorCode = error.Code;
+            var errorMessage = error.Message;
+            errorMessage = errorMessage.Replace(_argDefault, ArgName);
+            error = Error.Validation(errorCode, errorMessage);
+            _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
+            _assertion.Errors.Add(error);
+            return this;
+        }
+
+        public IRegexAssertion WithError(Error error)
+        {
+            if(!_assertion.IsSatisfied)
+            {
+                _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
+        internal IRegexAssert Match(RegularExpression regex, Error error)
+        {
+            var isMatch = regex.IsMatch(_input);
+            _assertion.IsSatisfied = isNot ? !isMatch : isMatch;
+            if(!_assertion.IsSatisfied)
+                _assertion.Errors.Add(error);
+
+            return this;
+        }
+
+        internal IRegexAssert Match(string pattern, Error error)
+        {
+            var regex = new RegularExpression(pattern);
+            return Match(regex, error);
         }
     }
 }
