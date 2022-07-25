@@ -1,3 +1,5 @@
+using AssertiveResults.Errors;
+
 namespace AssertiveResults.Assertions.Regex.Verbs
 {
     public class Validates : IValidates
@@ -25,7 +27,11 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 
         public IRegexAssertValidates Email()
         {
-            return _regexAssertion;
+            var pattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+            var errorCode = "Regex.Validation";
+            var errorMesage = "Invalid email format.";
+            var error = Error.Validation(errorCode, errorMesage);
+            return (IRegexAssertValidates) _regexAssertion.Match(pattern, error);
         }
     }
 }
