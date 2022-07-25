@@ -12,6 +12,7 @@ namespace AssertiveResults.Assertions.Regex
 
     public interface IMust : IRegexAssertion
     {
+        IValidates Validates { get; }
         IRegexAssert MinLength(int min);
         IRegexAssert MaxLength(int max);
         IRegexAssert Length(int min, int max);

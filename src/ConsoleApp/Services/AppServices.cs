@@ -31,22 +31,8 @@ public class AppService : IAppService
             .Assert(x => {
 
                 x.Regex.Must(register.password)
-                    .MinLength(8).WithArgName("Password");
+                    .Validates.PasswordStrength();
 
-                x.Regex.MustNot(register.password)
-                    .Contains.LowerCase();
-
-                x.Regex.MustNot(register.Username)
-                    .Contains.UpperCase().WithArgName("Username");
-
-            })
-            .Break()
-            .Assert(x => {
-                // x.Must
-                //     .Satisfy(false)
-                //     .Null(register);
-
-                // x.Must.NotSatisfy(true).WithError(Errors.Conflict.EmailInUse);
             })
             .Return();
 

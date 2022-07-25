@@ -13,6 +13,7 @@ namespace AssertiveResults.Assertions.Regex
         private string _input;
 
         public IContains Contains { get; internal set; }
+        public IValidates Validates { get; internal set; }
         internal string ArgName => string.IsNullOrEmpty(_argName) ? _argDefault : _argName;
 
         internal RegexAssertion(Assertation assertion)
@@ -20,6 +21,7 @@ namespace AssertiveResults.Assertions.Regex
             _argName = string.Empty;
             _assertion = assertion;
             Contains = new Contains(this);
+            Validates = new Validates(this);
         }
 
         public IMust Must(string input)
