@@ -7,7 +7,7 @@ namespace AssertiveResults.Assertions.Regex
     public class RegexAssertion : IRegexAssertion, IMust, IMustNot, IRegex, IRegexAssert, IRegexAssertValidates
     {
         internal bool isMustNot;
-        private Assertation _assertion;
+        internal Assertation assertation;
         private string _argument;
         private string _input;
 
@@ -17,10 +17,10 @@ namespace AssertiveResults.Assertions.Regex
         internal string DefaultArgument = "Input";
         internal string Argument => string.IsNullOrEmpty(_argument) ? DefaultArgument : _argument;
 
-        internal RegexAssertion(Assertation assertion)
+        internal RegexAssertion(Assertation assertation)
         {
             _argument = string.Empty;
-            _assertion = assertion;
+            this.assertation = assertation;
             Contains = new Contains(this);
             Validates = new Validates(this);
         }
@@ -76,10 +76,10 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssertion WithDefaultError(string name)
         {
-            if(!_assertion.Failed)
+            if(!assertation.Failed)
                 return this;
 
-            var error =_assertion.Errors[_assertion.Errors.Count - 1];
+            var error = assertation.Errors[assertation.Errors.Count - 1];
             var errorCode = error.Code;
             var errorMessage = error.Message;
 
@@ -87,8 +87,8 @@ namespace AssertiveResults.Assertions.Regex
             errorCode = errorCode.Replace(PrefixError, Argument);
             errorMessage = errorMessage.Replace(DefaultArgument, Argument);
             error = Error.Validation(errorCode, errorMessage);
-            _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
-            _assertion.Errors.Add(error);
+            assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
+            assertation.Errors.Add(error);
             _argument = string.Empty;
 
             if(isMustNot)
@@ -99,10 +99,10 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssertion WithError(Error error)
         {
-            if(_assertion.Failed)
+            if(assertation.Failed)
             {
-                _assertion.Errors.RemoveAt(_assertion.Errors.Count - 1);
-                _assertion.Errors.Add(error);
+                assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
+                assertation.Errors.Add(error);
             }
 
             if(isMustNot)
@@ -115,9 +115,9 @@ namespace AssertiveResults.Assertions.Regex
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
-            _assertion.IsSatisfied = isMustNot ? !isMatch : isMatch;
-            if(!_assertion.IsSatisfied)
-                _assertion.Errors.Add(error);
+            assertation.IsSatisfied = isMustNot ? !isMatch : isMatch;
+            if(!assertation.IsSatisfied)
+                assertation.Errors.Add(error);
 
             return this;
         }
