@@ -18,10 +18,11 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 
         public IValidatesAssert PasswordStrength()
         {
-            _regexAssertion.MinLength(8).WithDefaultError("Password");
-            _regexAssertion.Contains.LowerCase().WithDefaultError("Password");
-            _regexAssertion.Contains.UpperCase().WithDefaultError("Password");
-            _regexAssertion.Contains.Number().WithDefaultError("Password");
+            var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+            var errorCode = "PasswordStrength.Validation";
+            var errorMesage = "Password must be at least 8 characters long and contain one uppercase and one lowercase character and a number.";
+            var error = Error.Validation(errorCode, errorMesage);
+            _regexAssertion.Match(pattern, error);
             return this;
         }
 
