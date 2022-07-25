@@ -33,7 +33,7 @@ public class AppService : IAppService
             .Assert(x => {
 
                 x.Regex.Must(pwd)
-                    .Contains.UpperCase().WithDefaultError("Password");
+                    .Validates.PasswordStrength();
 
             })
             .Return();

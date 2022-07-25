@@ -2,8 +2,13 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 {
     public interface IValidates
     {
-        IRegexAssertValidates Username();
-        IRegexAssertValidates PasswordStrength();
-        IRegexAssertValidates Email();
+        IValidatesAssert Username();
+        IValidatesAssert PasswordStrength();
+        IValidatesAssert Email();
+    }
+
+    public interface IValidatesAssert
+    {
+
     }
 }
