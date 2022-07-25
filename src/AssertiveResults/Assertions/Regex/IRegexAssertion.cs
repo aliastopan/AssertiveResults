@@ -5,9 +5,9 @@ namespace AssertiveResults.Assertions.Regex
 {
     public interface IRegexAssertion
     {
+        IContains Contains { get; }
         IRegexAssert Match(string pattern);
         IRegexAssert Match(RegularExpression regex);
-        IContains Contains { get; }
     }
 
     public interface IMust : IRegexAssertion
