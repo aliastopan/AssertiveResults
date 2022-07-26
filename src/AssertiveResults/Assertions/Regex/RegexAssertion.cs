@@ -38,12 +38,12 @@ namespace AssertiveResults.Assertions.Regex
             return Regex(pattern, error);
         }
 
-        public IRegexAssert AgainstInvalid(string pattern)
+        public IRegexAssert AgainstIllegal(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
             var errorMessage = $"{DefaultArgument} match with the given illegal {pattern} expression.";
             var error = Error.Validation(errorCode, errorMessage);
-            return Regex(pattern, error, invalid: true);
+            return Regex(pattern, error, illegal: true);
         }
 
         public IRegexAssert Length(int min, int max)
@@ -104,11 +104,11 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-        internal IRegexAssert Regex(string pattern, Error error, bool invalid = false)
+        internal IRegexAssert Regex(string pattern, Error error, bool illegal = false)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
-            assertation.IsSatisfied = invalid ? !isMatch : isMatch;
+            assertation.IsSatisfied = illegal ? !isMatch : isMatch;
             if(!assertation.IsSatisfied)
                 assertation.Errors.Add(error);
 

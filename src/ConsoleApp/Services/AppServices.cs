@@ -32,7 +32,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
                 x.Regex.Match(usr)
-                    .AgainstInvalid(@"[a-z]+").WithDefaultError("Password")
+                    .AgainstIllegal(@"[a-z]+").WithDefaultError("Password")
                     .Against(@"[A-Z]+");
 
             })
