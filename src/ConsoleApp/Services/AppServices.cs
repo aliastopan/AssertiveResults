@@ -41,7 +41,9 @@ public class AppService : IAppService
         LogConsole(result);
         ErrorR();
 
-        _logger.LogInformation("Expression: {0}", Expression.Username(3,8));
+        _logger.LogInformation("Expression: {0}", Expression.Length(3,8));
+        _logger.LogInformation("Expression: {0}", Expression.MinLength(3));
+        _logger.LogInformation("Expression: {0}", Expression.MaxLength(8));
 
     }
 

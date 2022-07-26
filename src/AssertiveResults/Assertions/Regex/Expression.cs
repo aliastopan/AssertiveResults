@@ -29,23 +29,22 @@ namespace AssertiveResults.Assertions.Regex
 
         public static string Length(int min, int max)
         {
-            return string.Format("^.{{{0},{1}}}$", min, max);
+            return string.Concat(@"^.{", min, ",", max, @"}$");
         }
 
         public static string MinLength(int min)
         {
-            return string.Format("^.{{{0},}}$", min);
+            return string.Concat(@"^.{", min, @",}$");
         }
 
         public static string MaxLength(int max)
         {
-            return string.Format("^.{{0,{0}}}$", max);
+            return string.Concat(@"^.{0,", max, @"}$");
         }
 
         public static string Username(int min, int max)
         {
-            // return string.Format("^(?=.{{{0},{1}}}$)(?![_.])(?!.*[_.]{{2}})[a-zA-Z0-9._]+(?<![_.])$", min, max);
-            return string.Concat(@"^(?=.{", min, @",", max, @"}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            return string.Concat(@"^(?=.{", min, ",", max, @"}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
         }
 
         public static string Email()
