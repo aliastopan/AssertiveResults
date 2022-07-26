@@ -32,10 +32,10 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
 
-                x.Regex.Must(usr)
+                x.Regex.Match(usr)
                     .Validates.Username();
 
-                x.Regex.Must(usr)
+                x.Regex.Match(usr)
                     .Contains.Alphabet()
                     .Contains.Number();
 

@@ -5,19 +5,11 @@ namespace AssertiveResults.Assertions.Regex
     public interface IRegexAssertion
     {
         IContains Contains { get; }
-        IRegexAssert Match(string pattern);
-    }
-
-    public interface IMust : IRegexAssertion
-    {
         IValidates Validates { get; }
+
+        IRegexAssert Against(string pattern);
+        IRegexAssert Length(int min, int max);
         IRegexAssert MinLength(int min);
         IRegexAssert MaxLength(int max);
-        IRegexAssert Length(int min, int max);
-    }
-
-    public interface IMustNot : IRegexAssertion
-    {
-
     }
 }

@@ -18,7 +18,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} lower case character.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert UpperCase()
@@ -28,7 +28,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must {predicate} upper case character.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert Alphabet()
@@ -38,7 +38,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.DefaultArgument} must {predicate} alphabet.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert Alphameric()
@@ -48,7 +48,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.DefaultArgument} must {predicate} alphabet or number.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert Number()
@@ -58,7 +58,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.DefaultArgument} must {predicate} number.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert Symbol()
@@ -68,7 +68,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.DefaultArgument} must {predicate} symbol.";
             var error = Error.Validation(errorCode, errorMesage);
-            return _regexAssertion.Match(pattern, error);
+            return _regexAssertion.Regex(pattern, error);
         }
     }
 }

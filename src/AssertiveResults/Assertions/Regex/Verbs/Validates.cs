@@ -21,7 +21,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = "Username.Validation";
             var errorMesage = "Invalid username format.";
             var error = Error.Validation(errorCode, errorMesage);
-            _regexAssertion.Match(pattern, error);
+            _regexAssertion.Regex(pattern, error);
             return this;
         }
 
@@ -31,7 +31,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = "PasswordStrength.Validation";
             var errorMesage = "Password must be at least 8 characters long and contain one uppercase and one lowercase character and a number.";
             var error = Error.Validation(errorCode, errorMesage);
-            _regexAssertion.Match(pattern, error);
+            _regexAssertion.Regex(pattern, error);
             return this;
         }
 
@@ -41,7 +41,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             var errorCode = "Email.Validation";
             var errorMesage = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorMesage);
-            _regexAssertion.Match(pattern, error);
+            _regexAssertion.Regex(pattern, error);
             return this;
         }
     }
