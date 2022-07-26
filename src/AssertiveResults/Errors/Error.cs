@@ -3,12 +3,14 @@ namespace AssertiveResults.Errors
     public struct Error
     {
         public ErrorType ErrorType { get; }
+        public int NumericType { get; }
         public string Code { get; }
         public string Description { get; }
 
         private Error(ErrorType type, string code, string description)
         {
             ErrorType = type;
+            NumericType = (int) type;
             Code = code;
             Description = description;
         }
@@ -53,6 +55,14 @@ namespace AssertiveResults.Errors
             string description = "A validation error has occured.")
         {
             return new Error(ErrorType.Validation, code, description);
+        }
+
+        public static Error Custom(
+            int type,
+            string code,
+            string description)
+        {
+            return new Error((ErrorType)type, code, description);
         }
     }
 }

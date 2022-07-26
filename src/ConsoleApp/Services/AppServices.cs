@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using AssertiveResults;
+using AssertiveResults.Errors;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,7 @@ public class AppService : IAppService
             .Return();
 
         LogConsole(result);
+        ErrorR();
     }
 
     private void LogConsole(IAssertiveResult result)
@@ -48,51 +50,17 @@ public class AppService : IAppService
         {
             foreach (var error in result.Errors)
             {
-                _logger.LogWarning("Error [{0}]: {1}", error.Code, error.Description);
+                _logger.LogWarning("Error [{0}][{1}]: {2}", error.ErrorType, error.Code, error.Description);
             }
         }
     }
 
-    public void Regex()
+    public void ErrorR()
     {
-        var regex = new Regex(@"[A-Z]+");
-        var matches = regex.Matches("asdas");
-        var match = regex.Match("Hello");
-    }
+        var err1 = Error.Custom(1, "Err", "err");
+        var err2 = Error.Custom(99, "WTF", "what-the-fuck");
 
-    public void RegularExpression()
-    {
-        var hasMinChar = new Regex(@".{8,}");
-        var hasMaxChar = new Regex(@".{8,15}");
-        var hasNumber = new Regex(@"[0-9]+");
-        var hasLowerChar = new Regex(@"[a-z]+");
-        var hasUpperChar = new Regex(@"[A-Z]+");
-        var hasSpecialChar = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
-
-        var regex = hasMaxChar.Match("einharan");
-
-        var user = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "&longpassword");
-
-        var result = Assertive.Result()
-            .Assert(x => {
-                x.Must.Satisfy(user.Id != Guid.Empty);
-            })
-            .Assert(x => {
-                // x.Regex.Match(user.Username).MinLength(1).WithError(Invalid.UsernameTooShort);
-                // x.Regex.Match(user.Username).MaxLength(3).WithError(Invalid.UsernameTooLong);
-                // x.Regex.Matches(user.Username).Length(min: 3, max: 5).WithError(Invalid.UsernameLength);
-            })
-            .Return();
-
-        _logger.LogInformation("Status: {0}", result.Success ? "Success" : "Failed");
-        _logger.LogInformation("Error(s): {0}", result.Errors.Count);
-
-        if(result.Errors.Count > 0)
-        {
-            foreach (var error in result.Errors)
-            {
-                _logger.LogWarning("Error: {0}", error.Description);
-            }
-        }
+        _logger.LogInformation("Error {0}", err1.ErrorType);
+        _logger.LogInformation("Error {0}", err2.ErrorType);
     }
 }
