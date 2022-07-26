@@ -32,7 +32,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
                 x.Regex.Match(usr)
-                    .Validates.PasswordStrength().WithErrorDefault(errorCode: "334");
+                    .Validates.PasswordStrength(PasswordStrength.Standard);
             })
             .Return();
 

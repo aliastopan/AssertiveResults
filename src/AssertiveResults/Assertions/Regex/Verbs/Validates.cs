@@ -1,5 +1,6 @@
 using System;
 using AssertiveResults.Errors;
+using Strength = AssertiveResults.PasswordStrength;
 
 namespace AssertiveResults.Assertions.Regex.Verbs
 {
@@ -24,12 +25,29 @@ namespace AssertiveResults.Assertions.Regex.Verbs
             return _regexAssertion.Regex(pattern, error);
         }
 
-        public IRegexAssert PasswordStrength()
+        public IRegexAssert PasswordStrength(PasswordStrength strength = Strength.Standard)
         {
-            var pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+            string pattern;
+            string errorMessage;
+
+            switch(strength)
+            {
+                case AssertiveResults.PasswordStrength.Complex:
+                    pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    errorMessage = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
+                    break;
+                case AssertiveResults.PasswordStrength.Maximum:
+                    pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]]).{8,}$";
+                    errorMessage = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
+                    break;
+                default:
+                    pattern = @"^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    errorMessage = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
+                    break;
+            }
+
             var errorCode = "PasswordStrength.Validation";
-            var errorMesage = "Password must be at least 8 characters long and contain one uppercase and one lowercase character and a number.";
-            var error = Error.Validation(errorCode, errorMesage);
+            var error = Error.Validation(errorCode, errorMessage);
             return _regexAssertion.Regex(pattern, error);
         }
 
