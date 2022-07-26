@@ -81,8 +81,11 @@ namespace AssertiveResults.Assertions.Regex
             var code = error.Code;
             var message = error.Message;
 
-            if(string.IsNullOrEmpty(argumentName))
+            if(string.IsNullOrEmpty(argumentName) || string.IsNullOrWhiteSpace(argumentName))
                 argumentName = InputArgument;
+
+            if(string.IsNullOrWhiteSpace(errorCode))
+                errorCode = string.Empty;
 
             if(errorCode == "" && argumentName != InputArgument)
             {
