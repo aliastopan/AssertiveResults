@@ -37,7 +37,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
                     break;
                 case AssertiveResults.PasswordStrength.Maximum:
-                    pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]]).{8,}$";
+                    pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]).{8,}$";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
                     break;
                 default:
