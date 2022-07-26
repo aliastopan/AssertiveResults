@@ -31,13 +31,9 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
-
                 x.Regex.Match(usr)
-                    .Validates.Username();
-
-                x.Regex.Match(usr)
-                    .Contains.Alphabet()
-                    .Contains.Number();
+                    .AgainstInvalid(@"[a-z]+").WithDefaultError("Password")
+                    .Against(@"[A-Z]+");
 
             })
             .Return();

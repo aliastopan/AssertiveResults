@@ -6,7 +6,6 @@ namespace AssertiveResults.Assertions.Regex
 {
     public class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
     {
-        internal bool isMustNot;
         internal Assertation assertation;
         private string _argument;
         private string _input;
@@ -28,16 +27,23 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssertion Match(string input)
         {
             _input = input;
-            isMustNot = false;
             return this;
         }
 
         public IRegexAssert Against(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} doesn't match with the given regex {pattern}.";
+            var errorMessage = $"{DefaultArgument} doesn't match with the given {pattern} expression.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error);
+        }
+
+        public IRegexAssert AgainstInvalid(string pattern)
+        {
+            var errorCode = $"{PrefixError}.Validation";
+            var errorMessage = $"{DefaultArgument} match with the given illegal {pattern} expression.";
+            var error = Error.Validation(errorCode, errorMessage);
+            return Regex(pattern, error, invalid: true);
         }
 
         public IRegexAssert Length(int min, int max)
@@ -98,11 +104,11 @@ namespace AssertiveResults.Assertions.Regex
             return this;
         }
 
-        internal IRegexAssert Regex(string pattern, Error error)
+        internal IRegexAssert Regex(string pattern, Error error, bool invalid = false)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
-            assertation.IsSatisfied = isMustNot ? !isMatch : isMatch;
+            assertation.IsSatisfied = invalid ? !isMatch : isMatch;
             if(!assertation.IsSatisfied)
                 assertation.Errors.Add(error);
 
