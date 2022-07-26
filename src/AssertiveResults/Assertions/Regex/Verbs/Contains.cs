@@ -58,7 +58,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
 
         public IRegexAssert Symbol()
         {
-            var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
+            var pattern = @"[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]+";
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.InputArgument} must contain symbol.";
             var error = Error.Validation(errorCode, errorMesage);
