@@ -28,25 +28,28 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         public IRegexAssert PasswordStrength(PasswordStrength strength = Strength.Standard)
         {
             string pattern;
+            string errorCode;
             string errorDescription;
 
             switch(strength)
             {
-                case AssertiveResults.PasswordStrength.Complex:
+                case Strength.Complex:
                     pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    errorCode = "PasswordStrength.Complex.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
                     break;
-                case AssertiveResults.PasswordStrength.Maximum:
+                case Strength.Maximum:
                     pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]).{8,}$";
+                    errorCode = "PasswordStrength.Maximum.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
                     break;
                 default:
                     pattern = @"^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    errorCode = "PasswordStrength.Standard.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
                     break;
             }
 
-            var errorCode = "PasswordStrength.Validation";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
         }

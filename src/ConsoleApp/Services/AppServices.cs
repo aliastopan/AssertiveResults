@@ -30,9 +30,9 @@ public class AppService : IAppService
 
         var result = Assertive.Result()
             .Assert(x => {
-                var pwd = "&longPassw0rd";
+                var pwd = "&long";
                 x.Regex.Match(pwd)
-                    .Validates.PasswordStrength(PasswordStrength.Maximum);
+                    .Validates.PasswordStrength(PasswordStrength.Complex);
             })
             .Return();
 
