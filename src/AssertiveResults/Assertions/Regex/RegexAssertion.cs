@@ -32,16 +32,16 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert Against(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{InputArgument} doesn't match with the given {pattern} expression.";
-            var error = Error.Validation(errorCode, errorMessage);
+            var errorDescription = $"{InputArgument} doesn't match with the given {pattern} expression.";
+            var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
 
         public IRegexAssert AgainstIllegal(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{InputArgument} match with the given illegal {pattern} expression.";
-            var error = Error.Validation(errorCode, errorMessage);
+            var errorDescription = $"{InputArgument} match with the given illegal {pattern} expression.";
+            var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error, illegal: true);
         }
 
@@ -49,8 +49,8 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{InputArgument} must be between {min} and {max} characters.";
-            var error = Error.Validation(errorCode, errorMessage);
+            var errorDescription = $"{InputArgument} must be between {min} and {max} characters.";
+            var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
 
@@ -58,8 +58,8 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@".{", min, @",}");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{InputArgument} must be least {min} characters.";
-            var error = Error.Validation(errorCode, errorMessage);
+            var errorDescription = $"{InputArgument} must be least {min} characters.";
+            var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
 
@@ -67,8 +67,8 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{InputArgument} cannot be more than {max} characters.";
-            var error = Error.Validation(errorCode, errorMessage);
+            var errorDescription = $"{InputArgument} cannot be more than {max} characters.";
+            var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
 
@@ -79,7 +79,7 @@ namespace AssertiveResults.Assertions.Regex
 
             var error = assertation.Errors[assertation.Errors.Count - 1];
             var code = error.Code;
-            var message = error.Message;
+            var description = error.Description;
 
             if(string.IsNullOrEmpty(argumentName) || string.IsNullOrWhiteSpace(argumentName))
                 argumentName = InputArgument;
@@ -90,16 +90,16 @@ namespace AssertiveResults.Assertions.Regex
             if(errorCode == "" && argumentName != InputArgument)
             {
                 code = code.Replace(PrefixError, argumentName);
-                message = message.Replace(InputArgument, argumentName);
+                description = description.Replace(InputArgument, argumentName);
             }
 
             if(errorCode != "")
             {
                 code = errorCode;
-                message = message.Replace(InputArgument, argumentName);
+                description = description.Replace(InputArgument, argumentName);
             }
 
-            error = Error.Validation(code, message);
+            error = Error.Validation(code, description);
 
             assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
             assertation.Errors.Add(error);

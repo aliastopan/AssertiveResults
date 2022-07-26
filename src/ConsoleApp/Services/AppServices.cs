@@ -48,7 +48,7 @@ public class AppService : IAppService
         {
             foreach (var error in result.Errors)
             {
-                _logger.LogWarning("Error [{0}]: {1}", error.Code, error.Message);
+                _logger.LogWarning("Error [{0}]: {1}", error.Code, error.Description);
             }
         }
     }
@@ -91,7 +91,7 @@ public class AppService : IAppService
         {
             foreach (var error in result.Errors)
             {
-                _logger.LogWarning("Error: {0}", error.Message);
+                _logger.LogWarning("Error: {0}", error.Description);
             }
         }
     }
