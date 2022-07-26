@@ -7,12 +7,14 @@ namespace AssertiveResults.Assertions.Regex
     public class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
     {
         internal Assertation assertation;
+        private const string PREFIX_ERROR = "Regex";
+        private const string INPUT_ARGUMENT = "Input";
         private string _input;
 
         public IContains Contains { get; internal set; }
         public IValidates Validates { get; internal set; }
-        internal string PrefixError => "Regex";
-        internal string DefaultArgument = "Input";
+        internal string PrefixError => PREFIX_ERROR;
+        internal string InputArgument => INPUT_ARGUMENT;
 
         internal RegexAssertion(Assertation assertation)
         {
@@ -30,7 +32,7 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert Against(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} doesn't match with the given {pattern} expression.";
+            var errorMessage = $"{InputArgument} doesn't match with the given {pattern} expression.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error);
         }
@@ -38,7 +40,7 @@ namespace AssertiveResults.Assertions.Regex
         public IRegexAssert AgainstIllegal(string pattern)
         {
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} match with the given illegal {pattern} expression.";
+            var errorMessage = $"{InputArgument} match with the given illegal {pattern} expression.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error, illegal: true);
         }
@@ -47,7 +49,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} must be between {min} and {max} characters.";
+            var errorMessage = $"{InputArgument} must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error);
         }
@@ -56,7 +58,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@".{", min, @",}");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} must be least {min} characters.";
+            var errorMessage = $"{InputArgument} must be least {min} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error);
         }
@@ -65,7 +67,7 @@ namespace AssertiveResults.Assertions.Regex
         {
             var pattern = string.Concat(@"^.{1,", max, @"}$");
             var errorCode = $"{PrefixError}.Validation";
-            var errorMessage = $"{DefaultArgument} cannot be more than {max} characters.";
+            var errorMessage = $"{InputArgument} cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorMessage);
             return Regex(pattern, error);
         }
@@ -80,18 +82,18 @@ namespace AssertiveResults.Assertions.Regex
             var message = error.Message;
 
             if(string.IsNullOrEmpty(argumentName))
-                argumentName = "Input";
+                argumentName = InputArgument;
 
-            if(errorCode == "" && argumentName != "Input")
+            if(errorCode == "" && argumentName != InputArgument)
             {
                 code = code.Replace(PrefixError, argumentName);
-                message = message.Replace(DefaultArgument, argumentName);
+                message = message.Replace(InputArgument, argumentName);
             }
 
             if(errorCode != "")
             {
                 code = errorCode;
-                message = message.Replace(DefaultArgument, argumentName);
+                message = message.Replace(InputArgument, argumentName);
             }
 
             error = Error.Validation(code, message);

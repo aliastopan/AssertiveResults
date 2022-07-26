@@ -33,7 +33,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[a-zA-Z]+";
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
-            var errorMesage = $"{_regexAssertion.DefaultArgument} must contain alphabet.";
+            var errorMesage = $"{_regexAssertion.InputArgument} must contain alphabet.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Regex(pattern, error);
         }
@@ -42,7 +42,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[a-zA-Z0-9]+";
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
-            var errorMesage = $"{_regexAssertion.DefaultArgument} must contain alphabet or number.";
+            var errorMesage = $"{_regexAssertion.InputArgument} must contain alphabet or number.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Regex(pattern, error);
         }
@@ -51,7 +51,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[0-9]+";
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
-            var errorMesage = $"{_regexAssertion.DefaultArgument} must contain number.";
+            var errorMesage = $"{_regexAssertion.InputArgument} must contain number.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Regex(pattern, error);
         }
@@ -60,7 +60,7 @@ namespace AssertiveResults.Assertions.Regex.Verbs
         {
             var pattern = @"[!@#$%^&*()_+=\[{\]};:<>|./?,-]";
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
-            var errorMesage = $"{_regexAssertion.DefaultArgument} must contain symbol.";
+            var errorMesage = $"{_regexAssertion.InputArgument} must contain symbol.";
             var error = Error.Validation(errorCode, errorMesage);
             return _regexAssertion.Regex(pattern, error);
         }
