@@ -1,6 +1,4 @@
-using AssertiveResults;
-
-namespace AssertiveResults.UnitTests;
+namespace AssertiveResults.UnitTests.Regex;
 
 public class RegexSpecialCharTests
 {

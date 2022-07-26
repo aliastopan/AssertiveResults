@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using AssertiveResults;
 using AssertiveResults.Errors;
+using AssertiveResults.Assertions.Regex;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,9 @@ public class AppService : IAppService
 
         LogConsole(result);
         ErrorR();
+
+        _logger.LogInformation("Expression: {0}", Expression.Username(3,8));
+
     }
 
     private void LogConsole(IAssertiveResult result)
