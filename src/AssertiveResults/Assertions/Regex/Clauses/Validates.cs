@@ -2,7 +2,7 @@ using System;
 using AssertiveResults.Errors;
 using Strength = AssertiveResults.PasswordStrength;
 
-namespace AssertiveResults.Assertions.Regex.Verbs
+namespace AssertiveResults.Assertions.Regex.Clauses
 {
     public class Validates : IValidates
     {

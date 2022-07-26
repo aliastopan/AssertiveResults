@@ -1,4 +1,4 @@
-namespace AssertiveResults.Assertions.Regex.Verbs
+namespace AssertiveResults.Assertions.Regex.Clauses
 {
     public interface IContains
     {

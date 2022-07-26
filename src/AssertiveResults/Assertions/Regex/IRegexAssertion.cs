@@ -1,4 +1,4 @@
-using AssertiveResults.Assertions.Regex.Verbs;
+using AssertiveResults.Assertions.Regex.Clauses;
 
 namespace AssertiveResults.Assertions.Regex
 {

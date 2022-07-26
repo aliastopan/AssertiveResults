@@ -1,6 +1,6 @@
 using RegularExpression = System.Text.RegularExpressions.Regex;
 using AssertiveResults.Errors;
-using AssertiveResults.Assertions.Regex.Verbs;
+using AssertiveResults.Assertions.Regex.Clauses;
 
 namespace AssertiveResults.Assertions.Regex
 {

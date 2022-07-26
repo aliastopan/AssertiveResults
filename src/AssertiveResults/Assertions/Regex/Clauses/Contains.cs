@@ -1,6 +1,6 @@
 using AssertiveResults.Errors;
 
-namespace AssertiveResults.Assertions.Regex.Verbs
+namespace AssertiveResults.Assertions.Regex.Clauses
 {
     public class Contains : IContains
     {
