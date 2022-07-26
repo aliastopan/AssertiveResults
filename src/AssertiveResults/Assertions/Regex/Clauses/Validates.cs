@@ -18,7 +18,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
             if(min < 0 || max <= min)
                 throw new InvalidOperationException();
 
-            var pattern = string.Concat(@"^(?=.{", min, @",", max, @"}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            var pattern = Expression.Username(min, max);
             var errorCode = "Username.Validation";
             var errorDescription = "Invalid username format.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -34,17 +34,17 @@ namespace AssertiveResults.Assertions.Regex.Clauses
             switch(strength)
             {
                 case Strength.Complex:
-                    pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    pattern = Expression.Password.Complex();
                     errorCode = "PasswordStrength.Complex.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
                     break;
                 case Strength.Maximum:
-                    pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]).{8,}$";
+                    pattern = Expression.Password.Maximum();
                     errorCode = "PasswordStrength.Maximum.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
                     break;
                 default:
-                    pattern = @"^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                    pattern = Expression.Password.Standard();
                     errorCode = "PasswordStrength.Standard.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
                     break;
@@ -56,7 +56,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert Email()
         {
-            var pattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+            var pattern = Expression.Email();
             var errorCode = "Email.Validation";
             var errorDescription = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorDescription);

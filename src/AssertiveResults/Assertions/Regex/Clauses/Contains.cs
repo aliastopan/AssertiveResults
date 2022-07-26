@@ -13,7 +13,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert LowerCase()
         {
-            var pattern = @"[a-z]+";
+            var pattern = Expression.LOWERCASE;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must contain lower case character.";
             var error = Error.Validation(errorCode, errorMesage);
@@ -22,7 +22,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert UpperCase()
         {
-            var pattern = @"[A-Z]+";
+            var pattern = Expression.UPPERCASE;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"Input must contain upper case character.";
             var error = Error.Validation(errorCode, errorMesage);
@@ -31,7 +31,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert Alphabet()
         {
-            var pattern = @"[a-zA-Z]+";
+            var pattern = Expression.ALPHABET;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.InputArgument} must contain alphabet.";
             var error = Error.Validation(errorCode, errorMesage);
@@ -40,7 +40,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert Alphameric()
         {
-            var pattern = @"[a-zA-Z0-9]+";
+            var pattern = Expression.ALPHAMERIC;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.InputArgument} must contain alphabet or number.";
             var error = Error.Validation(errorCode, errorMesage);
@@ -49,7 +49,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert Number()
         {
-            var pattern = @"[0-9]+";
+            var pattern = Expression.NUMBER;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.InputArgument} must contain number.";
             var error = Error.Validation(errorCode, errorMesage);
@@ -58,7 +58,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 
         public IRegexAssert Symbol()
         {
-            var pattern = @"[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]+";
+            var pattern = Expression.SYMBOL;
             var errorCode = $"{_regexAssertion.PrefixError}.Validation";
             var errorMesage = $"{_regexAssertion.InputArgument} must contain symbol.";
             var error = Error.Validation(errorCode, errorMesage);
