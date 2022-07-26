@@ -7,18 +7,15 @@ namespace AssertiveResults.Assertions.Regex
     public class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
     {
         internal Assertation assertation;
-        private string _argument;
         private string _input;
 
         public IContains Contains { get; internal set; }
         public IValidates Validates { get; internal set; }
         internal string PrefixError => "Regex";
         internal string DefaultArgument = "Input";
-        internal string Argument => string.IsNullOrEmpty(_argument) ? DefaultArgument : _argument;
 
         internal RegexAssertion(Assertation assertation)
         {
-            _argument = string.Empty;
             this.assertation = assertation;
             Contains = new Contains(this);
             Validates = new Validates(this);
@@ -73,22 +70,34 @@ namespace AssertiveResults.Assertions.Regex
             return Regex(pattern, error);
         }
 
-        public IRegexAssertion WithDefaultError(string name)
+        public IRegexAssertion WithErrorDefault(string argumentName = "Input", string errorCode = "")
         {
             if(!assertation.Failed)
                 return this;
 
             var error = assertation.Errors[assertation.Errors.Count - 1];
-            var errorCode = error.Code;
-            var errorMessage = error.Message;
+            var code = error.Code;
+            var message = error.Message;
 
-            _argument = string.IsNullOrEmpty(name) ? DefaultArgument : name;
-            errorCode = errorCode.Replace(PrefixError, Argument);
-            errorMessage = errorMessage.Replace(DefaultArgument, Argument);
-            error = Error.Validation(errorCode, errorMessage);
+            if(string.IsNullOrEmpty(argumentName))
+                argumentName = "Input";
+
+            if(errorCode == "" && argumentName != "Input")
+            {
+                code = code.Replace(PrefixError, argumentName);
+                message = message.Replace(DefaultArgument, argumentName);
+            }
+
+            if(errorCode != "")
+            {
+                code = errorCode;
+                message = message.Replace(DefaultArgument, argumentName);
+            }
+
+            error = Error.Validation(code, message);
+
             assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
             assertation.Errors.Add(error);
-            _argument = string.Empty;
 
             return this;
         }
