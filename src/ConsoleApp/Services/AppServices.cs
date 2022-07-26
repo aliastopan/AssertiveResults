@@ -32,7 +32,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
                 x.Regex.Match(usr)
-                    .Contains.UpperCase().WithErrorDefault("Username", "Username.Illegal");
+                    .Validates.PasswordStrength().WithErrorDefault(errorCode: "334");
             })
             .Return();
 
