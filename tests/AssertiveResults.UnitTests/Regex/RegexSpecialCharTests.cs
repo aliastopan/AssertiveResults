@@ -25,7 +25,7 @@ public class RegexSpecialCharTests
     [InlineData("\\")]
     [InlineData("|")]
     [InlineData(";")]
-    [InlineData(";")]
+    [InlineData(":")]
     [InlineData("'")]
     [InlineData(@"""")]
     [InlineData("<")]
