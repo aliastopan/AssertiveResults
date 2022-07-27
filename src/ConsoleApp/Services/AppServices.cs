@@ -29,24 +29,22 @@ public class AppService : IAppService
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
 
-
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&long";
-                x.Regex.Match(pwd)
-                    .Validates.PasswordStrength(PasswordStrength.Complex);
+                x.Regex.Match(pwd).MinLength(8).WithErrorDefault("PASSWORD");
             })
-            .Assert(x => {
-                x.Should.Null(register);
-            })
+            // .Assert(x => {
+            //     x.Should.Null(register);
+            // })
             .Return();
 
         LogConsole(result);
-        ErrorR();
+        // ErrorR();
 
-        _logger.LogInformation("Expression: {0}", Expression.Length(3,8));
-        _logger.LogInformation("Expression: {0}", Expression.MinLength(3));
-        _logger.LogInformation("Expression: {0}", Expression.MaxLength(8));
+        // _logger.LogInformation("Expression: {0}", Expression.Length(3,8));
+        // _logger.LogInformation("Expression: {0}", Expression.MinLength(3));
+        // _logger.LogInformation("Expression: {0}", Expression.MaxLength(8));
 
     }
 
