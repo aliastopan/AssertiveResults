@@ -44,7 +44,7 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssert Length(int min, int max)
         {
-            var pattern = string.Concat(@"^.{", min, @",", max, @"}$");
+            var pattern = Expression.Length(min, max);
             var errorCode = $"{assertation.ErrorCode}.Validation";
             var errorDescription = $"{assertation.InputName} must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -53,7 +53,7 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssert MinLength(int min)
         {
-            var pattern = string.Concat(@".{", min, @",}");
+            var pattern = Expression.MinLength(min);
             var errorCode = $"{assertation.ErrorCode}.Validation";
             var errorDescription = $"{assertation.InputName} must be least {min} characters.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -62,7 +62,7 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssert MaxLength(int max)
         {
-            var pattern = string.Concat(@"^.{1,", max, @"}$");
+            var pattern = Expression.MaxLength(max);
             var errorCode = $"{assertation.ErrorCode}.Validation";
             var errorDescription = $"{assertation.InputName} cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);
