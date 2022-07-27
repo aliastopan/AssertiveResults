@@ -4,7 +4,7 @@ namespace AssertiveResults.Assertions
 {
     public interface IAssertation
     {
-        IAssertion Must { get; }
+        IAssertion Should { get; }
         IRegex Regex { get; }
     }
 }

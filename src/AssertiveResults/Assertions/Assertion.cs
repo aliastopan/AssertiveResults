@@ -17,7 +17,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = condition;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.Satisfy";
+                var errorCode = "Should.Satisfy";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -30,7 +30,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !condition;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.NotSatisfy";
+                var errorCode = "Should.NotSatisfy";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -43,7 +43,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = @object == null;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.Null";
+                var errorCode = "Should.Null";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -56,7 +56,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = @object != null;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.NotNull";
+                var errorCode = "Should.NotNull";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -69,7 +69,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = former.Equals(latter);
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.Equal";
+                var errorCode = "Should.Equal";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -82,7 +82,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !former.Equals(latter);
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.NotEqual";
+                var errorCode = "Should.NotEqual";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -95,7 +95,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.Empty";
+                var errorCode = "Should.Empty";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -108,7 +108,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = "Must.NotEmpty";
+                var errorCode = "Should.NotEmpty";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }

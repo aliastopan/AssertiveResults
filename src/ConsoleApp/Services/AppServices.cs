@@ -36,6 +36,9 @@ public class AppService : IAppService
                 x.Regex.Match(pwd)
                     .Validates.PasswordStrength(PasswordStrength.Complex);
             })
+            .Assert(x => {
+                x.Should.Null(register);
+            })
             .Return();
 
         LogConsole(result);
