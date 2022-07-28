@@ -34,8 +34,8 @@ public class AppService : IAppService
                 var pwd = "&long";
                 x.Should.Equal(pwd, "&pwd");
                 x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password");
-                // x.Should.Equal(pwd, "&pwd").WithErrorDefault(errorCode: "500");
-                // x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password", "500");
+                x.Should.Equal(pwd, "&pwd").WithErrorDefault(errorCode: "500");
+                x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password", "500");
             })
             // .Assert(x => {
             //     var pwd = "&long";

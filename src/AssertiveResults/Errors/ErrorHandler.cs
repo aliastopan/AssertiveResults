@@ -1,4 +1,5 @@
 using AssertiveResults.Assertions;
+using AssertiveResults.Extensions;
 
 namespace AssertiveResults.Errors
 {
@@ -54,22 +55,6 @@ namespace AssertiveResults.Errors
                 default:
                     return Error.Assertion(errorCode, errorDescription);
             }
-        }
-
-        private static string PreventNullOrEmptyOrWhiteSpace(this string input, string @default)
-        {
-            if(string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
-                input = @default;
-
-            return input;
-        }
-
-        private static string PreventNullOrWhiteSpace(this string input, string @default)
-        {
-            if(string.IsNullOrWhiteSpace(input))
-                input = @default;
-
-            return input;
         }
     }
 }
