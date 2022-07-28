@@ -72,36 +72,6 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert Equal(object former, object latter)
-        {
-            _assertion.IsSatisfied = former.Equals(latter);
-            if(!_assertion.IsSatisfied)
-            {
-                _assertion.ErrorCode = "Equal";
-                var errorCode = $"Should.{_assertion.ErrorCode}";
-                var errorDescription = $"{_assertion.InputName}(s) should be equal.";
-                var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
-            }
-
-            return this;
-        }
-
-        public IAssert NotEqual(object former, object latter)
-        {
-            _assertion.IsSatisfied = !former.Equals(latter);
-            if(!_assertion.IsSatisfied)
-            {
-                _assertion.ErrorCode = "NotEqual";
-                var errorCode = $"Should.{_assertion.ErrorCode}";
-                var errorDescription = $"{_assertion.InputName}(s) should not be equal.";
-                var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
-            }
-
-            return this;
-        }
-
         public IAssert Empty(IEnumerable collection)
         {
             _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
@@ -125,6 +95,36 @@ namespace AssertiveResults.Assertions
                 _assertion.ErrorCode = "NotEmpty";
                 var errorCode = $"Should.{_assertion.ErrorCode}";
                 var errorDescription = $"{_assertion.InputName} should not be emtpy.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
+        public IAssert Equal<T>(T former, T latter)
+        {
+            _assertion.IsSatisfied = former.Equals(latter);
+            if(!_assertion.IsSatisfied)
+            {
+                _assertion.ErrorCode = "Equal";
+                var errorCode = $"Should.{_assertion.ErrorCode}";
+                var errorDescription = $"{_assertion.InputName}(s) should be equal.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
+        public IAssert NotEqual<T>(T former, T latter)
+        {
+            _assertion.IsSatisfied = !former.Equals(latter);
+            if(!_assertion.IsSatisfied)
+            {
+                _assertion.ErrorCode = "NotEqual";
+                var errorCode = $"Should.{_assertion.ErrorCode}";
+                var errorDescription = $"{_assertion.InputName}(s) should not be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
