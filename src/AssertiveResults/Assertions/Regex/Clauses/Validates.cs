@@ -28,28 +28,25 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert PasswordStrength(PasswordStrength strength = Strength.Standard)
         {
             string pattern;
-            string errorCode;
             string errorDescription;
 
             switch(strength)
             {
                 case Strength.Complex:
                     pattern = Expression.Password.Complex();
-                    errorCode = "PasswordStrength.Complex.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
                     break;
                 case Strength.Maximum:
                     pattern = Expression.Password.Maximum();
-                    errorCode = "PasswordStrength.Maximum.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
                     break;
                 default:
                     pattern = Expression.Password.Standard();
-                    errorCode = "PasswordStrength.Standard.Validation";
                     errorDescription = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
                     break;
             }
 
+            var errorCode = "PasswordStrength.Validation";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
         }

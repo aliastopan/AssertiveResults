@@ -16,7 +16,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert LowerCase()
         {
             var pattern = Expression.LOWERCASE;
-            var errorCode = $"{_assertation.InputName}.LowerCase.Validation";
+            var errorCode = $"LowerCase.Validation";
             var errorDescription = $"{_assertation.InputName} must contain lower case character.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
@@ -25,7 +25,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert UpperCase()
         {
             var pattern = Expression.UPPERCASE;
-            var errorCode = $"{_assertation.InputName}.UpperCase.Validation";
+            var errorCode = $"UpperCase.Validation";
             var errorDescription = $"{_assertation.InputName} must contain upper case character.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
@@ -34,7 +34,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert Alphabet()
         {
             var pattern = Expression.ALPHABET;
-            var errorCode = $"{_assertation.InputName}.Alphabet.Validation";
+            var errorCode = $"Alphabet.Validation";
             var errorDescription = $"{_assertation.InputName} must contain alphabet.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
@@ -43,7 +43,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert Alphameric()
         {
             var pattern = Expression.ALPHAMERIC;
-            var errorCode = $"{_assertation.InputName}.Alphameric.Validation";
+            var errorCode = $"Alphameric.Validation";
             var errorDescription = $"{_assertation.InputName} must contain alphabet or number.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
@@ -52,7 +52,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert Number()
         {
             var pattern = Expression.NUMBER;
-            var errorCode = $"{_assertation.InputName}.Number.Validation";
+            var errorCode = $"Number.Validation";
             var errorDescription = $"{_assertation.InputName} must contain number.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
@@ -61,7 +61,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
         public IRegexAssert Symbol()
         {
             var pattern = Expression.SYMBOL;
-            var errorCode = $"{_assertation.InputName}.Symbol.Validation";
+            var errorCode = $"Symbol.Validation";
             var errorDescription = $"{_assertation.InputName} must contain symbol.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);

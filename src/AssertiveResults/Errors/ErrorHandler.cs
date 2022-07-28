@@ -17,17 +17,11 @@ namespace AssertiveResults.Errors
             inputName.PreventNullOrEmptyOrWhiteSpace(@default: assertation.InputName);
             inputName.PreventNullOrWhiteSpace(@default: string.Empty);
 
-            if(errorCode == string.Empty && inputName != assertation.InputName)
-            {
-                code = code.Replace(assertation.InputName, inputName);
-                description = description.Replace(assertation.InputName, inputName);
-            }
-
-            if(errorCode != string.Empty && inputName != string.Empty)
-            {
+            if(errorCode != string.Empty)
                 code = errorCode;
+
+            if(inputName != assertation.InputName)
                 description = description.Replace(assertation.InputName, inputName);
-            }
 
             error = ErrorTypeHandler(type, code, description);
             assertation.Errors.RemoveAt(assertation.Errors.Count - 1);

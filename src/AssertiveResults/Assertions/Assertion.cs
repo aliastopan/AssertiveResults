@@ -17,7 +17,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = condition;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.Boolean.Assertion";
+                var errorCode = $"Boolean.Assertion";
                 var errorDescription = $"{_assertion.InputName} must satisfy the specified condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -31,7 +31,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !condition;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.Boolean.Assertion";
+                var errorCode = $"Boolean.Assertion";
                 var errorDescription = $"{_assertion.InputName} must not satisfy the illegal condition.";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
@@ -45,7 +45,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = @object == null;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.Null.Assertion";
+                var errorCode = $"Null.Assertion";
                 var errorDescription = $"{_assertion.InputName} must be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -59,7 +59,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = @object != null;
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.NotNull.Assertion";
+                var errorCode = $"NotNull.Assertion";
                 var errorDescription = $"{_assertion.InputName} must not be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -73,7 +73,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.Empty.Assertion";
+                var errorCode = $"Empty.Assertion";
                 var errorDescription = $"{_assertion.InputName} must be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -87,7 +87,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.NotEmpty.Assertion";
+                var errorCode = $"NotEmpty.Assertion";
                 var errorDescription = $"{_assertion.InputName} must not be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -101,7 +101,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = former.Equals(latter);
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.Equal.Assertion";
+                var errorCode = $"Equal.Assertion";
                 var errorDescription = $"{_assertion.InputName}(s) must be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
@@ -115,7 +115,7 @@ namespace AssertiveResults.Assertions
             _assertion.IsSatisfied = !former.Equals(latter);
             if(!_assertion.IsSatisfied)
             {
-                var errorCode = $"{_assertion.InputName}.NotEqual.Assertion";
+                var errorCode = $"NotEqual.Assertion";
                 var errorDescription = $"{_assertion.InputName}(s) must not be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
