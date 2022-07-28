@@ -4,12 +4,13 @@ namespace AssertiveResults.Errors
 {
     internal static class ErrorHandler
     {
-        internal static void WithErrorDefault(Assertation assertation, ErrorType errorType, string inputName, string errorCode)
+        internal static void WithErrorDefault(Assertation assertation, string inputName, string errorCode)
         {
             if(!assertation.Failed)
                 return;
 
             var error = assertation.Errors[assertation.Errors.Count - 1];
+            var type = error.ErrorType;
             var code = error.Code;
             var description = error.Description;
 
@@ -28,7 +29,7 @@ namespace AssertiveResults.Errors
                 description = description.Replace(assertation.InputName, inputName);
             }
 
-            error = ErrorTypeHandler(errorType, code, description);
+            error = ErrorTypeHandler(type, code, description);
             assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
             assertation.Errors.Add(error);
         }
@@ -46,6 +47,8 @@ namespace AssertiveResults.Errors
         {
             switch(errorType)
             {
+                case ErrorType.Failure:
+                    return Error.Failure(errorCode, errorDescription);
                 case ErrorType.Conflict:
                     return Error.Conflict(errorCode, errorDescription);
                 case ErrorType.NotFound:
@@ -55,7 +58,7 @@ namespace AssertiveResults.Errors
                 case ErrorType.Validation:
                     return Error.Validation(errorCode, errorDescription);
                 default:
-                    return Error.Failure(errorCode, errorDescription);
+                    return Error.Assertion(errorCode, errorDescription);
             }
         }
 

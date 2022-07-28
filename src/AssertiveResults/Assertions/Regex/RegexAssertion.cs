@@ -70,7 +70,7 @@ namespace AssertiveResults.Assertions.Regex
 
         public IRegexAssertion WithErrorDefault(string inputName = "Input", string errorCode = "")
         {
-            ErrorHandler.WithErrorDefault(assertation, ErrorType.Validation, inputName, errorCode);
+            ErrorHandler.WithErrorDefault(assertation, inputName, errorCode);
             return this;
         }
 

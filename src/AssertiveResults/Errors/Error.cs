@@ -19,7 +19,7 @@ namespace AssertiveResults.Errors
             string code = "Assertion.Error",
             string description = "An assertion error has occured.")
         {
-            return new Error(ErrorType.Failure, code, description);
+            return new Error(ErrorType.Assertion, code, description);
         }
 
         public static Error Failure(
