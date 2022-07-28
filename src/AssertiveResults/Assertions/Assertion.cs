@@ -18,7 +18,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.Boolean.Assertion";
-                var errorDescription = $"{_assertion.InputName} did not satisfy the specified condition.";
+                var errorDescription = $"{_assertion.InputName} must satisfy the specified condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -32,7 +32,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.Boolean.Assertion";
-                var errorDescription = $"{_assertion.InputName} satisfy the illegal condition.";
+                var errorDescription = $"{_assertion.InputName} must not satisfy the illegal condition.";
                 var error = Error.Assertion(errorCode);
                 _assertion.Errors.Add(error);
             }
@@ -46,7 +46,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.Null.Assertion";
-                var errorDescription = $"{_assertion.InputName} is not null.";
+                var errorDescription = $"{_assertion.InputName} must be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -60,7 +60,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.NotNull.Assertion";
-                var errorDescription = $"{_assertion.InputName} is null.";
+                var errorDescription = $"{_assertion.InputName} must not be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -74,7 +74,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.Empty.Assertion";
-                var errorDescription = $"{_assertion.InputName} is not empty.";
+                var errorDescription = $"{_assertion.InputName} must be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -88,7 +88,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.NotEmpty.Assertion";
-                var errorDescription = $"{_assertion.InputName} is emtpy.";
+                var errorDescription = $"{_assertion.InputName} must not be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -102,7 +102,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.Equal.Assertion";
-                var errorDescription = $"{_assertion.InputName} (former/latter) are not equal.";
+                var errorDescription = $"{_assertion.InputName}(s) must be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }
@@ -116,7 +116,7 @@ namespace AssertiveResults.Assertions
             if(!_assertion.IsSatisfied)
             {
                 var errorCode = $"{_assertion.InputName}.NotEqual.Assertion";
-                var errorDescription = $"{_assertion.InputName} (former/latter) are equal.";
+                var errorDescription = $"{_assertion.InputName}(s) must not be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertion.Errors.Add(error);
             }

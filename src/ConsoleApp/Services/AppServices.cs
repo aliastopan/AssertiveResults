@@ -34,16 +34,16 @@ public class AppService : IAppService
                 var pwd = "&long";
                 x.Should.Equal(pwd, "&pwd");
                 x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password");
-                x.Should.Equal(pwd, "&pwd").WithErrorDefault(errorCode: "500");
-                x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password", "500");
+                // x.Should.Equal(pwd, "&pwd").WithErrorDefault(errorCode: "500");
+                // x.Should.Equal(pwd, "&pwd").WithErrorDefault("Password", "500");
             })
-            .Assert(x => {
-                var pwd = "&long";
-                x.Regex.Match(pwd).Contains.UpperCase();
-                x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault("Password");
-                x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault(errorCode: "334");
-                x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault("Password", "334");
-            })
+            // .Assert(x => {
+            //     var pwd = "&long";
+            //     x.Regex.Match(pwd).Contains.UpperCase();
+            //     x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault("Password");
+            //     x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault(errorCode: "334");
+            //     x.Regex.Match(pwd).Contains.UpperCase().WithErrorDefault("Password", "334");
+            // })
             // .Assert(x => {
             //     x.Should.Null(register);
             //     x.Should.Null(register).WithErrorDefault("NewPassword");
