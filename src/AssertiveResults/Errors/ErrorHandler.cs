@@ -18,9 +18,8 @@ namespace AssertiveResults.Errors
 
             if(errorCode == string.Empty && inputName != assertation.InputName)
             {
-                code = code.Replace(assertation.ErrorCode, inputName);
+                code = code.Replace(assertation.InputName, inputName);
                 description = description.Replace(assertation.InputName, inputName);
-                System.Console.WriteLine(description);
             }
 
             if(errorCode != string.Empty && inputName != string.Empty)
