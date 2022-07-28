@@ -12,5 +12,7 @@ namespace AssertiveResults.Assertions
         IAssert NotEmpty(IEnumerable collection);
         IAssert Equal<T>(T former, T latter);
         IAssert NotEqual<T>(T former, T latter);
+        IAssert Same(object former, object latter);
+        IAssert NotSame(object former, object latter);
     }
 }

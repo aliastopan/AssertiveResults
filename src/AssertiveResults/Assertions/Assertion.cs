@@ -124,6 +124,35 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
+
+        public IAssert Same(object former, object latter)
+        {
+            _assertion.IsSatisfied = former == latter;
+            if(!_assertion.IsSatisfied)
+            {
+                var errorCode = $"Equal.Assertion";
+                var errorDescription = $"{_assertion.InputName}(s) must be the same instance.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
+        public IAssert NotSame(object former, object latter)
+        {
+            _assertion.IsSatisfied = former != latter;
+            if(!_assertion.IsSatisfied)
+            {
+                var errorCode = $"Equal.Assertion";
+                var errorDescription = $"{_assertion.InputName}(s) must not be the same instance.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
         public IAssertion WithError(Error error)
         {
             ErrorHandler.WithError(_assertion, error);
