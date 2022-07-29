@@ -62,8 +62,15 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Return<T>(T value)
+        public IAssertiveResult<T> Return<T>(T value, bool overwrite = false)
         {
+            if(!HasError)
+                Success = true;
+
+            if(overwrite)
+                return new Assertive<T>(value, this);
+
+            value = Failed ? default : value;
             return new Assertive<T>(value, this);
         }
     }
@@ -78,7 +85,7 @@ namespace AssertiveResults
             this._counter = assertive._counter;
             this._breakPoint = assertive._breakPoint;
             this.Success = assertive.Success;
-            Value = Success ? value : default;
+            Value = value;
         }
     }
 }
