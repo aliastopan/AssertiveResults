@@ -2,17 +2,17 @@ using AssertiveResults;
 
 namespace AssertiveResults.UnitTests;
 
-public class AssertiveResultTest
+public class XunitTests
 {
     private ITestOutputHelper output;
 
-    public AssertiveResultTest(ITestOutputHelper output)
+    public XunitTests(ITestOutputHelper output)
     {
         this.output = output;
     }
 
     [Fact]
-    public void AssertTest()
+    public void Test()
     {
         Assert.True(true);
     }
