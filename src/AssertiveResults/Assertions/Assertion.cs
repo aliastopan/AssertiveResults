@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using AssertiveResults.Errors;
 
@@ -124,6 +125,34 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
+        public IAssert StrictEqual<T>(IComparable<T> former, T latter)
+        {
+            int result = former.CompareTo(latter);
+            _assertion.IsSatisfied = former.CompareTo(latter) == 0;
+            if(!_assertion.IsSatisfied)
+            {
+                var errorCode = $"StrictEqual.Assertion";
+                var errorDescription = $"{_assertion.InputName}(s) must have identical values.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+
+            return this;
+        }
+
+        public IAssert NotStrictEqual<T>(IComparable<T> former, T latter)
+        {
+            int result = former.CompareTo(latter);
+            _assertion.IsSatisfied = result != 0;
+            if(!_assertion.IsSatisfied)
+            {
+                var errorCode = $"NotStrictEqual.Assertion";
+                var errorDescription = $"{_assertion.InputName}(s) must not have identical values.";
+                var error = Error.Assertion(errorCode, errorDescription);
+                _assertion.Errors.Add(error);
+            }
+            return this;
+        }
 
         public IAssert Same(object former, object latter)
         {

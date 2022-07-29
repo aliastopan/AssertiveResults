@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 namespace AssertiveResults.Assertions
@@ -12,6 +13,8 @@ namespace AssertiveResults.Assertions
         IAssert NotEmpty(IEnumerable collection);
         IAssert Equal<T>(T former, T latter);
         IAssert NotEqual<T>(T former, T latter);
+        IAssert StrictEqual<T>(IComparable<T> former, T latter);
+        IAssert NotStrictEqual<T>(IComparable<T> former, T latter);
         IAssert Same(object former, object latter);
         IAssert NotSame(object former, object latter);
     }
