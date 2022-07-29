@@ -8,19 +8,19 @@ namespace AssertiveResults
 {
     public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak
     {
-        protected internal List<Error> _errors;
-        protected internal int _counter;
-        protected internal int _breakPoint;
+        protected internal List<Error> errors;
+        protected internal int counter;
+        protected internal int breakPoint;
 
         public bool Success { get; protected internal set;}
         public bool Failed => !Success;
-        public IReadOnlyCollection<Error> Errors => _errors.AsReadOnly();
-        public bool IsBreakPoint => _counter > _breakPoint && _breakPoint != 0;
-        public bool HasError => _errors.Count > 0;
+        public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
+        public bool IsBreakPoint => counter > breakPoint && breakPoint != 0;
+        public bool HasError => errors.Count > 0;
 
         protected Assertive()
         {
-            _errors = new List<Error>();
+            errors = new List<Error>();
         }
 
         public static IAssertive Result()
@@ -30,27 +30,23 @@ namespace AssertiveResults
 
         public IResult Assert(Action<IAssertation> assert)
         {
-            _counter++;
+            counter++;
 
             if(IsBreakPoint && HasError)
-            {
                 return this;
-            }
 
             var assertion = new Assertation();
             assert?.Invoke(assertion);
 
             if(assertion.Failed)
-            {
-                _errors.AddRange(assertion.Errors);
-            }
+                errors.AddRange(assertion.Errors);
 
             return this;
         }
 
         public IBreak Break()
         {
-            _breakPoint = _counter;
+            breakPoint = counter;
             return this;
         }
 
@@ -81,9 +77,9 @@ namespace AssertiveResults
 
         internal Assertive(T value, Assertive assertive)
         {
-            this._errors = assertive._errors;
-            this._counter = assertive._counter;
-            this._breakPoint = assertive._breakPoint;
+            this.errors = assertive.errors;
+            this.counter = assertive.counter;
+            this.breakPoint = assertive.breakPoint;
             this.Success = assertive.Success;
             Value = value;
         }
