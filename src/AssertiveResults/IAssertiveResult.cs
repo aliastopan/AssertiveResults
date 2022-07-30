@@ -8,6 +8,8 @@ namespace AssertiveResults
         bool Success { get; }
         bool Failed { get; }
         IReadOnlyCollection<Error> Errors { get; }
+        Error FirstError { get; }
+        Error LastError { get; }
     }
 
     public interface IAssertiveResult<T> : IAssertiveResult

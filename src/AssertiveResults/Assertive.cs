@@ -18,6 +18,24 @@ namespace AssertiveResults
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
         public bool IsBreakPoint => counter > breakPoint && breakPoint != 0;
 
+        public Error FirstError {
+            get{
+                if(!HasError)
+                    throw new InvalidOperationException();
+
+                return errors[0];
+            }
+        }
+
+        public Error LastError {
+            get{
+                if(!HasError)
+                    throw new InvalidOperationException();
+
+                return errors[errors.Count - 1];
+            }
+        }
+
         protected Assertive()
         {
             errors = new List<Error>();
