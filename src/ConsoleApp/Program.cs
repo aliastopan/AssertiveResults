@@ -16,9 +16,8 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder()
-    .ConfigureServices((context, services) => {
-        services.AddTransient<IAppService, AppService>();
-    })
+    .ConfigureServices((_, services) =>
+        services.AddTransient<IAppService, AppService>())
     .UseSerilog()
     .Build();
 

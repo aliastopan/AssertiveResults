@@ -4,7 +4,7 @@ namespace AssertiveResults.UnitTests;
 
 public class XunitTests
 {
-    private ITestOutputHelper output;
+    private readonly ITestOutputHelper output;
 
     public XunitTests(ITestOutputHelper output)
     {
@@ -14,6 +14,7 @@ public class XunitTests
     [Fact]
     public void Test()
     {
+        output.WriteLine("Out");
         Assert.True(true);
     }
 }

@@ -4,5 +4,5 @@ public record UserAccount(
     Guid Id,
     string Username,
     string Email,
-    string password
+    string Password
 );

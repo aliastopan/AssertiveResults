@@ -12,6 +12,11 @@ namespace AssertiveResults
         protected internal int counter;
         protected internal int breakPoint;
 
+        protected Assertive()
+        {
+            errors = new List<Error>();
+        }
+
         public bool HasError => errors.Count > 0;
         public bool Success => errors.Count == 0;
         public bool Failed => !Success;
@@ -33,11 +38,6 @@ namespace AssertiveResults
 
                 return errors[errors.Count - 1];
             }
-        }
-
-        protected Assertive()
-        {
-            errors = new List<Error>();
         }
 
         public static IAssertive Result()
@@ -87,8 +87,6 @@ namespace AssertiveResults
 
     internal class Assertive<T> : Assertive, IAssertiveResult<T>
     {
-        public T Value { get; internal set; }
-
         internal Assertive(T value, Assertive assertive)
         {
             this.errors = assertive.errors;
@@ -96,5 +94,7 @@ namespace AssertiveResults
             this.breakPoint = assertive.breakPoint;
             Value = Success ? value : default;
         }
+
+        public T Value { get; internal set; }
     }
 }

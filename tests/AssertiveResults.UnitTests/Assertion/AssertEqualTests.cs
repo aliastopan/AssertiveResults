@@ -1,6 +1,6 @@
 namespace AssertiveResults.UnitTests.Assertion;
 
-public record MockRecord(int Id, string value);
+public record MockRecord(int Id, string Value);
 
 public class AssertEqualTests
 {

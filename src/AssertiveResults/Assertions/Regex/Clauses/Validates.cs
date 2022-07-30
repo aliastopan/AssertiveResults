@@ -6,7 +6,7 @@ namespace AssertiveResults.Assertions.Regex.Clauses
 {
     public class Validates : IValidates
     {
-        private RegexAssertion _regexAssertion;
+        private readonly RegexAssertion _regexAssertion;
 
         internal Validates(RegexAssertion regexAssertion)
         {
