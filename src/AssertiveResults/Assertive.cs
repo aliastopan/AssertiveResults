@@ -60,14 +60,30 @@ namespace AssertiveResults
 
         public IAssertiveResult<T> Return<T>(T value, bool overwrite = false)
         {
-            if(!HasError)
-                Success = true;
+            if(HasError)
+                return new Assertive<T>(default, this);
+
+            Success = true;
 
             if(overwrite)
                 return new Assertive<T>(value, this);
 
-            value = Failed ? default : value;
             return new Assertive<T>(value, this);
+        }
+
+        public IAssertiveResult<T> Finalize<T>(Func<Context, T> context)
+        {
+            if(HasError)
+            {
+                Success = false;
+                return new Assertive<T>(default, this);
+            }
+
+            Success = true;
+            var ctx = new Context(Success);
+            context?.Invoke(ctx);
+
+            return new Assertive<T>(context(ctx), this);
         }
     }
 
@@ -81,7 +97,7 @@ namespace AssertiveResults
             this.counter = assertive.counter;
             this.breakPoint = assertive.breakPoint;
             this.Success = assertive.Success;
-            Value = value;
+            Value = Success ? value : default;
         }
     }
 }

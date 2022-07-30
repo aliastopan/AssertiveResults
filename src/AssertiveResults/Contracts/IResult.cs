@@ -9,5 +9,6 @@ namespace AssertiveResults.Contracts
         IBreak Break();
         IAssertiveResult Return();
         IAssertiveResult<T> Return<T>(T value, bool overwrite = false);
+        IAssertiveResult<T> Finalize<T>(Func<Context, T> context);
     }
 }
