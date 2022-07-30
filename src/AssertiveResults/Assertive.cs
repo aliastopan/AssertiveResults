@@ -16,7 +16,6 @@ namespace AssertiveResults
         public bool Success => errors.Count == 0;
         public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
-        public bool IsBreakPoint => counter > breakPoint && breakPoint != 0;
 
         public Error FirstError {
             get{
@@ -50,7 +49,8 @@ namespace AssertiveResults
         {
             counter++;
 
-            if(IsBreakPoint && HasError)
+            var isBreakPoint = counter > breakPoint && breakPoint != 0;
+            if(isBreakPoint && HasError)
                 return this;
 
             var assertion = new Assertation();
