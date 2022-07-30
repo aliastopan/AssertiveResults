@@ -2,11 +2,11 @@ namespace AssertiveResults.Assertions
 {
     public class Context
     {
-        public bool AllCorrect { get; private set; }
+        public bool HasNoError { get; private set; }
 
-        public Context(bool allCorrect)
+        public Context(bool hasNoError)
         {
-            AllCorrect = allCorrect;
+            HasNoError = hasNoError;
         }
     }
 }

@@ -25,11 +25,9 @@ public class AppService : IAppService
     public void Run()
     {
         _logger.LogInformation("Starting...");
-        var sw = new System.Diagnostics.Stopwatch();
 
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
-        sw.Start();
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
@@ -39,11 +37,8 @@ public class AppService : IAppService
                 return new Mock("Text");
             });
 
-        sw.Stop();
-        _logger.LogInformation("{0} ms", sw.Elapsed);
-
         // LogConsole(result);
-        // _logger.LogInformation($"Value: {result.Value}");
+        _logger.LogInformation($"Value: {result.Value}");
 
     }
 

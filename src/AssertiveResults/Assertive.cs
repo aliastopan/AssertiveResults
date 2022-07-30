@@ -12,11 +12,11 @@ namespace AssertiveResults
         protected internal int counter;
         protected internal int breakPoint;
 
-        public bool Success { get; protected internal set;}
+        public bool HasError => errors.Count > 0;
+        public bool Success => errors.Count == 0;
         public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
         public bool IsBreakPoint => counter > breakPoint && breakPoint != 0;
-        public bool HasError => errors.Count > 0;
 
         protected Assertive()
         {
@@ -52,21 +52,15 @@ namespace AssertiveResults
 
         public IAssertiveResult Finalize()
         {
-            if(!HasError)
-                Success = true;
-
             return this;
         }
 
         public IAssertiveResult<T> Finalize<T>(Func<Context, T> context)
         {
             if(HasError)
-            {
-                Success = false;
                 return new Assertive<T>(default, this);
-            }
 
-            var ctx = new Context(allCorrect: Success = true);
+            var ctx = new Context(hasNoError: !HasError);
             var value = context(ctx);
 
             return new Assertive<T>(value, this);
@@ -82,7 +76,6 @@ namespace AssertiveResults
             this.errors = assertive.errors;
             this.counter = assertive.counter;
             this.breakPoint = assertive.breakPoint;
-            this.Success = assertive.Success;
             Value = Success ? value : default;
         }
     }
