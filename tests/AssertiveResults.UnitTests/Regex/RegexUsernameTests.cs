@@ -22,7 +22,7 @@ public class RegexUsernameTests
     {
         var result = Assertive.Result()
             .Assert(x => x.Regex.Match(username).Validates.Username(3, 12))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Failed);
     }
@@ -41,7 +41,7 @@ public class RegexUsernameTests
     {
         var result = Assertive.Result()
             .Assert(x => x.Regex.Match(username).Validates.Username(3, 12))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }

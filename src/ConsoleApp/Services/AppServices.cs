@@ -25,25 +25,43 @@ public class AppService : IAppService
     public void Run()
     {
         _logger.LogInformation("Starting...");
+        var sw = new System.Diagnostics.Stopwatch();
 
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.FirstOrDefault(x => x.Username == register.Username);
-
+        sw.Start();
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
-                x.Should.Equal(pwd, "&pwd5");
+                x.Should.Equal(pwd, "&pwd");
             })
             .Finalize<Mock>(ctx => {
-                if(ctx.AllCorrect)
-                    return new Mock("TRUE");
-                else
-                    return new Mock("FALSE");
+                return new Mock("Text");
             });
 
-        LogConsole(result);
-        _logger.LogInformation($"Value: {result.Value}");
+        sw.Stop();
+        _logger.LogInformation("{0} ms", sw.Elapsed);
 
+        // LogConsole(result);
+        // _logger.LogInformation($"Value: {result.Value}");
+
+    }
+
+    public void Finalizer(System.Diagnostics.Stopwatch sw)
+    {
+        sw.Restart();
+        var result = Assertive.Result()
+            .Assert(x => {
+                var pwd = "&pwd";
+                x.Should.Equal(pwd, "&pwd");
+            })
+            .Finalize<Mock>(ctx => {
+                return new Mock("Text");
+            });
+
+        sw.Stop();
+        Console.WriteLine(sw.Elapsed);
+        // _logger.LogInformation("{0} ms", sw.Elapsed);
     }
 
     private void LogConsole(IAssertiveResult result)

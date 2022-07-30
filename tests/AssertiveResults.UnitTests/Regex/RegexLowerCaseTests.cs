@@ -15,7 +15,7 @@ public class RegexLowerCaseTests
                 x.Regex.Match(input)
                     .Contains.LowerCase();
             })
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }
@@ -31,7 +31,7 @@ public class RegexLowerCaseTests
                 x.Regex.Match(input)
                     .Contains.LowerCase();
             })
-            .Return();
+            .Finalize();
 
         Assert.True(result.Failed);
     }

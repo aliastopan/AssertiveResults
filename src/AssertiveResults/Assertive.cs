@@ -50,25 +50,12 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult Return()
+        public IAssertiveResult Finalize()
         {
             if(!HasError)
                 Success = true;
 
             return this;
-        }
-
-        public IAssertiveResult<T> Return<T>(T value, bool overwrite = false)
-        {
-            if(HasError)
-                return new Assertive<T>(default, this);
-
-            Success = true;
-
-            if(overwrite)
-                return new Assertive<T>(value, this);
-
-            return new Assertive<T>(value, this);
         }
 
         public IAssertiveResult<T> Finalize<T>(Func<Context, T> context)
@@ -79,11 +66,10 @@ namespace AssertiveResults
                 return new Assertive<T>(default, this);
             }
 
-            Success = true;
-            var ctx = new Context(Success);
-            context?.Invoke(ctx);
+            var ctx = new Context(allCorrect: Success = true);
+            var value = context(ctx);
 
-            return new Assertive<T>(context(ctx), this);
+            return new Assertive<T>(value, this);
         }
     }
 

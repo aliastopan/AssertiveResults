@@ -9,7 +9,7 @@ public class AssertNullTests
 
         var result = Assertive.Result()
             .Assert(x => x.Should.Null(user))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }
@@ -21,7 +21,7 @@ public class AssertNullTests
 
         var result = Assertive.Result()
             .Assert(x => x.Should.NotNull(user))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }

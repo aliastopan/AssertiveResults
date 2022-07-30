@@ -7,7 +7,7 @@ public class AssertBooleanTests
     {
         var result = Assertive.Result()
             .Assert(x => x.Should.Satisfy(true))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }
@@ -17,7 +17,7 @@ public class AssertBooleanTests
     {
         var result = Assertive.Result()
             .Assert(x => x.Should.NotSatisfy(false))
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }

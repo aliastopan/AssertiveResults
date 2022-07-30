@@ -17,7 +17,7 @@ public class AssertEmptyTests
                 x.Should.Empty(string1);
                 x.Should.Empty(string2);
             })
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }
@@ -38,7 +38,7 @@ public class AssertEmptyTests
                 x.Should.NotEmpty(string1);
                 x.Should.NotEmpty(string2);
             })
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }

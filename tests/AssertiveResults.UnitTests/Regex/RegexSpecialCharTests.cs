@@ -41,7 +41,7 @@ public class RegexSpecialCharTests
                 x.Regex.Match(input)
                     .Contains.Symbol();
             })
-            .Return();
+            .Finalize();
 
         Assert.True(result.Success);
     }
