@@ -21,9 +21,9 @@ public class AppService : IAppService
         _logger = logger;
         Database = new Database();
 
-        AssertiveResult.Configure(x => {
-            x.SetDefaultAssertMethod(ResolveMethod.Default);
-        });
+        // AssertiveResult.Configure(x => {
+        //     x.SetDefaultAssertMethod(ResolveMethod.Default);
+        // });
     }
 
     public void Run()

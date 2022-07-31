@@ -8,6 +8,7 @@ namespace AssertiveResults.Contracts
         IResult Assert(Action<IAssertation> context);
         IBreak Break();
         IAssertiveResult Resolve();
-        IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result, ResolveMethod resolveMethod = ResolveMethod.Default);
+        IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result);
+        IAssertiveResult<T> Resolve<T>(ResolveMethod resolveMethod, Func<IResolve, T> result);
     }
 }

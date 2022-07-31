@@ -78,24 +78,28 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result, ResolveMethod resolveMethod = ResolveMethod.Default)
+        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result)
         {
-            if(resolveMethod == ResolveMethod.Default)
-                resolveMethod = AssertiveResultSettings.Instance.DefaultResolveMethod;
+            if(HasError)
+                return new Assertive<T>(default, this);
 
+            T value = result(this);
+            return new Assertive<T>(value, this);
+        }
+
+        public IAssertiveResult<T> Resolve<T>(ResolveMethod resolveMethod, Func<IResolve, T> result)
+        {
             switch(resolveMethod)
             {
-                case ResolveMethod.Loose:
+                case ResolveMethod.Tolerant:
                     return Result();
-                case ResolveMethod.Strict:
+                default:
                 {
                     if(HasError)
                         return new Assertive<T>(default, this);
                     else
                         return Result();
                 }
-                default:
-                    throw new InvalidOperationException();
             }
 
             IAssertiveResult<T> Result()
