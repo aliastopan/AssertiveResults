@@ -31,11 +31,11 @@ public class AppService : IAppService
                 var pwd = "&pwd";
                 x.Should.Equal(pwd, "&pwd");
             })
-            .Finalize<Mock>(rst =>
+            .Finalize<Mock>(result =>
             {
-                if(rst.HasError)
+                if(result.HasError)
                 {
-                    Console.WriteLine($"ErrorCount: {rst.Errors.Count}");
+                    Console.WriteLine($"ErrorCount: {result.Errors.Count}");
                 }
                 return new Mock("Text");
             });
