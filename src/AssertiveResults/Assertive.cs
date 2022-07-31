@@ -75,9 +75,6 @@ namespace AssertiveResults
 
         public IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result)
         {
-            if(HasError)
-                return new Assertive<T>(default, this);
-
             T value = result(this);
             return new Assertive<T>(value, this);
         }
@@ -90,7 +87,7 @@ namespace AssertiveResults
             this.errors = assertive.errors;
             this.counter = assertive.counter;
             this.breakPoint = assertive.breakPoint;
-            Value = Success ? value : default;
+            Value = !HasError ? value : default;
         }
 
         public T Value { get; internal set; }

@@ -22,31 +22,27 @@ public class AppService : IAppService
 
     public void Run()
     {
-        int number = 5;
         _logger.LogInformation("Starting...");
-        _logger.LogInformation("Number: {number}", number);
 
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.Find(x => x.Username == register.Username);
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
-                x.Should.Equal(pwd, "&pwd");
+                x.Should.Equal(pwd, "&pwd5");
             })
             .Finalize<Mock>(result =>
             {
-                _logger.LogCritical("Log");
-                number++;
-
                 if(result.HasError)
-                {
-                    Console.WriteLine($"ErrorCount: {result.Errors.Count}");
-                }
+                    _logger.LogCritical("HasError");
+                else
+                    _logger.LogInformation("HasNoError");
+
                 return new Mock("Text");
             });
 
         LogConsole(result);
-        _logger.LogInformation("Number: {number}", number);
+        _logger.LogInformation("Result: {result}", result.Value);
     }
 
     private void LogConsole(IAssertiveResult result)
