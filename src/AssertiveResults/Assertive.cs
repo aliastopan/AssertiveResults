@@ -77,10 +77,26 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result)
+        public IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result, AssertMethod procedure = AssertMethod.Loose)
         {
-            T value = result(this);
-            return new Assertive<T>(value, this);
+            switch(procedure)
+            {
+                case AssertMethod.Strict:
+                {
+                    if(HasError)
+                        return new Assertive<T>(default, this);
+                    else
+                        return Result();
+                }
+                default:
+                    return Result();
+            }
+
+            IAssertiveResult<T> Result()
+            {
+                T value = result(this);
+                return new Assertive<T>(value, this);
+            }
         }
 
         public IAssertiveResult WithMetadata(string metadataName, object metadataValue)

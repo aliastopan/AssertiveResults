@@ -24,8 +24,6 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
-        var lookUp = Database.UserAccounts.Find(x => x.Username == register.Username);
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
@@ -33,12 +31,16 @@ public class AppService : IAppService
             })
             .Finalize<Mock>(_ =>
             {
+                if(_.HasError)
+                    _logger.LogCritical("HAS ERROR");
+                else
+                    _logger.LogCritical("HAS NO ERROR");
+
                 return new Mock("Text");
-            })
-                .WithMetadata("Timestamp", DateTime.UtcNow);
+            }, AssertMethod.Strict);
 
         LogConsole(result);
-        _logger.LogInformation("Result: {result}", result.Value);
+        // _logger.LogInformation("Result: {result}", result.Value);
     }
 
     private void LogConsole(IAssertiveResult result)
