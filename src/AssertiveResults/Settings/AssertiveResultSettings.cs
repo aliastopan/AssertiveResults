@@ -9,6 +9,6 @@ namespace AssertiveResults.Settings
 
         private AssertiveResultSettings() { }
 
-        public ResolveMethod DefaultResolveMethod { get; internal set; } = ResolveMethod.Loose;
+        public ResolveMethod DefaultResolveMethod { get; internal set; } = ResolveMethod.Strict;
     }
 }

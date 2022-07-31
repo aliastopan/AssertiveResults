@@ -45,14 +45,14 @@ public class AppService : IAppService
                 return new Mock("Text");
             });
 
-        result
-            .WithMetadata("Timestamp", DateTime.UtcNow)
-            .WithMetadata("TraceId", Activity.Current?.Id ?? Guid.NewGuid().ToString());
+        // result
+        //     .WithMetadata("Timestamp", DateTime.UtcNow)
+        //     .WithMetadata("TraceId", Activity.Current?.Id ?? Guid.NewGuid().ToString());
 
-        var traceId = result.GetMetadata("TraceId");
+        // var traceId = result.GetMetadata("TraceId");
 
         LogConsole(result);
-        _logger.LogInformation("TraceId: {traceId}", traceId);
+        // _logger.LogInformation("TraceId: {traceId}", traceId);
     }
 
     private void LogConsole(IAssertiveResult result)
