@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak, IFinalize
+    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak, IResolve
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
@@ -72,16 +72,16 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult Finalize()
+        public IAssertiveResult Resolve()
         {
             return this;
         }
 
-        public IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result, AssertMethod procedure = AssertMethod.Loose)
+        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result, ResolveMethod resolveMethod = ResolveMethod.Loose)
         {
-            switch(procedure)
+            switch(resolveMethod)
             {
-                case AssertMethod.Strict:
+                case ResolveMethod.Strict:
                 {
                     if(HasError)
                         return new Assertive<T>(default, this);

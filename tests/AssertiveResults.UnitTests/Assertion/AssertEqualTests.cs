@@ -18,7 +18,7 @@ public class AssertEqualTests
                 var latter = new MockRecord(5, "five");
                 x.Should.Equal(former, latter);
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }
@@ -37,7 +37,7 @@ public class AssertEqualTests
                 var latter = new MockRecord(6, "six");
                 x.Should.NotEqual(former, latter);
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }

@@ -12,7 +12,7 @@ public class AssertSameTests
 
                 x.Should.Same(firstInstance, secondInstance);
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }
@@ -27,7 +27,7 @@ public class AssertSameTests
 
                 x.Should.NotSame(firstInstance, secondInstance);
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }

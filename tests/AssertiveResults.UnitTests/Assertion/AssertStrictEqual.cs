@@ -33,7 +33,7 @@ public class AssertStrictEqual
                 var latter = new Dummy(1, "plain/text");
                 x.Should.StrictEqual<Dummy>(former, latter);
             }))
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }
@@ -47,7 +47,7 @@ public class AssertStrictEqual
                 var latter = new Dummy(2, "text");
                 x.Should.NotStrictEqual<Dummy>(former, latter);
             }))
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }

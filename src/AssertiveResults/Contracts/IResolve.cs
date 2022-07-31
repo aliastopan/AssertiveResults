@@ -3,7 +3,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Contracts
 {
-    public interface IFinalize
+    public interface IResolve
     {
         bool HasError { get; }
         IReadOnlyCollection<Error> Errors { get; }

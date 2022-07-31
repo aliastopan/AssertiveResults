@@ -29,7 +29,7 @@ public class AppService : IAppService
                 var pwd = "&pwd";
                 x.Should.Equal(pwd, "&pwd5");
             })
-            .Finalize<Mock>(_ =>
+            .Resolve<Mock>(_ =>
             {
                 if(_.HasError)
                     _logger.LogCritical("HAS ERROR");
@@ -37,7 +37,7 @@ public class AppService : IAppService
                     _logger.LogCritical("HAS NO ERROR");
 
                 return new Mock("Text");
-            }, AssertMethod.Strict);
+            });
 
         LogConsole(result);
         // _logger.LogInformation("Result: {result}", result.Value);

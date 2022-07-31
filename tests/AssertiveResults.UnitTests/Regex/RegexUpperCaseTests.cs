@@ -13,7 +13,7 @@ public class RegexUpperCaseTests
                 x.Regex.Match(input)
                     .Contains.UpperCase();
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Success);
     }
@@ -31,7 +31,7 @@ public class RegexUpperCaseTests
                 x.Regex.Match(input)
                     .Contains.UpperCase();
             })
-            .Finalize();
+            .Resolve();
 
         Assert.True(result.Failed);
     }

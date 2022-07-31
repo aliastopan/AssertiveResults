@@ -1,6 +1,6 @@
 namespace AssertiveResults
 {
-    public enum AssertMethod
+    public enum ResolveMethod
     {
         Loose,
         Strict
