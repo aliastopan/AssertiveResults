@@ -22,7 +22,9 @@ public class AppService : IAppService
 
     public void Run()
     {
+        int number = 5;
         _logger.LogInformation("Starting...");
+        _logger.LogInformation("Number: {number}", number);
 
         var register = new UserAccount(Guid.NewGuid(), "einharan", "mail@proton.me", "longpassword&0");
         var lookUp = Database.UserAccounts.Find(x => x.Username == register.Username);
@@ -33,6 +35,9 @@ public class AppService : IAppService
             })
             .Finalize<Mock>(result =>
             {
+                _logger.LogCritical("Log");
+                number++;
+
                 if(result.HasError)
                 {
                     Console.WriteLine($"ErrorCount: {result.Errors.Count}");
@@ -41,6 +46,7 @@ public class AppService : IAppService
             });
 
         LogConsole(result);
+        _logger.LogInformation("Number: {number}", number);
     }
 
     private void LogConsole(IAssertiveResult result)
