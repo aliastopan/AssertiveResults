@@ -31,15 +31,11 @@ public class AppService : IAppService
                 var pwd = "&pwd";
                 x.Should.Equal(pwd, "&pwd5");
             })
-            .Finalize<Mock>(result =>
+            .Finalize<Mock>(_ =>
             {
-                if(result.HasError)
-                    _logger.LogCritical("HasError");
-                else
-                    _logger.LogInformation("HasNoError");
-
                 return new Mock("Text");
-            });
+            })
+                .WithMetadata("Timestamp", DateTime.UtcNow);
 
         LogConsole(result);
         _logger.LogInformation("Result: {result}", result.Value);
@@ -50,11 +46,19 @@ public class AppService : IAppService
         _logger.LogInformation("Status: {result}", result.Success ? "Success" : "Failed");
         _logger.LogInformation("Error(s): {count}", result.Errors.Count);
 
-        if (result.Errors.Count > 0)
+        if (result.Failed)
         {
             foreach (var error in result.Errors)
             {
                 _logger.LogWarning("Error [{type}][{code}]: {message}", error.ErrorType, error.Code, error.Description);
+            }
+        }
+
+        if(result.HasMetadata)
+        {
+            foreach (var metadata in result.Metadata)
+            {
+                _logger.LogCritical("[{key}]: {value}", metadata.Key, metadata.Value);
             }
         }
     }

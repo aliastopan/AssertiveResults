@@ -9,18 +9,22 @@ namespace AssertiveResults
     public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak, IFinalize
     {
         protected internal List<Error> errors;
+        protected internal Dictionary<string, object> metadata;
         protected internal int counter;
         protected internal int breakPoint;
 
         protected Assertive()
         {
             errors = new List<Error>();
+            metadata = new Dictionary<string, object>();
         }
 
         public bool HasError => errors.Count > 0;
+        public bool HasMetadata => metadata.Count > 0;
         public bool Success => errors.Count == 0;
         public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
+        public IReadOnlyDictionary<string, object> Metadata => metadata;
 
         public Error FirstError {
             get{
@@ -78,6 +82,15 @@ namespace AssertiveResults
             T value = result(this);
             return new Assertive<T>(value, this);
         }
+
+        public IAssertiveResult WithMetadata(string metadataName, object metadataValue)
+        {
+            if(metadata.ContainsKey(metadataName))
+                return this;
+
+            metadata.Add(metadataName, metadataValue);
+            return this;
+        }
     }
 
     internal class Assertive<T> : Assertive, IAssertiveResult<T>
@@ -91,5 +104,14 @@ namespace AssertiveResults
         }
 
         public T Value { get; internal set; }
+
+        IAssertiveResult<T> IAssertiveResult<T>.WithMetadata(string metadataName, object metadataValue)
+        {
+            if(metadata.ContainsKey(metadataName))
+                return this;
+
+            metadata.Add(metadataName, metadataValue);
+            return this;
+        }
     }
 }

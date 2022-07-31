@@ -7,13 +7,19 @@ namespace AssertiveResults
     {
         bool Success { get; }
         bool Failed { get; }
+        bool HasMetadata { get; }
         IReadOnlyCollection<Error> Errors { get; }
+        IReadOnlyDictionary<string, object> Metadata { get; }
         Error FirstError { get; }
         Error LastError { get; }
+
+        IAssertiveResult WithMetadata(string metadataName, object metadataValue);
     }
 
     public interface IAssertiveResult<T> : IAssertiveResult
     {
         T Value { get; }
+
+        new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
     }
 }
