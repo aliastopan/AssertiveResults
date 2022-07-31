@@ -31,7 +31,14 @@ public class AppService : IAppService
                 var pwd = "&pwd";
                 x.Should.Equal(pwd, "&pwd");
             })
-            .Finalize<Mock>(_ => new Mock("Text"));
+            .Finalize<Mock>(rst =>
+            {
+                if(rst.HasError)
+                {
+                    Console.WriteLine($"ErrorCount: {rst.Errors.Count}");
+                }
+                return new Mock("Text");
+            });
 
         LogConsole(result);
     }

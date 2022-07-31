@@ -5,9 +5,9 @@ namespace AssertiveResults.Contracts
 {
     public interface IResult
     {
-        IResult Assert(Action<IAssertation> assert);
+        IResult Assert(Action<IAssertation> context);
         IBreak Break();
         IAssertiveResult Finalize();
-        IAssertiveResult<T> Finalize<T>(Func<Context, T> context);
+        IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result);
     }
 }

@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak
+    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak, IFinalize
     {
         protected internal List<Error> errors;
         protected internal int counter;
@@ -45,7 +45,7 @@ namespace AssertiveResults
             return new Assertive();
         }
 
-        public IResult Assert(Action<IAssertation> assert)
+        public IResult Assert(Action<IAssertation> context)
         {
             counter++;
 
@@ -53,11 +53,11 @@ namespace AssertiveResults
             if(isBreakPoint && HasError)
                 return this;
 
-            var assertion = new Assertation();
-            assert?.Invoke(assertion);
+            var assertation = new Assertation();
+            context?.Invoke(assertation);
 
-            if(assertion.Failed)
-                errors.AddRange(assertion.Errors);
+            if(assertation.Failed)
+                errors.AddRange(assertation.Errors);
 
             return this;
         }
@@ -73,14 +73,12 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Finalize<T>(Func<Context, T> context)
+        public IAssertiveResult<T> Finalize<T>(Func<IFinalize, T> result)
         {
             if(HasError)
                 return new Assertive<T>(default, this);
 
-            var ctx = new Context(hasNoError: !HasError);
-            var value = context(ctx);
-
+            T value = result(this);
             return new Assertive<T>(value, this);
         }
     }
