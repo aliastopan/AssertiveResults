@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AssertiveResults.Assertions;
 using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
+using AssertiveResults.Settings;
 
 namespace AssertiveResults
 {
@@ -77,10 +78,15 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result, ResolveMethod resolveMethod = ResolveMethod.Loose)
+        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result, ResolveMethod resolveMethod = ResolveMethod.Default)
         {
+            if(resolveMethod == ResolveMethod.Default)
+                resolveMethod = AssertiveResultSettings.Instance.DefaultResolveMethod;
+
             switch(resolveMethod)
             {
+                case ResolveMethod.Loose:
+                    return Result();
                 case ResolveMethod.Strict:
                 {
                     if(HasError)
@@ -89,7 +95,7 @@ namespace AssertiveResults
                         return Result();
                 }
                 default:
-                    return Result();
+                    throw new InvalidOperationException();
             }
 
             IAssertiveResult<T> Result()

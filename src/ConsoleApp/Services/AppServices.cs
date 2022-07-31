@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using AssertiveResults;
 using AssertiveResults.Errors;
 using AssertiveResults.Assertions.Regex;
+using AssertiveResults.Settings;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
@@ -18,6 +19,10 @@ public class AppService : IAppService
     {
         _logger = logger;
         Database = new Database();
+
+        AssertiveResult.Configure(x => {
+            x.SetDefaultAssertMethod(ResolveMethod.Default);
+        });
     }
 
     public void Run()
