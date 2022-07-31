@@ -113,6 +113,12 @@ namespace AssertiveResults
             metadata.Add(metadataName, metadataValue);
             return this;
         }
+
+        public object GetMetadata(string metadataName)
+        {
+            metadata.TryGetValue(metadataName, out object value);
+            return value;
+        }
     }
 
     internal class Assertive<T> : Assertive, IAssertiveResult<T>

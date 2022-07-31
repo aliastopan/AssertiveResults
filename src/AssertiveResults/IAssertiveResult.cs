@@ -14,6 +14,7 @@ namespace AssertiveResults
         Error LastError { get; }
 
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
+        object GetMetadata(string metadataName);
     }
 
     public interface IAssertiveResult<T> : IAssertiveResult

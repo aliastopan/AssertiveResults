@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using AssertiveResults;
 using AssertiveResults.Errors;
@@ -44,8 +45,14 @@ public class AppService : IAppService
                 return new Mock("Text");
             });
 
+        result
+            .WithMetadata("Timestamp", DateTime.UtcNow)
+            .WithMetadata("TraceId", Activity.Current?.Id ?? Guid.NewGuid().ToString());
+
+        var traceId = result.GetMetadata("TraceId");
+
         LogConsole(result);
-        // _logger.LogInformation("Result: {result}", result.Value);
+        _logger.LogInformation("TraceId: {traceId}", traceId);
     }
 
     private void LogConsole(IAssertiveResult result)
