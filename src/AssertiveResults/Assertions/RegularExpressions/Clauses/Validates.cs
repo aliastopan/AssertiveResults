@@ -18,9 +18,9 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             if(min < 0 || max <= min)
                 throw new InvalidOperationException();
 
-            var pattern = Expression.Username(min, max);
-            var errorCode = "Username.Validation";
-            var errorDescription = "Invalid username format.";
+            string pattern = Expression.Username(min, max);
+            const string errorCode = "Username.Validation";
+            const string errorDescription = "Invalid username format.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
         }
@@ -46,16 +46,16 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
                     break;
             }
 
-            var errorCode = "PasswordStrength.Validation";
+            const string errorCode = "PasswordStrength.Validation";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
         }
 
         public IRegexAssert Email()
         {
-            var pattern = Expression.Email();
-            var errorCode = "Email.Validation";
-            var errorDescription = "Invalid email address format.";
+            string pattern = Expression.Email();
+            const string errorCode = "Email.Validation";
+            const string errorDescription = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorDescription);
             return _regexAssertion.Regex(pattern, error);
         }

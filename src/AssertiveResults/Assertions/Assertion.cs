@@ -18,8 +18,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = condition;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Boolean.Assertion";
-                var errorDescription = $"Value must satisfy the specified condition.";
+                const string errorCode = "Boolean.Assertion";
+                const string errorDescription = "Value must satisfy the specified condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -32,8 +32,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = !condition;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Boolean.Assertion";
-                var errorDescription = $"Value must not satisfy the illegal condition.";
+                const string errorCode = "Boolean.Assertion";
+                const string errorDescription = "Value must not satisfy the illegal condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -46,8 +46,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = @object == null;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Null.Assertion";
-                var errorDescription = $"Value must be null.";
+                const string errorCode = "Null.Assertion";
+                const string errorDescription = "Value must be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -60,8 +60,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = @object != null;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "NotNull.Assertion";
-                var errorDescription = $"Value must not be null.";
+                const string errorCode = "NotNull.Assertion";
+                const string errorDescription = "Value must not be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -74,8 +74,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = !collection.GetEnumerator().MoveNext();
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Empty.Assertion";
-                var errorDescription = $"Value must be empty.";
+                const string errorCode = "Empty.Assertion";
+                const string errorDescription = "Value must be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -88,8 +88,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = collection.GetEnumerator().MoveNext();
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "NotEmpty.Assertion";
-                var errorDescription = $"Value must not be empty.";
+                const string errorCode = "NotEmpty.Assertion";
+                const string errorDescription = "Value must not be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -102,8 +102,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = former.Equals(latter);
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Equal.Assertion";
-                var errorDescription = $"Value(s) must be equal.";
+                const string errorCode = "Equal.Assertion";
+                const string errorDescription = "Value(s) must be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -116,8 +116,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = !former.Equals(latter);
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "NotEqual.Assertion";
-                var errorDescription = $"Value(s) must not be equal.";
+                const string errorCode = "NotEqual.Assertion";
+                const string errorDescription = "Value(s) must not be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -131,8 +131,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = result == 0;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "StrictEqual.Assertion";
-                var errorDescription = $"Value(s) must have identical values.";
+                const string errorCode = "StrictEqual.Assertion";
+                const string errorDescription = "Value(s) must have identical values.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -146,8 +146,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = result != 0;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "NotStrictEqual.Assertion";
-                var errorDescription = $"Value(s) must not have identical values.";
+                const string errorCode = "NotStrictEqual.Assertion";
+                const string errorDescription = "Value(s) must not have identical values.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -159,8 +159,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = former == latter;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Equal.Assertion";
-                var errorDescription = $"Value(s) must be the same instance.";
+                const string errorCode = "Equal.Assertion";
+                const string errorDescription = "Value(s) must be the same instance.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
@@ -173,8 +173,8 @@ namespace AssertiveResults.Assertions
             _assertation.IsSatisfied = former != latter;
             if(!_assertation.IsSatisfied)
             {
-                var errorCode = "Equal.Assertion";
-                var errorDescription = $"Value(s) must not be the same instance.";
+                const string errorCode = "Equal.Assertion";
+                const string errorDescription = "Value(s) must not be the same instance.";
                 var error = Error.Assertion(errorCode, errorDescription);
                 _assertation.Errors.Add(error);
             }
