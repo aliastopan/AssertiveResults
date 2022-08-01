@@ -28,7 +28,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         public IRegexAssert Against(string pattern)
         {
             var errorCode = "Regex.Validation";
-            var errorDescription = $"{assertation.InputName} doesn't match with the given {pattern} expression.";
+            var errorDescription = $"String doesn't match with the given {pattern} expression.";
             var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
@@ -36,7 +36,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         public IRegexAssert AgainstIllegal(string pattern)
         {
             var errorCode = "Regex.Validation";
-            var errorDescription = $"{assertation.InputName} match with the given illegal {pattern} expression.";
+            var errorDescription = $"String match with the given illegal {pattern} expression.";
             var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error, illegal: true);
         }
@@ -45,7 +45,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             var pattern = Expression.Length(min, max);
             var errorCode = "Length.Validation";
-            var errorDescription = $"{assertation.InputName} must be between {min} and {max} characters.";
+            var errorDescription = $"String must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
@@ -54,7 +54,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             var pattern = Expression.MinLength(min);
             var errorCode = "MinLength.Validation";
-            var errorDescription = $"{assertation.InputName} must be least {min} characters.";
+            var errorDescription = $"String must be least {min} characters.";
             var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
@@ -63,7 +63,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             var pattern = Expression.MaxLength(max);
             var errorCode = "MaxLength.Validation";
-            var errorDescription = $"{assertation.InputName} cannot be more than {max} characters.";
+            var errorDescription = $"String cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);
             return Regex(pattern, error);
         }
