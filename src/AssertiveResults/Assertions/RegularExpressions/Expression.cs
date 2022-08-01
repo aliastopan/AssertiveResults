@@ -1,4 +1,4 @@
-namespace AssertiveResults.Assertions.Regex
+namespace AssertiveResults.Assertions.RegularExpressions
 {
     public static class Expression
     {

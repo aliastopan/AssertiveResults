@@ -1,6 +1,6 @@
-using AssertiveResults.Assertions.Regex.Clauses;
+using AssertiveResults.Assertions.RegularExpressions.Clauses;
 
-namespace AssertiveResults.Assertions.Regex
+namespace AssertiveResults.Assertions.RegularExpressions
 {
     public interface IRegexAssertion
     {

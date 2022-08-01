@@ -3,7 +3,7 @@ namespace AssertiveResults.UnitTests.Regex;
 
 public class RegexLowerCaseTests
 {
-   [Theory]
+    [Theory]
     [InlineData("lowercase")]
     [InlineData("lowerUPPER")]
     [InlineData("lower123")]
@@ -12,7 +12,7 @@ public class RegexLowerCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Match(input)
+                x.RegularExpression.Match(input)
                     .Contains.LowerCase();
             })
             .Resolve();
@@ -28,7 +28,7 @@ public class RegexLowerCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Match(input)
+                x.RegularExpression.Match(input)
                     .Contains.LowerCase();
             })
             .Resolve();

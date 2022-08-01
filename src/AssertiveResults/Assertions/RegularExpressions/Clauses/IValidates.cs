@@ -1,6 +1,6 @@
 using Strength = AssertiveResults.PasswordStrength;
 
-namespace AssertiveResults.Assertions.Regex.Clauses
+namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
     public interface IValidates
     {

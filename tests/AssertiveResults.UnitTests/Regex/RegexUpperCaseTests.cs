@@ -10,7 +10,7 @@ public class RegexUpperCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Match(input)
+                x.RegularExpression.Match(input)
                     .Contains.UpperCase();
             })
             .Resolve();
@@ -28,7 +28,7 @@ public class RegexUpperCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.Regex.Match(input)
+                x.RegularExpression.Match(input)
                     .Contains.UpperCase();
             })
             .Resolve();

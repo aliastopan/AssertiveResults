@@ -1,8 +1,7 @@
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using AssertiveResults;
 using AssertiveResults.Errors;
-using AssertiveResults.Assertions.Regex;
+using AssertiveResults.Assertions.RegularExpressions;
 using AssertiveResults.Settings;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
@@ -20,10 +19,6 @@ public class AppService : IAppService
     {
         _logger = logger;
         Database = new Database();
-
-        // AssertiveResult.Configure(x => {
-        //     x.SetDefaultAssertMethod(ResolveMethod.Default);
-        // });
     }
 
     public void Run()
@@ -37,11 +32,6 @@ public class AppService : IAppService
             })
             .Resolve<Mock>(_ =>
             {
-                if(_.HasError)
-                    _logger.LogCritical("HAS ERROR");
-                else
-                    _logger.LogCritical("HAS NO ERROR");
-
                 return new Mock("Text");
             });
 
