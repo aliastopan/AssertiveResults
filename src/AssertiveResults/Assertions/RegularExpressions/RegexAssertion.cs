@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using RegularExpression = System.Text.RegularExpressions.Regex;
 using AssertiveResults.Assertions.RegularExpressions.Clauses;
 using AssertiveResults.Errors;
 
@@ -81,7 +81,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         internal IRegexAssert Regex(string pattern, Error error, bool illegal = false)
         {
-            var regex = new Regex(pattern);
+            var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
             assertation.IsSatisfied = illegal ? !isMatch : isMatch;
             if(!assertation.IsSatisfied)
