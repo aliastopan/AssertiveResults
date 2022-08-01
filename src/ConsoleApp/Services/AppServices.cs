@@ -33,7 +33,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
-                x.Should.Equal(pwd, "&pwd5");
+                x.Should.Equal(pwd, "&pwd5").Otherwise(Errors.Conflict.UsernameTaken);
             })
             .Resolve<Mock>(_ =>
             {

@@ -68,15 +68,14 @@ namespace AssertiveResults.Assertions.Regex
             return Regex(pattern, error);
         }
 
-        public IRegexAssertion WithErrorDefault(string inputName = "Input", string errorCode = "")
+        public IRegexAssertion Otherwise(Error error)
         {
-            ErrorHandler.WithErrorDefault(assertation, inputName, errorCode);
-            return this;
-        }
+            if(assertation.Failed)
+            {
+                assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
+                assertation.Errors.Add(error);
+            }
 
-        public IRegexAssertion WithError(Error error)
-        {
-            ErrorHandler.WithError(assertation, error);
             return this;
         }
 

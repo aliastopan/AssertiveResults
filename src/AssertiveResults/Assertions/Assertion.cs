@@ -6,22 +6,22 @@ namespace AssertiveResults.Assertions
 {
     public class Assertion : IAssertion, IAssert
     {
-        private readonly Assertation _assertion;
+        private readonly Assertation _assertation;
 
         internal Assertion(Assertation assertion)
         {
-            _assertion = assertion;
+            _assertation = assertion;
         }
 
         public IAssert Satisfy(bool condition)
         {
-            _assertion.IsSatisfied = condition;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = condition;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Boolean.Assertion";
-                var errorDescription = $"{_assertion.InputName} must satisfy the specified condition.";
+                var errorDescription = $"{_assertation.InputName} must satisfy the specified condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -29,13 +29,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotSatisfy(bool condition)
         {
-            _assertion.IsSatisfied = !condition;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = !condition;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Boolean.Assertion";
-                var errorDescription = $"{_assertion.InputName} must not satisfy the illegal condition.";
+                var errorDescription = $"{_assertation.InputName} must not satisfy the illegal condition.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -43,13 +43,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert Null(object @object)
         {
-            _assertion.IsSatisfied = @object == null;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = @object == null;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Null.Assertion";
-                var errorDescription = $"{_assertion.InputName} must be null.";
+                var errorDescription = $"{_assertation.InputName} must be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -57,13 +57,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotNull(object @object)
         {
-            _assertion.IsSatisfied = @object != null;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = @object != null;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "NotNull.Assertion";
-                var errorDescription = $"{_assertion.InputName} must not be null.";
+                var errorDescription = $"{_assertation.InputName} must not be null.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -71,13 +71,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert Empty(IEnumerable collection)
         {
-            _assertion.IsSatisfied = !collection.GetEnumerator().MoveNext();
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = !collection.GetEnumerator().MoveNext();
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Empty.Assertion";
-                var errorDescription = $"{_assertion.InputName} must be empty.";
+                var errorDescription = $"{_assertation.InputName} must be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -85,13 +85,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotEmpty(IEnumerable collection)
         {
-            _assertion.IsSatisfied = collection.GetEnumerator().MoveNext();
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = collection.GetEnumerator().MoveNext();
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "NotEmpty.Assertion";
-                var errorDescription = $"{_assertion.InputName} must not be empty.";
+                var errorDescription = $"{_assertation.InputName} must not be empty.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -99,13 +99,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert Equal<T>(T former, T latter)
         {
-            _assertion.IsSatisfied = former.Equals(latter);
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = former.Equals(latter);
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Equal.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must be equal.";
+                var errorDescription = $"{_assertation.InputName}(s) must be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -113,13 +113,13 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotEqual<T>(T former, T latter)
         {
-            _assertion.IsSatisfied = !former.Equals(latter);
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = !former.Equals(latter);
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "NotEqual.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must not be equal.";
+                var errorDescription = $"{_assertation.InputName}(s) must not be equal.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -128,13 +128,13 @@ namespace AssertiveResults.Assertions
         public IAssert StrictEqual<T>(IComparable<T> former, T latter)
         {
             int result = former.CompareTo(latter);
-            _assertion.IsSatisfied = result == 0;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = result == 0;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "StrictEqual.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must have identical values.";
+                var errorDescription = $"{_assertation.InputName}(s) must have identical values.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -143,26 +143,26 @@ namespace AssertiveResults.Assertions
         public IAssert NotStrictEqual<T>(IComparable<T> former, T latter)
         {
             int result = former.CompareTo(latter);
-            _assertion.IsSatisfied = result != 0;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = result != 0;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "NotStrictEqual.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must not have identical values.";
+                var errorDescription = $"{_assertation.InputName}(s) must not have identical values.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
             return this;
         }
 
         public IAssert Same(object former, object latter)
         {
-            _assertion.IsSatisfied = former == latter;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = former == latter;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Equal.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must be the same instance.";
+                var errorDescription = $"{_assertation.InputName}(s) must be the same instance.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
@@ -170,27 +170,26 @@ namespace AssertiveResults.Assertions
 
         public IAssert NotSame(object former, object latter)
         {
-            _assertion.IsSatisfied = former != latter;
-            if(!_assertion.IsSatisfied)
+            _assertation.IsSatisfied = former != latter;
+            if(!_assertation.IsSatisfied)
             {
                 var errorCode = "Equal.Assertion";
-                var errorDescription = $"{_assertion.InputName}(s) must not be the same instance.";
+                var errorDescription = $"{_assertation.InputName}(s) must not be the same instance.";
                 var error = Error.Assertion(errorCode, errorDescription);
-                _assertion.Errors.Add(error);
+                _assertation.Errors.Add(error);
             }
 
             return this;
         }
 
-        public IAssertion WithError(Error error)
+        public IAssertion Otherwise(Error error)
         {
-            ErrorHandler.WithError(_assertion, error);
-            return this;
-        }
+            if(_assertation.Failed)
+            {
+                _assertation.Errors.RemoveAt(_assertation.Errors.Count - 1);
+                _assertation.Errors.Add(error);
+            }
 
-        public IAssertion WithErrorDefault(string inputName = "Input", string errorCode = "")
-        {
-            ErrorHandler.WithErrorDefault(_assertion, inputName, errorCode);
             return this;
         }
     }
