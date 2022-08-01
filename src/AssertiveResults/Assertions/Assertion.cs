@@ -182,7 +182,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssertion Otherwise(Error error)
+        public IAssertion WithError(Error error)
         {
             if(_assertation.Failed)
             {

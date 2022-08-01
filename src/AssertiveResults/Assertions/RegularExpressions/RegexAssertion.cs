@@ -68,7 +68,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
             return Regex(pattern, error);
         }
 
-        public IRegexAssertion Otherwise(Error error)
+        public IRegexAssertion WithError(Error error)
         {
             if(assertation.Failed)
             {

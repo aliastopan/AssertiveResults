@@ -4,6 +4,6 @@ namespace AssertiveResults.Assertions.RegularExpressions
 {
     public interface IRegexAssert : IRegexAssertion
     {
-        IRegexAssertion Otherwise(Error error);
+        IRegexAssertion WithError(Error error);
     }
 }

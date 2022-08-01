@@ -28,7 +28,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => {
                 var pwd = "&pwd";
-                x.Should.Equal(pwd, "&pwd5").Otherwise(Errors.Conflict.UsernameTaken);
+                x.Should.Equal(pwd, "&pwd5").WithError(Errors.Conflict.UsernameTaken);
             })
             .Resolve<Mock>(_ =>
             {

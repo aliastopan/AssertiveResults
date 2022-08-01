@@ -4,6 +4,6 @@ namespace AssertiveResults.Assertions
 {
     public interface IAssert : IAssertion
     {
-        IAssertion Otherwise(Error error);
+        IAssertion WithError(Error error);
     }
 }
