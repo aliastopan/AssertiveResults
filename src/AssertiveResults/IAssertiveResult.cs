@@ -1,3 +1,4 @@
+using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
 using System.Collections.Generic;
 
@@ -13,6 +14,7 @@ namespace AssertiveResults
         Error FirstError { get; }
         Error LastError { get; }
 
+        IResult Extend();
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
     }

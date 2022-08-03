@@ -99,6 +99,11 @@ namespace AssertiveResults
             }
         }
 
+        public IResult Extend()
+        {
+            return this;
+        }
+
         public IBreak Break()
         {
             breakPoint = counter;

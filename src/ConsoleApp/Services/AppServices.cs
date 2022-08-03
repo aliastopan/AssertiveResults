@@ -30,16 +30,24 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var result = Assertive.Result()
-            .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false)).Break()
-            .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false))
-            .Resolve();
+        IAssertiveResult<string> result = Assertive.Result()
+            .Assert(x => x.Should.Satisfy(true))
+            .Assert(x => x.Should.Satisfy(true))
+            .Assert(x => x.Should.Satisfy(true))
+            .Resolve(_ => {
+                return "text";
+            });
 
-        LogConsole(result);
+        IAssertiveResult<int> resultInt = result.Extend()
+            .Assert(x => x.Should.NotNull(result.Value))
+            .Assert(x => x.Should.NotNull(null!))
+            .Assert(x => x.Should.NotNull(null!))
+            .Resolve(_ => 5);
+
+        resultInt.Extend();
+
+        // LogConsole(result);
+        LogConsole(resultInt);
     }
 
     private void LogConsole(IAssertiveResult result)
