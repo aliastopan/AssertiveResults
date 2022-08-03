@@ -19,6 +19,11 @@ public class AppService : IAppService
     {
         _logger = logger;
         Database = new Database();
+
+        AssertiveResult.Configure(opt =>
+        {
+            opt.SetDefaultBreakMethod(BreakMethod.FirstError);
+        });
     }
 
     public void Run()
@@ -26,23 +31,15 @@ public class AppService : IAppService
         _logger.LogInformation("Starting...");
 
         var result = Assertive.Result()
-            .Assert(x => {
-                var pwd = "&pwd";
-                x.Should.Equal(pwd, "&pwd5").WithError(Errors.Conflict.UsernameTaken);
-            })
-            .Resolve<Mock>(_ =>
-            {
-                return new Mock("Text");
-            });
-
-        // result
-        //     .WithMetadata("Timestamp", DateTime.UtcNow)
-        //     .WithMetadata("TraceId", Activity.Current?.Id ?? Guid.NewGuid().ToString());
-
-        // var traceId = result.GetMetadata("TraceId");
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
+            .Resolve();
 
         LogConsole(result);
-        // _logger.LogInformation("TraceId: {traceId}", traceId);
     }
 
     private void LogConsole(IAssertiveResult result)

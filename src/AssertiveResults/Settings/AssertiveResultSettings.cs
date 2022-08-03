@@ -8,5 +8,7 @@ namespace AssertiveResults.Settings
         public static AssertiveResultSettings Instance => lazy.Value;
 
         private AssertiveResultSettings() { }
+
+        public BreakMethod DefaultBreakMethod { get; internal set; } = BreakMethod.Default;
     }
 }

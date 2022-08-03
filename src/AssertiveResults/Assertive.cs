@@ -13,11 +13,19 @@ namespace AssertiveResults
         protected internal Dictionary<string, object> metadata;
         protected internal int counter;
         protected internal int breakPoint;
+        protected internal BreakMethod breakMethod;
 
         protected Assertive()
         {
             errors = new List<Error>();
             metadata = new Dictionary<string, object>();
+        }
+
+        private Assertive(BreakMethod breakMethod)
+        {
+            errors = new List<Error>();
+            metadata = new Dictionary<string, object>();
+            BreakMethod = breakMethod;
         }
 
         public bool HasError => errors.Count > 0;
@@ -45,9 +53,15 @@ namespace AssertiveResults
             }
         }
 
-        public static IAssertive Result()
+        public BreakMethod BreakMethod { get; }
+
+        public static IAssertive Result(BreakMethod breakMethod = BreakMethod.Default)
         {
-            return new Assertive();
+            if(breakMethod == BreakMethod.Default)
+                breakMethod = AssertiveResultSettings.Instance.DefaultBreakMethod;
+
+            Console.WriteLine($"BreakMethod: {breakMethod}");
+            return new Assertive(breakMethod);
         }
 
         public IResult Assert(Action<IContext> context)
@@ -132,6 +146,7 @@ namespace AssertiveResults
             this.errors = assertive.errors;
             this.counter = assertive.counter;
             this.breakPoint = assertive.breakPoint;
+            this.breakMethod = assertive.breakMethod;
             Value = !HasError ? value : default;
         }
 
