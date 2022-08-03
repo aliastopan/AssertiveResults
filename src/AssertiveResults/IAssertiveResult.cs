@@ -14,7 +14,7 @@ namespace AssertiveResults
         Error FirstError { get; }
         Error LastError { get; }
 
-        IResult Extend();
+        IResult Extend(BreakMethod breakMethod = BreakMethod.Default);
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
     }

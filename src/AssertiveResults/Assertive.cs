@@ -97,8 +97,12 @@ namespace AssertiveResults
             }
         }
 
-        public IResult Extend()
+        public IResult Extend(BreakMethod breakMethod = BreakMethod.Default)
         {
+            if(breakMethod == BreakMethod.Default)
+                breakMethod = AssertiveResultSettings.Instance.DefaultBreakMethod;
+
+            this.breakMethod = breakMethod;
             return this;
         }
 
