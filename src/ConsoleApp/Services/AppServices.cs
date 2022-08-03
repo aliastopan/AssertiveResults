@@ -22,7 +22,7 @@ public class AppService : IAppService
 
         AssertiveResult.Configure(opt =>
         {
-            opt.SetDefaultBreakMethod(BreakMethod.FirstError);
+            opt.SetDefaultBreakMethod(BreakMethod.Control);
         });
     }
 
@@ -33,7 +33,7 @@ public class AppService : IAppService
         var result = Assertive.Result()
             .Assert(x => x.Should.Satisfy(false))
             .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false)).Break()
             .Assert(x => x.Should.Satisfy(false))
             .Assert(x => x.Should.Satisfy(false))
             .Assert(x => x.Should.Satisfy(false))

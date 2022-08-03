@@ -25,7 +25,7 @@ namespace AssertiveResults
         {
             errors = new List<Error>();
             metadata = new Dictionary<string, object>();
-            BreakMethod = breakMethod;
+            this.breakMethod = breakMethod;
         }
 
         public bool HasError => errors.Count > 0;
@@ -60,25 +60,43 @@ namespace AssertiveResults
             if(breakMethod == BreakMethod.Default)
                 breakMethod = AssertiveResultSettings.Instance.DefaultBreakMethod;
 
-            Console.WriteLine($"BreakMethod: {breakMethod}");
             return new Assertive(breakMethod);
         }
 
         public IResult Assert(Action<IContext> context)
         {
             counter++;
+            switch(breakMethod)
+            {
+                case BreakMethod.FirstError:
+                {
+                    if(HasError)
+                        return this;
 
-            var isBreakPoint = counter > breakPoint && breakPoint != 0;
-            if(isBreakPoint && HasError)
-                return this;
+                    Assert();
+                    return  this;
+                }
+                case BreakMethod.Control:
+                {
+                    var isBreakPoint = counter > breakPoint && breakPoint != 0;
+                    if(isBreakPoint && HasError)
+                        return this;
 
-            var ctx = new Context();
-            context?.Invoke(ctx);
+                    Assert();
+                    return this;
+                }
+                default:
+                    throw new InvalidOperationException();
+            }
 
-            if(ctx.Failed)
-                errors.AddRange(ctx.Errors);
+            void Assert()
+            {
+                var ctx = new Context();
+                context?.Invoke(ctx);
 
-            return this;
+                if (ctx.Failed)
+                    errors.AddRange(ctx.Errors);
+            }
         }
 
         public IBreak Break()
