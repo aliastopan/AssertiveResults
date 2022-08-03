@@ -53,8 +53,6 @@ namespace AssertiveResults
             }
         }
 
-        public BreakMethod BreakMethod { get; }
-
         public static IAssertive Result(BreakMethod breakMethod = BreakMethod.Default)
         {
             if(breakMethod == BreakMethod.Default)
