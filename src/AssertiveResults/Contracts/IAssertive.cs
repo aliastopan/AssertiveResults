@@ -5,6 +5,6 @@ namespace AssertiveResults.Contracts
 {
     public interface IAssertive
     {
-        IResult Assert(Action<IAssertation> context);
+        IResult Assert(Action<IContext> context);
     }
 }

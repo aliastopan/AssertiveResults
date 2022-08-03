@@ -50,7 +50,7 @@ namespace AssertiveResults
             return new Assertive();
         }
 
-        public IResult Assert(Action<IAssertation> context)
+        public IResult Assert(Action<IContext> context)
         {
             counter++;
 
@@ -58,11 +58,11 @@ namespace AssertiveResults
             if(isBreakPoint && HasError)
                 return this;
 
-            var assertation = new Assertation();
-            context?.Invoke(assertation);
+            var ctx = new Context();
+            context?.Invoke(ctx);
 
-            if(assertation.Failed)
-                errors.AddRange(assertation.Errors);
+            if(ctx.Failed)
+                errors.AddRange(ctx.Errors);
 
             return this;
         }

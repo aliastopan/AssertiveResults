@@ -6,12 +6,12 @@ namespace AssertiveResults.Assertions.RegularExpressions
 {
     public class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
     {
-        internal Assertation assertation;
+        private readonly Context _context;
         private string _input;
 
-        internal RegexAssertion(Assertation assertation)
+        internal RegexAssertion(Context context)
         {
-            this.assertation = assertation;
+            this._context = context;
             Contains = new Contains(this);
             Validates = new Validates(this);
         }
@@ -70,10 +70,10 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IRegexAssertion WithError(Error error)
         {
-            if(assertation.Failed)
+            if(_context.Failed)
             {
-                assertation.Errors.RemoveAt(assertation.Errors.Count - 1);
-                assertation.Errors.Add(error);
+                _context.Errors.RemoveAt(_context.Errors.Count - 1);
+                _context.Errors.Add(error);
             }
 
             return this;
@@ -83,9 +83,9 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
-            assertation.IsSatisfied = illegal ? !isMatch : isMatch;
-            if(!assertation.IsSatisfied)
-                assertation.Errors.Add(error);
+            _context.IsSatisfied = illegal ? !isMatch : isMatch;
+            if(!_context.IsSatisfied)
+                _context.Errors.Add(error);
 
             return this;
         }

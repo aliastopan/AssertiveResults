@@ -4,9 +4,9 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Assertation : IAssertation
+    public class Context : IContext
     {
-        internal Assertation()
+        internal Context()
         {
             Should = new Assertion(this);
             RegularExpression = new RegexAssertion(this);

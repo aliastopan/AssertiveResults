@@ -5,7 +5,7 @@ namespace AssertiveResults.Contracts
 {
     public interface IResult
     {
-        IResult Assert(Action<IAssertation> context);
+        IResult Assert(Action<IContext> context);
         IBreak Break();
         IAssertiveResult Resolve();
         IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result);

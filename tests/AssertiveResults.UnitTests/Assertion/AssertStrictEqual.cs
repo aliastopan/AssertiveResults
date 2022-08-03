@@ -28,7 +28,7 @@ public class AssertStrictEqual
     public void Should_StrictEqual()
     {
         var result = Assertive.Result()
-            .Assert((Action<Assertions.IAssertation>)(x => {
+            .Assert((Action<Assertions.IContext>)(x => {
                 var former = new Dummy(1, "text");
                 var latter = new Dummy(1, "plain/text");
                 x.Should.StrictEqual<Dummy>(former, latter);
@@ -42,7 +42,7 @@ public class AssertStrictEqual
     public void Should_NotStrictEqual()
     {
         var result = Assertive.Result()
-            .Assert((Action<Assertions.IAssertation>)(x => {
+            .Assert((Action<Assertions.IContext>)(x => {
                 var former = new Dummy(1, "text");
                 var latter = new Dummy(2, "text");
                 x.Should.NotStrictEqual<Dummy>(former, latter);
