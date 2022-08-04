@@ -89,7 +89,7 @@ namespace AssertiveResults
             }
         }
 
-        public IResult Extend(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public IResult Overload(BreakBehavior breakBehavior = BreakBehavior.Default)
         {
             if(breakBehavior == BreakBehavior.Default)
                 breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
@@ -188,7 +188,7 @@ namespace AssertiveResults
             }
         }
 
-        public new IResult<T> Extend(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public new IResult<T> Overload(BreakBehavior breakBehavior = BreakBehavior.Default)
         {
             if(breakBehavior == BreakBehavior.Default)
                 breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;

@@ -22,7 +22,7 @@ public class AppService : IAppService
 
         AssertiveResult.Configure(opt =>
         {
-            opt.SetDefaultBreakBehavior(BreakBehavior.Control);
+            opt.SetDefaultBreakBehavior(BreakBehavior.FirstError);
         });
     }
 
@@ -30,20 +30,22 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var r1 = Assertive.Result<string>()
+        var result = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(true))
             .Assert(x => x.Should.Satisfy(true))
-            .Break()
             .Assert(x => x.Should.Satisfy(true))
             .Resolve(_ => "TEXT");
+        LogConsole(result);
+        _logger.LogInformation("Value: {result}", result.Value);
 
-        var r2  = r1.Extend()
+        result.Overload()
             .Assert(x => x.Should.Satisfy(true))
+            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => "STRING");
 
-        LogConsole(r1);
-        _logger.LogInformation("Value: {result}", r1.Value);
-        _logger.LogInformation("Value: {result}", r2.Value);
+        LogConsole(result);
+        _logger.LogInformation("Value: {result}", result.Value);
     }
 
     private void LogConsole(IAssertiveResult result)

@@ -13,7 +13,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest1()
+    public void NonGenericOverloadTest1()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
 
@@ -27,7 +27,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        r1.Extend()
+        r1.Overload()
             .Assert(x => x.Should.Satisfy(true))
             .Resolve();
 
@@ -36,7 +36,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest2()
+    public void NonGenericOverloadTest2()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
 
@@ -50,7 +50,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        r1.Extend()
+        r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -61,7 +61,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest3()
+    public void NonGenericOverloadTest3()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
 
@@ -75,7 +75,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        IAssertiveResult r2 = r1.Extend()
+        IAssertiveResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -86,7 +86,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest4()
+    public void NonGenericOverloadTest4()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
 
@@ -101,7 +101,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        IAssertiveResult r2 = r1.Extend()
+        IAssertiveResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => {
@@ -116,7 +116,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest5()
+    public void NonGenericOverloadTest5()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
 
@@ -130,7 +130,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Success);
 
-        IAssertiveResult r2 = r1.Extend()
+        IAssertiveResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
@@ -140,7 +140,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest6()
+    public void NonGenericOverloadTest6()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
 
@@ -154,7 +154,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Success);
 
-        IAssertiveResult r2 = r1.Extend()
+        IAssertiveResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => r1.Value);
@@ -164,7 +164,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericExtendTest7()
+    public void NonGenericOverloadTest7()
     {
         AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
 
@@ -178,7 +178,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Success);
 
-        r1.Extend()
+        r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => r1.Value);

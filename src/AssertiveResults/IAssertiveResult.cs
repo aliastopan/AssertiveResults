@@ -14,7 +14,7 @@ namespace AssertiveResults
         Error FirstError { get; }
         Error LastError { get; }
 
-        IResult Extend(BreakBehavior breakBehavior = BreakBehavior.Default);
+        IResult Overload(BreakBehavior breakBehavior = BreakBehavior.Default);
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
     }
@@ -24,6 +24,6 @@ namespace AssertiveResults
         T Value { get; }
 
         new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
-        new IResult<T> Extend(BreakBehavior breakBehavior = BreakBehavior.Default);
+        new IResult<T> Overload(BreakBehavior breakBehavior = BreakBehavior.Default);
     }
 }
