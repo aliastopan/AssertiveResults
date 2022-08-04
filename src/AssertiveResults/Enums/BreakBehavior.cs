@@ -1,6 +1,6 @@
 namespace AssertiveResults
 {
-    public enum BreakMethod
+    public enum BreakBehavior
     {
         Default,
         FirstError,

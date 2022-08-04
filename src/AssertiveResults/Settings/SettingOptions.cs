@@ -4,12 +4,12 @@ namespace AssertiveResults.Settings
     {
         internal SettingOptions() { }
 
-        public void SetDefaultBreakMethod(BreakMethod breakMethod)
+        public void SetDefaultBreakBehavior(BreakBehavior breakBehavior)
         {
-            if(breakMethod == BreakMethod.Default)
-                breakMethod = BreakMethod.FirstError;
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = BreakBehavior.FirstError;
 
-            AssertiveResultSettings.Instance.DefaultBreakMethod = breakMethod;
+            AssertiveResultSettings.Instance.DefaultBreakBehavior = breakBehavior;
         }
     }
 }

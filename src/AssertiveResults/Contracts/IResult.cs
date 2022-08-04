@@ -9,6 +9,6 @@ namespace AssertiveResults.Contracts
         IBreak Break();
         IAssertiveResult Resolve();
         IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result);
-        IAssertiveResult<T> Resolve<T>(ResolveMethod resolveMethod, Func<IResolve, T> result);
+        IAssertiveResult<T> Resolve<T>(ResolveBehavior resolveBehavior, Func<IResolve, T> result);
     }
 }

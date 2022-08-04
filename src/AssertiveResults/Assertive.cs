@@ -13,7 +13,7 @@ namespace AssertiveResults
         protected internal Dictionary<string, object> metadata;
         protected internal int counter;
         protected internal int breakPoint;
-        protected internal BreakMethod breakMethod;
+        protected internal BreakBehavior breakBehavior;
 
         protected Assertive()
         {
@@ -21,11 +21,11 @@ namespace AssertiveResults
             metadata = new Dictionary<string, object>();
         }
 
-        private Assertive(BreakMethod breakMethod)
+        private Assertive(BreakBehavior breakBehavior)
         {
             errors = new List<Error>();
             metadata = new Dictionary<string, object>();
-            this.breakMethod = breakMethod;
+            this.breakBehavior = breakBehavior;
         }
 
         public bool HasError => errors.Count > 0;
@@ -37,20 +37,20 @@ namespace AssertiveResults
         public Error FirstError => GetError(index: 0);
         public Error LastError => GetError(index: errors.Count - 1);
 
-        public static IAssertive Result(BreakMethod breakMethod = BreakMethod.Default)
+        public static IAssertive Result(BreakBehavior breakBehavior = BreakBehavior.Default)
         {
-            if(breakMethod == BreakMethod.Default)
-                breakMethod = AssertiveResultSettings.Instance.DefaultBreakMethod;
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
 
-            return new Assertive(breakMethod);
+            return new Assertive(breakBehavior);
         }
 
         public IResult Assert(Action<IContext> context)
         {
             counter++;
-            switch(breakMethod)
+            switch(breakBehavior)
             {
-                case BreakMethod.FirstError:
+                case BreakBehavior.FirstError:
                 {
                     if(HasError)
                         return this;
@@ -58,7 +58,7 @@ namespace AssertiveResults
                     Assert();
                     return  this;
                 }
-                case BreakMethod.Control:
+                case BreakBehavior.Control:
                 {
                     var isBreakPoint = counter > breakPoint && breakPoint != 0;
                     if(isBreakPoint && HasError)
@@ -81,12 +81,12 @@ namespace AssertiveResults
             }
         }
 
-        public IResult Extend(BreakMethod breakMethod = BreakMethod.Default)
+        public IResult Extend(BreakBehavior breakBehavior = BreakBehavior.Default)
         {
-            if(breakMethod == BreakMethod.Default)
-                breakMethod = AssertiveResultSettings.Instance.DefaultBreakMethod;
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
 
-            this.breakMethod = breakMethod;
+            this.breakBehavior = breakBehavior;
             return this;
         }
 
@@ -110,11 +110,11 @@ namespace AssertiveResults
             return new Assertive<T>(value, this);
         }
 
-        public IAssertiveResult<T> Resolve<T>(ResolveMethod resolveMethod, Func<IResolve, T> result)
+        public IAssertiveResult<T> Resolve<T>(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
         {
-            switch(resolveMethod)
+            switch(resolveBehavior)
             {
-                case ResolveMethod.Tolerant:
+                case ResolveBehavior.Tolerant:
                     return Result();
                 default:
                 {
@@ -163,7 +163,7 @@ namespace AssertiveResults
             this.errors = assertive.errors;
             this.counter = assertive.counter;
             this.breakPoint = assertive.breakPoint;
-            this.breakMethod = assertive.breakMethod;
+            this.breakBehavior = assertive.breakBehavior;
             Value = !HasError ? value : default;
         }
 

@@ -1,6 +1,6 @@
 namespace AssertiveResults
 {
-    public enum ResolveMethod
+    public enum ResolveBehavior
     {
         Strict,
         Tolerant

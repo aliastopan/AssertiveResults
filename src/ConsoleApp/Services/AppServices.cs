@@ -22,7 +22,7 @@ public class AppService : IAppService
 
         AssertiveResult.Configure(opt =>
         {
-            opt.SetDefaultBreakMethod(BreakMethod.Control);
+            opt.SetDefaultBreakBehavior(BreakBehavior.Control);
         });
     }
 
