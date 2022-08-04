@@ -158,15 +158,6 @@ namespace AssertiveResults
             Value = default;
         }
 
-        internal Assertive(T value, Assertive assertive)
-        {
-            this.errors = assertive.errors;
-            this.counter = assertive.counter;
-            this.breakPoint = assertive.breakPoint;
-            this.breakBehavior = assertive.breakBehavior;
-            Value = !HasError ? value : default;
-        }
-
         public T Value { get; internal set; }
 
         public new IResult<T> Assert(Action<IContext> context)
