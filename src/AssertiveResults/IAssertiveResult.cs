@@ -24,5 +24,6 @@ namespace AssertiveResults
         T Value { get; }
 
         new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
+        new IResult<T> Extend(BreakBehavior breakBehavior = BreakBehavior.Default);
     }
 }

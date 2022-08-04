@@ -109,37 +109,6 @@ namespace AssertiveResults
             return this;
         }
 
-        public IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result)
-        {
-            if(HasError)
-                return new Assertive<T>(default, this);
-
-            T value = result(this);
-            return new Assertive<T>(value, this);
-        }
-
-        public IAssertiveResult<T> Resolve<T>(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
-        {
-            switch(resolveBehavior)
-            {
-                case ResolveBehavior.Tolerant:
-                    return Result();
-                default:
-                {
-                    if(HasError)
-                        return new Assertive<T>(default, this);
-                    else
-                        return Result();
-                }
-            }
-
-            IAssertiveResult<T> Result()
-            {
-                T value = result(this);
-                return new Assertive<T>(value, this);
-            }
-        }
-
         public IAssertiveResult WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
@@ -183,27 +152,94 @@ namespace AssertiveResults
 
         public T Value { get; internal set; }
 
-        IResult<T> IAssertive<T>.Assert(Action<IContext> context)
+        public new IResult<T> Assert(Action<IContext> context)
+        {
+            counter++;
+            switch(breakBehavior)
+            {
+                case BreakBehavior.FirstError:
+                {
+                    if(HasError)
+                        return this;
+
+                    Assert();
+                    return  this;
+                }
+                case BreakBehavior.Control:
+                {
+                    var isBreakPoint = counter > breakPoint && breakPoint != 0;
+                    if(isBreakPoint && HasError)
+                        return this;
+
+                    Assert();
+                    return this;
+                }
+                default:
+                    throw new InvalidOperationException();
+            }
+
+            void Assert()
+            {
+                var ctx = new Context();
+                context?.Invoke(ctx);
+
+                if (ctx.Failed)
+                    errors.AddRange(ctx.Errors);
+            }
+        }
+
+        public new IResult<T> Extend(BreakBehavior breakBehavior = BreakBehavior.Default)
+        {
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
+
+            this.breakBehavior = breakBehavior;
+            return this;
+        }
+
+        public new IBreak<T> Break()
+        {
+            breakPoint = counter;
+            return this;
+        }
+
+        public new IAssertiveResult<T> Resolve()
         {
             return this;
         }
 
-        IResult<T> IResult<T>.Assert(Action<IContext> context)
+        public IAssertiveResult<T> Resolve(Func<IResolve, T> result)
         {
-            return this;
+            if(HasError)
+                return new Assertive<T>(default, this);
+
+            T value = result(this);
+            return new Assertive<T>(value, this);
         }
 
-        IResult<T> IBreak<T>.Assert(Action<IContext> context)
+        public IAssertiveResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
         {
-            return this;
+            switch(resolveBehavior)
+            {
+                case ResolveBehavior.Tolerant:
+                    return Result();
+                default:
+                {
+                    if(HasError)
+                        return new Assertive<T>(default, this);
+                    else
+                        return Result();
+                }
+            }
+
+            IAssertiveResult<T> Result()
+            {
+                T value = result(this);
+                return new Assertive<T>(value, this);
+            }
         }
 
-        IBreak<T> IResult<T>.Break()
-        {
-            return this;
-        }
-
-        IAssertiveResult<T> IAssertiveResult<T>.WithMetadata(string metadataName, object metadataValue)
+        public new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
                 return this;
