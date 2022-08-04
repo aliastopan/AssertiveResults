@@ -7,4 +7,9 @@ namespace AssertiveResults.Contracts
     {
         IResult Assert(Action<IContext> context);
     }
+
+    public interface IBreak<T> : IBreak
+    {
+        new IResult<T> Assert(Action<IContext> context);
+    }
 }

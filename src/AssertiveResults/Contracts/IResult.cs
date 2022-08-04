@@ -8,7 +8,13 @@ namespace AssertiveResults.Contracts
         IResult Assert(Action<IContext> context);
         IBreak Break();
         IAssertiveResult Resolve();
-        IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result);
-        IAssertiveResult<T> Resolve<T>(ResolveBehavior resolveBehavior, Func<IResolve, T> result);
+        // IAssertiveResult<T> Resolve<T>(Func<IResolve, T> result);
+        // IAssertiveResult<T> Resolve<T>(ResolveBehavior resolveBehavior, Func<IResolve, T> result);
+    }
+
+    public interface IResult<T> : IResult
+    {
+        new IResult<T> Assert(Action<IContext> context);
+        new IBreak<T> Break();
     }
 }

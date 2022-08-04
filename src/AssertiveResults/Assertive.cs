@@ -45,6 +45,14 @@ namespace AssertiveResults
             return new Assertive(breakBehavior);
         }
 
+        public static IAssertive<T> Result<T>(BreakBehavior breakBehavior = BreakBehavior.Default)
+        {
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
+
+            return new Assertive<T>(breakBehavior);
+        }
+
         public IResult Assert(Action<IContext> context)
         {
             counter++;
@@ -156,8 +164,14 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IAssertiveResult<T>
+    internal class Assertive<T> : Assertive, IAssertiveResult<T>, IAssertive<T>, IResult<T>, IBreak<T>
     {
+        internal Assertive(BreakBehavior breakBehavior)
+        {
+            this.breakBehavior = breakBehavior;
+            Value = default;
+        }
+
         internal Assertive(T value, Assertive assertive)
         {
             this.errors = assertive.errors;
@@ -168,6 +182,26 @@ namespace AssertiveResults
         }
 
         public T Value { get; internal set; }
+
+        IResult<T> IAssertive<T>.Assert(Action<IContext> context)
+        {
+            return this;
+        }
+
+        IResult<T> IResult<T>.Assert(Action<IContext> context)
+        {
+            return this;
+        }
+
+        IResult<T> IBreak<T>.Assert(Action<IContext> context)
+        {
+            return this;
+        }
+
+        IBreak<T> IResult<T>.Break()
+        {
+            return this;
+        }
 
         IAssertiveResult<T> IAssertiveResult<T>.WithMetadata(string metadataName, object metadataValue)
         {
