@@ -146,7 +146,7 @@ public class AssertiveResultTests
 
         bool condition = true;
 
-        IAssertiveResult<string> r1 = Assertive.Result()
+        IAssertiveResult<string> r1 = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -170,7 +170,7 @@ public class AssertiveResultTests
 
         bool condition = true;
 
-        IAssertiveResult<string> r1 = Assertive.Result()
+        IAssertiveResult<string> r1 = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))

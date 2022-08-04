@@ -35,11 +35,13 @@ public class AppService : IAppService
             .Assert(x => x.Should.Satisfy(true))
             .Break()
             .Assert(x => x.Should.Satisfy(true))
-            .Resolve();
+            .Resolve(_ => "");
 
         var x  = genResult.Extend()
             .Assert(x => x.Should.Satisfy(true))
-            .Resolve();
+            .Resolve(_ => genResult.Value);
+
+        LogConsole(genResult);
     }
 
     private void LogConsole(IAssertiveResult result)

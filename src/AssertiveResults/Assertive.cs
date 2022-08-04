@@ -203,11 +203,6 @@ namespace AssertiveResults
             return this;
         }
 
-        public new IAssertiveResult<T> Resolve()
-        {
-            return this;
-        }
-
         public IAssertiveResult<T> Resolve(Func<IResolve, T> result)
         {
             if(HasError)
