@@ -157,7 +157,7 @@ public class AssertiveResultTests
         IAssertiveResult r2 = r1.Extend()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
-            .Resolve();
+            .Resolve(_ => r1.Value);
 
         Assert.True(r2.Failed);
         Assert.True(r1.Value == "TEXT");
@@ -181,7 +181,7 @@ public class AssertiveResultTests
         r1.Extend()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
-            .Resolve();
+            .Resolve(_ => r1.Value);
 
         Assert.True(r1.Failed);
         output.WriteLine($"Output: {r1.Value}");

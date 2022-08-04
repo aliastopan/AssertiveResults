@@ -205,11 +205,8 @@ namespace AssertiveResults
 
         public IAssertiveResult<T> Resolve(Func<IResolve, T> result)
         {
-            if(HasError)
-                return new Assertive<T>(default, this);
-
-            T value = result(this);
-            return new Assertive<T>(value, this);
+            Value = HasError ? default : result(this);
+            return this;
         }
 
         public IAssertiveResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
@@ -221,7 +218,7 @@ namespace AssertiveResults
                 default:
                 {
                     if(HasError)
-                        return new Assertive<T>(default, this);
+                        return this;
                     else
                         return Result();
                 }
@@ -229,8 +226,8 @@ namespace AssertiveResults
 
             IAssertiveResult<T> Result()
             {
-                T value = result(this);
-                return new Assertive<T>(value, this);
+                Value = result(this);
+                return this;
             }
         }
 
