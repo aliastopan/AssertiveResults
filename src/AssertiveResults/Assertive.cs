@@ -34,24 +34,8 @@ namespace AssertiveResults
         public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
         public IReadOnlyDictionary<string, object> Metadata => metadata;
-
-        public Error FirstError {
-            get{
-                if(!HasError)
-                    throw new InvalidOperationException();
-
-                return errors[0];
-            }
-        }
-
-        public Error LastError {
-            get{
-                if(!HasError)
-                    throw new InvalidOperationException();
-
-                return errors[errors.Count - 1];
-            }
-        }
+        public Error FirstError => GetError(index: 0);
+        public Error LastError => GetError(index: errors.Count - 1);
 
         public static IAssertive Result(BreakMethod breakMethod = BreakMethod.Default)
         {
@@ -161,6 +145,14 @@ namespace AssertiveResults
         {
             metadata.TryGetValue(metadataName, out object value);
             return value;
+        }
+
+        private Error GetError(int index)
+        {
+            if(!HasError)
+                throw new InvalidOperationException();
+
+            return errors[index];
         }
     }
 
