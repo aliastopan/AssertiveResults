@@ -4,11 +4,11 @@ using Strength = AssertiveResults.PasswordStrength;
 
 namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
-    public class Validates : IValidates
+    public class Format : IFormat
     {
         private readonly RegexAssertion _regexAssertion;
 
-        internal Validates(RegexAssertion regexAssertion)
+        internal Format(RegexAssertion regexAssertion)
         {
             _regexAssertion = regexAssertion;
         }
@@ -25,7 +25,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             return _regexAssertion.Regex(pattern, error);
         }
 
-        public IRegexAssert PasswordStrength(PasswordStrength strength = Strength.Standard)
+        public IRegexAssert StrongPassword(PasswordStrength strength = Strength.Standard)
         {
             string pattern;
             string errorDescription;
@@ -51,7 +51,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             return _regexAssertion.Regex(pattern, error);
         }
 
-        public IRegexAssert Email()
+        public IRegexAssert EmailAddress()
         {
             string pattern = Expression.Email();
             const string errorCode = "Email.Validation";

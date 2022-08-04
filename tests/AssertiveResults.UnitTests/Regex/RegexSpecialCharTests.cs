@@ -38,7 +38,7 @@ public class RegexSpecialCharTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.RegularExpression.Match(input)
+                x.RegularExpression.Validate(input)
                     .Contains.Symbol();
             })
             .Resolve();

@@ -5,10 +5,10 @@ namespace AssertiveResults.Assertions.RegularExpressions
     public interface IRegexAssertion
     {
         IContains Contains { get; }
-        IValidates Validates { get; }
+        IFormat Format { get; }
 
-        IRegexAssert Against(string pattern);
-        IRegexAssert AgainstIllegal(string pattern);
+        IRegexAssert Matches(string pattern);
+        IRegexAssert MatchesIllegal(string pattern);
         IRegexAssert Length(int min, int max);
         IRegexAssert MinLength(int min);
         IRegexAssert MaxLength(int max);

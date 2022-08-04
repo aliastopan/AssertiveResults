@@ -13,19 +13,19 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             this._context = context;
             Contains = new Contains(this);
-            Validates = new Validates(this);
+            Format = new Format(this);
         }
 
         public IContains Contains { get; internal set; }
-        public IValidates Validates { get; internal set; }
+        public IFormat Format { get; internal set; }
 
-        public IRegexAssertion Match(string input)
+        public IRegexAssertion Validate(string input)
         {
             _input = input;
             return this;
         }
 
-        public IRegexAssert Against(string pattern)
+        public IRegexAssert Matches(string pattern)
         {
             var errorCode = "Regex.Validation";
             var errorDescription = $"String doesn't match with the given {pattern} expression.";
@@ -33,7 +33,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
             return Regex(pattern, error);
         }
 
-        public IRegexAssert AgainstIllegal(string pattern)
+        public IRegexAssert MatchesIllegal(string pattern)
         {
             var errorCode = "Regex.Validation";
             var errorDescription = $"String match with the given illegal {pattern} expression.";

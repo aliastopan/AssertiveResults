@@ -26,6 +26,16 @@ public class AppService : IAppService
         });
     }
 
+    public void Run2()
+    {
+        var entry = "einharan";
+        var user = Database.UserAccounts.Find(x => x.Username == entry);
+        var authResult = Assertive.Result<string>()
+            .Assert(ctx => ctx.Should.NotNull(user))
+            .Assert(ctx => ctx.RegularExpression.Validate(entry).Format.StrongPassword())
+            .Resolve(_ => null!);
+    }
+
     public void Run()
     {
         _logger.LogInformation("Starting...");
