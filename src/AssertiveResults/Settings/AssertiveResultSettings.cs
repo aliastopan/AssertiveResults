@@ -9,6 +9,6 @@ namespace AssertiveResults.Settings
 
         private AssertiveResultSettings() { }
 
-        public BreakBehavior DefaultBreakBehavior { get; internal set; } = BreakBehavior.Default;
+        public BreakBehavior DefaultBreakBehavior { get; internal set; } = BreakBehavior.FirstError;
     }
 }
