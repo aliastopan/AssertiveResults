@@ -40,12 +40,22 @@ public class AppService : IAppService
 
         result.Overload()
             .Assert(x => x.Should.Satisfy(true))
-            .Assert(x => x.Should.Satisfy(false))
-            .Assert(x => x.Should.Satisfy(false))
+            .Assert(x => x.Should.Satisfy(true))
+            .Assert(x => x.Should.Satisfy(true))
             .Resolve(_ => "STRING");
+
+        IAssertiveResult x = result.Override()
+            .Assert(x => x.Should.Satisfy(true))
+            .Resolve();
+
+        IAssertiveResult<Mock> y = x.Override<Mock>()
+            .Assert(x => x.Should.Satisfy(true))
+            .Resolve(_ => new Mock("MOCK"));
 
         LogConsole(result);
         _logger.LogInformation("Value: {result}", result.Value);
+        _logger.LogInformation("Override: {result}", result.Success);
+        _logger.LogInformation("Override Value: {result}", y.Value);
     }
 
     private void LogConsole(IAssertiveResult result)

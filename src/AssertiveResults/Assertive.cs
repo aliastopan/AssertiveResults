@@ -98,6 +98,14 @@ namespace AssertiveResults
             return this;
         }
 
+        public IResult<T> Override<T>(BreakBehavior breakBehavior = BreakBehavior.Default)
+        {
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
+
+            return new Assertive<T>(this, breakBehavior);
+        }
+
         public IBreak Break()
         {
             breakPoint = counter;
@@ -137,6 +145,15 @@ namespace AssertiveResults
     {
         internal Assertive(BreakBehavior breakBehavior)
         {
+            this.breakBehavior = breakBehavior;
+            Value = default;
+        }
+
+        internal Assertive(Assertive assertive, BreakBehavior breakBehavior)
+        {
+            this.errors = assertive.errors;
+            this.counter = assertive.counter;
+            this.breakPoint = assertive.breakPoint;
             this.breakBehavior = breakBehavior;
             Value = default;
         }
@@ -194,6 +211,19 @@ namespace AssertiveResults
                 breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
 
             this.breakBehavior = breakBehavior;
+            return this;
+        }
+
+        public new IResult<U> Override<U>(BreakBehavior breakBehavior = BreakBehavior.Default)
+        {
+            if(breakBehavior == BreakBehavior.Default)
+                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
+
+            return new Assertive<U>(this, breakBehavior);
+        }
+
+        public IResult Override(BreakBehavior breakBehavior = BreakBehavior.Default)
+        {
             return this;
         }
 
