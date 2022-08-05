@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using AssertiveResults;
 using AssertiveResults.Errors;
@@ -26,14 +27,78 @@ public class AppService : IAppService
         });
     }
 
+    private static IAssertiveResult DtoValidation(RegisterDto registerDto)
+    {
+        return Assertive.Result()
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Password).Format.StrongPassword())
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress())
+            .Resolve();
+    }
+
+    private IAssertiveResult<RegisterResult> Register(RegisterDto registerDto)
+    {
+        var result = DtoValidation(registerDto);
+        return result.Override<RegisterResult>()
+            .Assert(username =>
+            {
+                var userSearch = Database.Users.Find(x => x.Username == registerDto.Username);
+                var isAvailable =  userSearch is null;
+                username.Should.Satisfy(isAvailable).WithError(Conflict.UsernameTaken);
+            })
+            .Assert(email =>
+            {
+                var emailSearch = Database.Users.Find(x => x.Email == registerDto.Email);
+                var isAvailable = emailSearch is null;
+                email.Should.Satisfy(isAvailable).WithError(Conflict.EmailInUse);
+            })
+            .Resolve(_ =>
+            {
+                var accessToken = Guid.NewGuid().ToString();
+                var user = new UserAccount(
+                    Guid.NewGuid(),
+                    registerDto.Username,
+                    registerDto.Email,
+                    registerDto.Password);
+
+                return new RegisterResult(user.Id, user.Username, accessToken);
+            });
+    }
+
     public void Run2()
     {
-        var entry = "einharan";
-        var user = Database.UserAccounts.Find(x => x.Username == entry);
-        var authResult = Assertive.Result<string>()
-            .Assert(ctx => ctx.Should.NotNull(user))
-            .Assert(ctx => ctx.RegularExpression.Validate(entry).Format.StrongPassword())
-            .Resolve(_ => null!);
+        var registerDto = new RegisterDto("einharan", "einharan@mail.me", "longpassword123");
+
+        var registerResult = Assertive.Result<RegisterResult>()
+            .Assert(dto =>
+            {
+                dto.RegularExpression.Validate(registerDto.Username).Format.Username();
+                dto.RegularExpression.Validate(registerDto.Password).Format.StrongPassword();
+                dto.RegularExpression.Validate(registerDto.Email).Format.EmailAddress();
+            })
+            .Assert(username =>
+            {
+                var userSearch = Database.Users.Find(x => x.Username == registerDto.Username);
+                var available =  userSearch is null;
+                username.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
+            })
+            .Assert(email =>
+            {
+                var emailSearch = Database.Users.Find(x => x.Email == registerDto.Email);
+                var available = emailSearch is null;
+                email.Should.Satisfy(available).WithError(Conflict.EmailInUse);
+            })
+            .Resolve(_ =>
+            {
+                var accessToken = Guid.NewGuid().ToString();
+                var user = new UserAccount(
+                    Guid.NewGuid(),
+                    registerDto.Username,
+                    registerDto.Email,
+                    registerDto.Password);
+
+                return new RegisterResult(user.Id, user.Username, accessToken);
+            });
     }
 
     public void Run()
@@ -66,6 +131,8 @@ public class AppService : IAppService
         _logger.LogInformation("Value: {result}", result.Value);
         _logger.LogInformation("Override: {result}", result.Success);
         _logger.LogInformation("Override Value: {result}", y.Value);
+
+        Run2();
     }
 
     private void LogConsole(IAssertiveResult result)
