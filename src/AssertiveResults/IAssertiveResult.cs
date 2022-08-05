@@ -16,8 +16,8 @@ namespace AssertiveResults
 
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
-        IResult Overload(BreakBehavior breakBehavior = BreakBehavior.Default);
-        IResult<T> Override<T>(BreakBehavior breakBehavior = BreakBehavior.Default);
+        IResult Overload();
+        IResult<T> Override<T>();
     }
 
     public interface IAssertiveResult<T> : IAssertiveResult
@@ -25,8 +25,8 @@ namespace AssertiveResults
         T Value { get; }
 
         new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
-        new IResult<T> Overload(BreakBehavior breakBehavior = BreakBehavior.Default);
-        new IResult<U> Override<U>(BreakBehavior breakBehavior = BreakBehavior.Default);
-        IResult Override(BreakBehavior breakBehavior = BreakBehavior.Default);
+        new IResult<T> Overload();
+        new IResult<U> Override<U>();
+        IResult Override();
     }
 }

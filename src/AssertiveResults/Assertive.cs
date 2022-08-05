@@ -7,25 +7,15 @@ using AssertiveResults.Settings;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult, IBreak, IResolve
+    public class Assertive : IAssertiveResult, IAssertive, IResult, IResolve
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
-        protected internal int counter;
-        protected internal int breakPoint;
-        protected internal BreakBehavior breakBehavior;
 
         protected Assertive()
         {
             errors = new List<Error>();
             metadata = new Dictionary<string, object>();
-        }
-
-        private Assertive(BreakBehavior breakBehavior)
-        {
-            errors = new List<Error>();
-            metadata = new Dictionary<string, object>();
-            this.breakBehavior = breakBehavior;
         }
 
         public bool HasError => errors.Count > 0;
@@ -37,79 +27,38 @@ namespace AssertiveResults
         public Error FirstError => GetError(index: 0);
         public Error LastError => GetError(index: errors.Count - 1);
 
-        public static IAssertive Result(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public static IAssertive Result()
         {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            return new Assertive(breakBehavior);
+            return new Assertive();
         }
 
-        public static IAssertive<T> Result<T>(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public static IAssertive<T> Result<T>()
         {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            return new Assertive<T>(breakBehavior);
+            return new Assertive<T>();
         }
 
         public IResult Assert(Action<IContext> context)
         {
-            counter++;
-            switch(breakBehavior)
-            {
-                case BreakBehavior.FirstError:
-                {
-                    if(HasError)
-                        return this;
+            if(HasError)
+                return this;
 
-                    Assert();
-                    return  this;
-                }
-                case BreakBehavior.Control:
-                {
-                    var isBreakPoint = counter > breakPoint && breakPoint != 0;
-                    if(isBreakPoint && HasError)
-                        return this;
+            var ctx = new Context();
+            context?.Invoke(ctx);
 
-                    Assert();
-                    return this;
-                }
-                default:
-                    throw new InvalidOperationException();
-            }
+            if(ctx.Failed)
+                errors.AddRange(ctx.Errors);
 
-            void Assert()
-            {
-                var ctx = new Context();
-                context?.Invoke(ctx);
-
-                if (ctx.Failed)
-                    errors.AddRange(ctx.Errors);
-            }
-        }
-
-        public IResult Overload(BreakBehavior breakBehavior = BreakBehavior.Default)
-        {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            this.breakBehavior = breakBehavior;
             return this;
         }
 
-        public IResult<T> Override<T>(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public IResult Overload()
         {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            return new Assertive<T>(this, breakBehavior);
+            return this;
         }
 
-        public IBreak Break()
+        public IResult<T> Override<T>()
         {
-            breakPoint = counter;
-            return this;
+            return new Assertive<T>(this);
         }
 
         public IAssertiveResult Resolve()
@@ -141,20 +90,16 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IAssertiveResult<T>, IAssertive<T>, IResult<T>, IBreak<T>
+    internal class Assertive<T> : Assertive, IAssertiveResult<T>, IAssertive<T>, IResult<T>
     {
-        internal Assertive(BreakBehavior breakBehavior)
+        internal Assertive()
         {
-            this.breakBehavior = breakBehavior;
             Value = default;
         }
 
-        internal Assertive(Assertive assertive, BreakBehavior breakBehavior)
+        internal Assertive(Assertive assertive)
         {
             this.errors = assertive.errors;
-            this.counter = assertive.counter;
-            this.breakPoint = assertive.breakPoint;
-            this.breakBehavior = breakBehavior;
             Value = default;
         }
 
@@ -162,65 +107,29 @@ namespace AssertiveResults
 
         public new IResult<T> Assert(Action<IContext> context)
         {
-            counter++;
-            switch(breakBehavior)
-            {
-                case BreakBehavior.FirstError:
-                {
-                    if(HasError)
-                        return this;
+           if(HasError)
+                return this;
 
-                    Assert();
-                    return  this;
-                }
-                case BreakBehavior.Control:
-                {
-                    var isBreakPoint = counter > breakPoint && breakPoint != 0;
-                    if(isBreakPoint && HasError)
-                        return this;
+            var ctx = new Context();
+            context?.Invoke(ctx);
+            if(ctx.Failed)
+                errors.AddRange(ctx.Errors);
 
-                    Assert();
-                    return this;
-                }
-                default:
-                    throw new InvalidOperationException();
-            }
-
-            void Assert()
-            {
-                var ctx = new Context();
-                context?.Invoke(ctx);
-
-                if (ctx.Failed)
-                    errors.AddRange(ctx.Errors);
-            }
-        }
-
-        public new IResult<T> Overload(BreakBehavior breakBehavior = BreakBehavior.Default)
-        {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            this.breakBehavior = breakBehavior;
             return this;
         }
 
-        public new IResult<U> Override<U>(BreakBehavior breakBehavior = BreakBehavior.Default)
-        {
-            if(breakBehavior == BreakBehavior.Default)
-                breakBehavior = AssertiveResultSettings.Instance.DefaultBreakBehavior;
-
-            return new Assertive<U>(this, breakBehavior);
-        }
-
-        public IResult Override(BreakBehavior breakBehavior = BreakBehavior.Default)
+        public new IResult<T> Overload()
         {
             return this;
         }
 
-        public new IBreak<T> Break()
+        public new IResult<U> Override<U>()
         {
-            breakPoint = counter;
+            return new Assertive<U>(this);
+        }
+
+        public IResult Override()
+        {
             return this;
         }
 
