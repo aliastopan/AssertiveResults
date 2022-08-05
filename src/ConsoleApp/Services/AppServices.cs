@@ -57,14 +57,15 @@ public class AppService : IAppService
         var step3 = step2.EmailAvailability(Database, registerDto.Email);
         var step4 = step3.Override<RegisterResult>();
 
-        var registerResult = step4.Resolve(_ => {
+        var registerResult = step4.Resolve(ResolveBehavior.Control, _ => {
             var accessToken = Guid.NewGuid().ToString();
             var user = new UserAccount(
                 Guid.NewGuid(),
                 registerDto.Username,
                 registerDto.Email,
                 registerDto.Password);
-
+            Console.WriteLine("CALLED");
+            _.PurgeErrors();
             return new RegisterResult(user.Id, user.Username, accessToken);
         });
 
@@ -75,8 +76,10 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var result = RegisterUser(null!);
+        var registerDto = new RegisterDto("einharan", "einharan@proton.met", "longpassword123");
+        var result = RegisterUser(registerDto);
         LogConsole(result);
+        _logger.LogInformation("Value: {value}", result.Value);
     }
 
     private void LogConsole(IAssertiveResult result)

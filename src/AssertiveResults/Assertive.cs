@@ -87,6 +87,13 @@ namespace AssertiveResults
 
             return errors[index];
         }
+
+        public int PurgeErrors()
+        {
+            int count = errors.Count;
+            errors.Clear();
+            return count;
+        }
     }
 
     internal class Assertive<T> : Assertive, IAssertiveResult<T>, IAssertive<T>, IResult<T>
@@ -142,7 +149,7 @@ namespace AssertiveResults
         {
             switch(resolveBehavior)
             {
-                case ResolveBehavior.Tolerant:
+                case ResolveBehavior.Control:
                     return Result();
                 default:
                 {

@@ -7,5 +7,7 @@ namespace AssertiveResults.Contracts
     {
         bool HasError { get; }
         IReadOnlyCollection<Error> Errors { get; }
+
+        int PurgeErrors();
     }
 }
