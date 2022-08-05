@@ -1,6 +1,5 @@
-using AssertiveResults.Contracts;
-using AssertiveResults.Errors;
 using System.Collections.Generic;
+using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
