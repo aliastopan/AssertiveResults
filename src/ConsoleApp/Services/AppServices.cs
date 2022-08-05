@@ -11,6 +11,35 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApp.Services;
 
+internal static class Assert
+{
+    internal static IResult ValidateDto(RegisterDto registerDto)
+    {
+        return Assertive.Result()
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Username).Format.Username())
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Password).Format.StrongPassword())
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Email).Format.EmailAddress());
+    }
+
+    internal static IResult UserAvailability(this IResult result, Database database, string username)
+    {
+        return result.Assert(ctx => {
+            var userSearch = database.Users.Find(x => x.Username == username);
+            var available =  userSearch is null;
+            ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
+        });
+    }
+
+    internal static IResult EmailAvailability(this IResult result, Database database, string email)
+    {
+        return result.Assert(ctx => {
+            var emailSearch = database.Users.Find(x => x.Email == email);
+            var available =  emailSearch is null;
+            ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
+        });
+    }
+}
+
 public class AppService : IAppService
 {
     private readonly ILogger<AppService> _logger;
@@ -22,112 +51,33 @@ public class AppService : IAppService
         Database = new Database();
     }
 
-    private static IAssertiveResult DtoValidation(RegisterDto registerDto)
+    private IAssertiveResult<RegisterResult> RegisterUser(RegisterDto registerDto)
     {
-        return Assertive.Result()
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Username).Format.Username())
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Password).Format.StrongPassword())
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Email).Format.EmailAddress())
-            .Resolve();
-    }
+        var step1 = Assert.ValidateDto(registerDto);
+        var step2 = step1.UserAvailability(Database, registerDto.Username);
+        var step3 = step2.EmailAvailability(Database, registerDto.Email);
+        var step4 = step3.Override<RegisterResult>();
 
-    private IAssertiveResult<RegisterResult> Register(RegisterDto registerDto)
-    {
-        var result = DtoValidation(registerDto);
-        return result.Override<RegisterResult>()
-            .Assert(username =>
-            {
-                var userSearch = Database.Users.Find(x => x.Username == registerDto.Username);
-                var isAvailable =  userSearch is null;
-                username.Should.Satisfy(isAvailable).WithError(Conflict.UsernameTaken);
-            })
-            .Assert(email =>
-            {
-                var emailSearch = Database.Users.Find(x => x.Email == registerDto.Email);
-                var isAvailable = emailSearch is null;
-                email.Should.Satisfy(isAvailable).WithError(Conflict.EmailInUse);
-            })
-            .Resolve(_ =>
-            {
-                var accessToken = Guid.NewGuid().ToString();
-                var user = new UserAccount(
-                    Guid.NewGuid(),
-                    registerDto.Username,
-                    registerDto.Email,
-                    registerDto.Password);
+        var registerResult = step4.Resolve(_ => {
+            var accessToken = Guid.NewGuid().ToString();
+            var user = new UserAccount(
+                Guid.NewGuid(),
+                registerDto.Username,
+                registerDto.Email,
+                registerDto.Password);
 
-                return new RegisterResult(user.Id, user.Username, accessToken);
-            });
-    }
+            return new RegisterResult(user.Id, user.Username, accessToken);
+        });
 
-    public void Run2()
-    {
-        var registerDto = new RegisterDto("einharan", "einharan@mail.me", "longpassword123");
-
-        var registerResult = Assertive.Result<RegisterResult>()
-            .Assert(dto =>
-            {
-                dto.RegularExpression.Validates(registerDto.Username).Format.Username();
-                dto.RegularExpression.Validates(registerDto.Password).Format.StrongPassword();
-                dto.RegularExpression.Validates(registerDto.Email).Format.EmailAddress();
-            })
-            .Assert(username =>
-            {
-                var searchResult = Database.Users.Find(x => x.Username == registerDto.Username);
-                var available =  searchResult is null;
-                username.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
-            })
-            .Assert(email =>
-            {
-                var searchResult = Database.Users.Find(x => x.Email == registerDto.Email);
-                var available = searchResult is null;
-                email.Should.Satisfy(available).WithError(Conflict.EmailInUse);
-            })
-            .Resolve(_ =>
-            {
-                var accessToken = Guid.NewGuid().ToString();
-                var user = new UserAccount(
-                    Guid.NewGuid(),
-                    registerDto.Username,
-                    registerDto.Email,
-                    registerDto.Password);
-
-                return new RegisterResult(user.Id, user.Username, accessToken);
-            });
+        return registerResult;
     }
 
     public void Run()
     {
         _logger.LogInformation("Starting...");
 
-        var result = Assertive.Result<string>()
-            .Assert(x => x.Should.Satisfy(true))
-            .Assert(x => x.Should.Satisfy(true))
-            .Assert(x => x.Should.Satisfy(true))
-            .Resolve(_ => "TEXT");
+        var result = RegisterUser(null!);
         LogConsole(result);
-        _logger.LogInformation("Value: {result}", result.Value);
-
-        result.Overload()
-            .Assert(x => x.Should.Satisfy(true))
-            .Assert(x => x.Should.Satisfy(true))
-            .Assert(x => x.Should.Satisfy(true))
-            .Resolve(_ => "STRING");
-
-        IAssertiveResult x = result.Override()
-            .Assert(x => x.Should.Satisfy(true))
-            .Resolve();
-
-        IAssertiveResult<Mock> y = x.Override<Mock>()
-            .Assert(x => x.Should.Satisfy(true))
-            .Resolve(_ => new Mock("MOCK"));
-
-        LogConsole(result);
-        _logger.LogInformation("Value: {result}", result.Value);
-        _logger.LogInformation("Override: {result}", result.Success);
-        _logger.LogInformation("Override Value: {result}", y.Value);
-
-        Run2();
     }
 
     private void LogConsole(IAssertiveResult result)
