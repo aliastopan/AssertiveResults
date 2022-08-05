@@ -15,8 +15,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest1()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
-
         bool condition = false;
 
         IAssertiveResult r1 = Assertive.Result()
@@ -38,8 +36,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest2()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
-
         bool condition = false;
 
         IAssertiveResult r1 = Assertive.Result()
@@ -63,8 +59,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest3()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.Control));
-
         bool condition = false;
 
         IAssertiveResult r1 = Assertive.Result()
@@ -88,8 +82,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest4()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
-
         bool condition = true;
         int counter  = 0;
 
@@ -118,8 +110,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest5()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
-
         bool condition = true;
 
         IAssertiveResult r1 = Assertive.Result()
@@ -142,8 +132,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest6()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
-
         bool condition = true;
 
         IAssertiveResult<string> r1 = Assertive.Result<string>()
@@ -166,8 +154,6 @@ public class AssertiveResultTests
     [Fact]
     public void NonGenericOverloadTest7()
     {
-        AssertiveResult.Configure(x => x.SetDefaultBreakBehavior(BreakBehavior.FirstError));
-
         bool condition = true;
 
         IAssertiveResult<string> r1 = Assertive.Result<string>()

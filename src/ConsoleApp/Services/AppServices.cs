@@ -20,11 +20,6 @@ public class AppService : IAppService
     {
         _logger = logger;
         Database = new Database();
-
-        AssertiveResult.Configure(opt =>
-        {
-            opt.SetDefaultBreakBehavior(BreakBehavior.FirstError);
-        });
     }
 
     private static IAssertiveResult DtoValidation(RegisterDto registerDto)
