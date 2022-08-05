@@ -1,7 +1,8 @@
 using System;
 using AssertiveResults.Assertions;
+using AssertiveResults.Contracts;
 
-namespace AssertiveResults.Contracts
+namespace AssertiveResults
 {
     public interface IResult
     {
