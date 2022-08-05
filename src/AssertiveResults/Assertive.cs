@@ -106,6 +106,7 @@ namespace AssertiveResults
         internal Assertive(Assertive assertive)
         {
             this.errors = assertive.errors;
+            this.metadata = assertive.metadata;
             Value = default;
         }
 
