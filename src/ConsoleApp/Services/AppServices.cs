@@ -30,9 +30,9 @@ public class AppService : IAppService
     private static IAssertiveResult DtoValidation(RegisterDto registerDto)
     {
         return Assertive.Result()
-            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
-            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Password).Format.StrongPassword())
-            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress())
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Username).Format.Username())
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Password).Format.StrongPassword())
+            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Email).Format.EmailAddress())
             .Resolve();
     }
 
@@ -72,20 +72,20 @@ public class AppService : IAppService
         var registerResult = Assertive.Result<RegisterResult>()
             .Assert(dto =>
             {
-                dto.RegularExpression.Validate(registerDto.Username).Format.Username();
-                dto.RegularExpression.Validate(registerDto.Password).Format.StrongPassword();
-                dto.RegularExpression.Validate(registerDto.Email).Format.EmailAddress();
+                dto.RegularExpression.Validates(registerDto.Username).Format.Username();
+                dto.RegularExpression.Validates(registerDto.Password).Format.StrongPassword();
+                dto.RegularExpression.Validates(registerDto.Email).Format.EmailAddress();
             })
             .Assert(username =>
             {
-                var userSearch = Database.Users.Find(x => x.Username == registerDto.Username);
-                var available =  userSearch is null;
+                var searchResult = Database.Users.Find(x => x.Username == registerDto.Username);
+                var available =  searchResult is null;
                 username.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
             })
             .Assert(email =>
             {
-                var emailSearch = Database.Users.Find(x => x.Email == registerDto.Email);
-                var available = emailSearch is null;
+                var searchResult = Database.Users.Find(x => x.Email == registerDto.Email);
+                var available = searchResult is null;
                 email.Should.Satisfy(available).WithError(Conflict.EmailInUse);
             })
             .Resolve(_ =>
