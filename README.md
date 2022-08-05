@@ -1,3 +1,5 @@
-# AssertiveResults
+# Return anything... ***assertively***.
+A generalized object container built to handle assertion, validation, and error handling.
 
-Return something... ***assertively***.
+### Documentation :construction:
+Coming Soon<sup>TM</sup>
