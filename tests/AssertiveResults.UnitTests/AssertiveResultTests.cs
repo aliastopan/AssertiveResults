@@ -126,7 +126,7 @@ public class AssertiveResultTests
     }
 
     [Fact]
-    public void NonGenericOverloadTest6()
+    public void GenericOverloadTest1()
     {
         bool condition = true;
 
@@ -144,11 +144,11 @@ public class AssertiveResultTests
             .Resolve(_ => r1.Value);
 
         Assert.True(r2.Failed);
-        Assert.True(r1.Value == default);
+        Assert.Equal(default, r1.Value);
     }
 
     [Fact]
-    public void NonGenericOverloadTest7()
+    public void GenericOverloadTest2()
     {
         bool condition = true;
 
@@ -167,6 +167,29 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
         output.WriteLine($"Output: {r1.Value}");
-        Assert.True(r1.Value == default);
+        Assert.Equal(default, r1.Value);
+    }
+
+    [Fact]
+    public void GenericOverloadTest3()
+    {
+        bool condition = true;
+
+        IAssertiveResult<string> r1 = Assertive.Result<string>()
+            .Assert(x => x.Should.Satisfy(condition))
+            .Assert(x => x.Should.Satisfy(condition))
+            .Assert(x => x.Should.Satisfy(condition))
+            .Resolve(_ => "TEXT");
+
+        Assert.True(r1.Success);
+
+        r1.Overload()
+            .Assert(x => x.Should.Satisfy(condition))
+            .Assert(x => x.Should.Satisfy(condition))
+            .Resolve(_ => r1.Value);
+
+        Assert.True(r1.Success);
+        output.WriteLine($"Output: {r1.Value}");
+        Assert.True(r1.Value == "TEXT");
     }
 }
