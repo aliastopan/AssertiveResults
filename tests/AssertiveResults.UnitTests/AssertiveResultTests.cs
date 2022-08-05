@@ -29,7 +29,6 @@ public class AssertiveResultTests
             .Resolve();
 
         Assert.True(r1.Failed);
-        Assert.True(r1.Errors.Count == 3);
     }
 
     [Fact]
@@ -52,7 +51,6 @@ public class AssertiveResultTests
             .Resolve();
 
         Assert.True(r1.Failed);
-        Assert.True(r1.Errors.Count == 6);
     }
 
     [Fact]
@@ -75,7 +73,6 @@ public class AssertiveResultTests
             .Resolve();
 
         Assert.True(r2.Failed);
-        Assert.True(r2.Errors.Count == 6);
     }
 
     [Fact]
@@ -147,7 +144,7 @@ public class AssertiveResultTests
             .Resolve(_ => r1.Value);
 
         Assert.True(r2.Failed);
-        Assert.True(r1.Value == "TEXT");
+        Assert.True(r1.Value == default);
     }
 
     [Fact]
@@ -170,6 +167,6 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
         output.WriteLine($"Output: {r1.Value}");
-        Assert.True(r1.Value != null);
+        Assert.True(r1.Value == default);
     }
 }
