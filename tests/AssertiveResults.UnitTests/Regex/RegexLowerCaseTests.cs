@@ -12,7 +12,7 @@ public class RegexLowerCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.RegularExpression.Validates(input)
+                x.RegularExpression.Validate(input)
                     .Contains.LowerCase();
             })
             .Resolve();
@@ -28,7 +28,7 @@ public class RegexLowerCaseTests
     {
         var result = Assertive.Result()
             .Assert(x => {
-                x.RegularExpression.Validates(input)
+                x.RegularExpression.Validate(input)
                     .Contains.LowerCase();
             })
             .Resolve();

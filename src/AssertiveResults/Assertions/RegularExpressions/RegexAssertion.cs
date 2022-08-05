@@ -19,7 +19,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         public IContains Contains { get; internal set; }
         public IFormat Format { get; internal set; }
 
-        public IRegexAssertion Validates(string input)
+        public IRegexAssertion Validate(string input)
         {
             _input = input;
             return this;

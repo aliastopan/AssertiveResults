@@ -16,9 +16,9 @@ internal static class Assert
     internal static IResult ValidateDto(RegisterDto registerDto)
     {
         return Assertive.Result()
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Username).Format.Username())
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Password).Format.StrongPassword())
-            .Assert(ctx => ctx.RegularExpression.Validates(registerDto.Email).Format.EmailAddress());
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Password).Format.StrongPassword())
+            .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress());
     }
 
     internal static IResult UserAvailability(this IResult result, Database database, string username)
