@@ -5,9 +5,7 @@
     <AssemblyName>AssertiveResults</AssemblyName>
     <PackageId>AssertiveResults</PackageId>
     <Description>A generalized object container built to handle assertion, validation, and error handling.</Description>
-    <Version>1.0.0-rc</Version>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>1.0.0-rc.2</Version>
     <Authors>Taufan Augusta</Authors>
     <Copyright>Copyright 2022 (c) Taufan Augusta. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -16,5 +14,11 @@
     <PackageProjectUrl>https://github.com/einharan/AssertiveResults/</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryURL>https://github.com/einharan/AssertiveResults/</RepositoryURL>
+
+    <!--SourceLink-->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 </Project>
