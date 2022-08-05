@@ -1,5 +1,4 @@
 using AssertiveResults;
-using AssertiveResults.Settings;
 
 namespace AssertiveResults.UnitTests;
 

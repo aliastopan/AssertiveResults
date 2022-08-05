@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AssertiveResults.Assertions;
 using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
-using AssertiveResults.Settings;
 
 namespace AssertiveResults
 {

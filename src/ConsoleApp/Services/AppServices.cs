@@ -3,7 +3,6 @@ using System.Diagnostics;
 using AssertiveResults;
 using AssertiveResults.Errors;
 using AssertiveResults.Assertions.RegularExpressions;
-using AssertiveResults.Settings;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
