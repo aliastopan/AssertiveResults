@@ -76,6 +76,25 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
+        var result = Assertive.Result<string>()
+            .Assert(ctx => ctx.Should.Satisfy(false).WithError(Errors.Invalid.PasswordFormat))
+            .Resolve(_ => "long_password");
+
+        result.Match(
+            value => _logger.LogInformation("Value {value}", value),
+            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
+
+        var value = result.Match(
+            value => new Mock(value),
+            error => new Mock($"{error.FirstError.Description}"));
+
+        // _logger.LogInformation("Result, {x}", value);
+    }
+
+    public void Run2()
+    {
+        _logger.LogInformation("Starting...");
+
         var registerDto = new RegisterDto("einharan", "einharan@proton.met", "longpassword123");
         var result = RegisterUser(registerDto);
         LogConsole(result);

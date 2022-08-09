@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults
@@ -29,5 +31,7 @@ namespace AssertiveResults
         new IResult<T> Overload();
         new IResult<U> Override<U>();
         IResult Override();
+        void Match(Action<T> onValue, Action<IError> onError);
+        U Match<U>(Func<T, U> onValue, Func<IError, U> onError);
     }
 }
