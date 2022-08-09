@@ -17,14 +17,16 @@ namespace AssertiveResults
             metadata = new Dictionary<string, object>();
         }
 
-        public bool HasError => errors.Count > 0;
-        public bool HasMetadata => metadata.Count > 0;
-        public bool Success => errors.Count == 0;
-        public bool Failed => !Success;
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
-        public IReadOnlyDictionary<string, object> Metadata => metadata;
         public Error FirstError => GetError(index: 0);
         public Error LastError => GetError(index: errors.Count - 1);
+        public bool HasError => errors.Count > 0;
+
+        public bool HasMetadata => metadata.Count > 0;
+        public IReadOnlyDictionary<string, object> Metadata => metadata;
+
+        public bool Success => errors.Count == 0;
+        public bool Failed => !Success;
 
         public static IAssertive Result()
         {

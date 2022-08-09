@@ -5,13 +5,15 @@ namespace AssertiveResults
 {
     public interface IAssertiveResult
     {
-        bool Success { get; }
-        bool Failed { get; }
-        bool HasMetadata { get; }
         IReadOnlyCollection<Error> Errors { get; }
-        IReadOnlyDictionary<string, object> Metadata { get; }
         Error FirstError { get; }
         Error LastError { get; }
+
+        IReadOnlyDictionary<string, object> Metadata { get; }
+        bool HasMetadata { get; }
+
+        bool Success { get; }
+        bool Failed { get; }
 
         IAssertiveResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
