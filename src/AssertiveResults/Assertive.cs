@@ -137,6 +137,12 @@ namespace AssertiveResults
             return new Assertive<U>(this);
         }
 
+        public IResult<U> Override<U>(out T value)
+        {
+            value = this.Value;
+            return new Assertive<U>(this);
+        }
+
         public IResult Override()
         {
             return this;

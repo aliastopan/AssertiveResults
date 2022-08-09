@@ -30,6 +30,7 @@ namespace AssertiveResults
         new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
         new IResult<T> Overload();
         new IResult<U> Override<U>();
+        IResult<U> Override<U>(out T value);
         IResult Override();
         void Match(Action<T> onValue, Action<IError> onError);
         U Match<U>(Func<T, U> onValue, Func<IError, U> onError);

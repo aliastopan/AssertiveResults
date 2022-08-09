@@ -15,6 +15,7 @@ namespace AssertiveResults
     {
         IResult<T> Assert(Action<IContext> context);
         IResult<U> Override<U>();
+        IResult<U> Override<U>(out T value);
         IResult Override();
         IAssertiveResult<T> Resolve(Func<IResolve, T> result);
         IAssertiveResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result);

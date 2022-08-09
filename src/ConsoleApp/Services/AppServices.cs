@@ -76,17 +76,40 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var result = Assertive.Result<string>()
-            .Assert(ctx => ctx.Should.Satisfy(false).WithError(Errors.Invalid.PasswordFormat))
+        var result1 = Assertive.Result<string>()
+            .Assert(ctx => ctx.Should.Satisfy(true).WithError(Errors.Invalid.PasswordFormat))
             .Resolve(_ => "long_password");
 
-        result.Match(
+        var result2 = result1
+            .Override<Mock>(out var wasString)
+            .Resolve(_ => new Mock(wasString));
+
+        var result3 = result2
+            .Override<string>(out var _wasMock)
+            .Resolve(_ => _wasMock.Value);
+
+        var result4 = result3
+            .Override<int>()
+            .Resolve(_ => 500);
+
+        result1.Match(
             value => _logger.LogInformation("Value {value}", value),
             error => _logger.LogInformation("Error {error}", error.FirstError.Description));
 
-        var value = result.Match(
-            value => new Mock(value),
-            error => new Mock($"{error.FirstError.Description}"));
+        result2.Match(
+            value => _logger.LogInformation("Value {value}", value),
+            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
+
+        result3.Match(
+            value => _logger.LogInformation("Value {value}", value),
+            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
+
+        result4.Match(
+            value => _logger.LogInformation("Value {value}", value),
+            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
+        // var matchValue = result1.Match(
+        //     value => new Mock(value),
+        //     error => new Mock($"{error.FirstError.Description}"));
 
         // _logger.LogInformation("Result, {x}", value);
     }
