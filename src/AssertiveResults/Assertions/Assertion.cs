@@ -4,7 +4,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Assertion : IAssertion, IAssert
+    internal sealed class Assertion : IAssertion, IAssert
     {
         private readonly Context _context;
 

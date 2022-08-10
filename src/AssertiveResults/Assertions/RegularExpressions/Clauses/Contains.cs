@@ -2,7 +2,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
-    public class Contains : IContains
+    internal sealed class Contains : IContains
     {
         private readonly RegexAssertion _regexAssertion;
 

@@ -5,7 +5,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
 {
-    public class Context : IContext
+    internal sealed class Context : IContext
     {
         internal Context()
         {

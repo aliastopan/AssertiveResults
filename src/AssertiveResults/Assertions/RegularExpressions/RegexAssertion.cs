@@ -4,7 +4,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.RegularExpressions
 {
-    public class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
+    internal sealed class RegexAssertion : IRegexAssertion, IRegex, IRegexAssert
     {
         private readonly Context _context;
         private string _input;

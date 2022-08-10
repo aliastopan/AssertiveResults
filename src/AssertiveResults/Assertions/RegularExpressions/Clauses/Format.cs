@@ -4,7 +4,7 @@ using Strength = AssertiveResults.PasswordStrength;
 
 namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
-    public class Format : IFormat
+    internal sealed class Format : IFormat
     {
         private readonly RegexAssertion _regexAssertion;
 
