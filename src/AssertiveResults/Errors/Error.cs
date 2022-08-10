@@ -17,42 +17,42 @@ namespace AssertiveResults.Errors
 
         internal static Error Assertion(
             string code = "Assertion.Error",
-            string description = "An assertion error has occured.")
+            string description = "An assertion error has occurred.")
         {
             return new Error(ErrorType.Assertion, code, description);
         }
 
         public static Error Failure(
             string code = "General.Failure",
-            string description = "A failure has occured.")
+            string description = "A failure has occurred.")
         {
             return new Error(ErrorType.Failure, code, description);
         }
 
         public static Error Conflict(
             string code = "General.Conflict",
-            string description = "A conflict error has occured.")
+            string description = "A conflict error has occurred.")
         {
             return new Error(ErrorType.Conflict, code, description);
         }
 
         public static Error NotFound(
             string code = "General.NotFound",
-            string description = "A 'Not Found' error has occured.")
+            string description = "A 'Not Found' error has occurred.")
         {
             return new Error(ErrorType.NotFound, code, description);
         }
 
         public static Error Unexpected(
             string code = "General.Unexpected",
-            string description = "An unexpected error has occured.")
+            string description = "An unexpected error has occurred.")
         {
             return new Error(ErrorType.Unexpected, code, description);
         }
 
         public static Error Validation(
             string code = "General.Validation",
-            string description = "A validation error has occured.")
+            string description = "A validation error has occurred.")
         {
             return new Error(ErrorType.Validation, code, description);
         }
