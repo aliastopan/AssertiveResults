@@ -76,6 +76,9 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
+        var result0 = Assertive.Result()
+            .Assert(_ => _.Exception.Catch(Errors.Invalid.PasswordFormat));
+
         var result1 = Assertive.Result<string>()
             .Assert(ctx => ctx.Should.Satisfy(true).WithError(Errors.Invalid.PasswordFormat))
             .Resolve(_ => "long_password");
