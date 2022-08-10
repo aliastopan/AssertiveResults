@@ -16,7 +16,7 @@ public class AssertiveResultTests
     {
         bool condition = false;
 
-        IAssertiveResult r1 = Assertive.Result()
+        IResult r1 = Assertive.Result()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -36,7 +36,7 @@ public class AssertiveResultTests
     {
         bool condition = false;
 
-        IAssertiveResult r1 = Assertive.Result()
+        IResult r1 = Assertive.Result()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -58,7 +58,7 @@ public class AssertiveResultTests
     {
         bool condition = false;
 
-        IAssertiveResult r1 = Assertive.Result()
+        IResult r1 = Assertive.Result()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -66,7 +66,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        IAssertiveResult r2 = r1.Overload()
+        IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -81,7 +81,7 @@ public class AssertiveResultTests
         bool condition = true;
         int counter  = 0;
 
-        IAssertiveResult r1 = Assertive.Result()
+        IResult r1 = Assertive.Result()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
@@ -89,7 +89,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Failed);
 
-        IAssertiveResult r2 = r1.Overload()
+        IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => {
@@ -108,7 +108,7 @@ public class AssertiveResultTests
     {
         bool condition = true;
 
-        IAssertiveResult r1 = Assertive.Result()
+        IResult r1 = Assertive.Result()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -116,7 +116,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Success);
 
-        IAssertiveResult r2 = r1.Overload()
+        IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
@@ -130,7 +130,7 @@ public class AssertiveResultTests
     {
         bool condition = true;
 
-        IAssertiveResult<string> r1 = Assertive.Result<string>()
+        IResult<string> r1 = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -138,7 +138,7 @@ public class AssertiveResultTests
 
         Assert.True(r1.Success);
 
-        IAssertiveResult r2 = r1.Overload()
+        IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => r1.Value);
@@ -152,7 +152,7 @@ public class AssertiveResultTests
     {
         bool condition = true;
 
-        IAssertiveResult<string> r1 = Assertive.Result<string>()
+        IResult<string> r1 = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
@@ -175,7 +175,7 @@ public class AssertiveResultTests
     {
         bool condition = true;
 
-        IAssertiveResult<string> r1 = Assertive.Result<string>()
+        IResult<string> r1 = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))

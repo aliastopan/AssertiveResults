@@ -5,7 +5,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public interface IAssertiveResult
+    public interface IResult
     {
         IReadOnlyCollection<Error> Errors { get; }
         Error FirstError { get; }
@@ -17,21 +17,21 @@ namespace AssertiveResults
         bool Success { get; }
         bool Failed { get; }
 
-        IAssertiveResult WithMetadata(string metadataName, object metadataValue);
+        IResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
-        IResult Overload();
-        IResult<T> Override<T>();
+        IStep Overload();
+        IStep<T> Override<T>();
     }
 
-    public interface IAssertiveResult<T> : IAssertiveResult
+    public interface IResult<T> : IResult
     {
         T Value { get; }
 
-        new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue);
-        new IResult<T> Overload();
-        new IResult<U> Override<U>();
-        IResult<U> Override<U>(out T value);
-        IResult Override();
+        new IResult<T> WithMetadata(string metadataName, object metadataValue);
+        new IStep<T> Overload();
+        new IStep<U> Override<U>();
+        IStep<U> Override<U>(out T value);
+        IStep Override();
         void Match(Action<T> onValue, Action<IError> onError);
         U Match<U>(Func<T, U> onValue, Func<IError, U> onError);
     }

@@ -12,7 +12,7 @@ namespace ConsoleApp.Services;
 
 internal static class Assert
 {
-    internal static IResult ValidateDto(RegisterDto registerDto)
+    internal static IStep ValidateDto(RegisterDto registerDto)
     {
         return Assertive.Result()
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
@@ -20,7 +20,7 @@ internal static class Assert
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress());
     }
 
-    internal static IResult UserAvailability(this IResult result, Database database, string username)
+    internal static IStep UserAvailability(this IStep result, Database database, string username)
     {
         return result.Assert(ctx => {
             var userSearch = database.Users.Find(x => x.Username == username);
@@ -29,7 +29,7 @@ internal static class Assert
         });
     }
 
-    internal static IResult EmailAvailability(this IResult result, Database database, string email)
+    internal static IStep EmailAvailability(this IStep result, Database database, string email)
     {
         return result.Assert(ctx => {
             var emailSearch = database.Users.Find(x => x.Email == email);
@@ -50,7 +50,7 @@ public class AppService : IAppService
         Database = new Database();
     }
 
-    private IAssertiveResult<RegisterResult> RegisterUser(RegisterDto registerDto)
+    private IResult<RegisterResult> RegisterUser(RegisterDto registerDto)
     {
         var step1 = Assert.ValidateDto(registerDto);
         var step2 = step1.UserAvailability(Database, registerDto.Username);
@@ -124,7 +124,7 @@ public class AppService : IAppService
         _logger.LogInformation("Value: {value}", result.Value);
     }
 
-    private void LogConsole(IAssertiveResult result)
+    private void LogConsole(IResult result)
     {
         _logger.LogInformation("Status: {result}", result.Success ? "Success" : "Failed");
         _logger.LogInformation("Error(s): {count}", result.Errors.Count);
