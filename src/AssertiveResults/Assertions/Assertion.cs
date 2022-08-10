@@ -8,9 +8,9 @@ namespace AssertiveResults.Assertions
     {
         private readonly Context _context;
 
-        internal Assertion(Context assertion)
+        internal Assertion(Context context)
         {
-            _context = assertion;
+            _context = context;
         }
 
         public IAssert Satisfy(bool condition)
