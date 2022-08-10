@@ -20,12 +20,12 @@ namespace AssertiveResults.Assertions.RegularExpressions
             }
         }
 
-        public const string LOWERCASE = "[a-z]+";
-        public const string UPPERCASE = "[A-Z]+";
-        public const string ALPHAMERIC = "[a-zA-Z0-9]+";
-        public const string ALPHABET = "[a-zA-Z]+";
-        public const string NUMBER = "[0-9]+";
-        public const string SYMBOL = @"[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]+";
+        public const string LowerCase = "[a-z]+";
+        public const string UpperCase = "[A-Z]+";
+        public const string Alphameric = "[a-zA-Z0-9]+";
+        public const string Alphabet = "[a-zA-Z]+";
+        public const string Number = "[0-9]+";
+        public const string Symbols = @"[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]+";
 
         public static string Length(int min, int max)
         {
