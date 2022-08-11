@@ -127,7 +127,7 @@ public class AppService : IAppService
         _logger.LogInformation("Value: {value}", result.Value);
     }
 
-    private void LogConsole(IResult result)
+    private void LogConsole(AssertiveResults.IResult result)
     {
         _logger.LogInformation("Status: {result}", result.Success ? "Success" : "Failed");
         _logger.LogInformation("Error(s): {count}", result.Errors.Count);

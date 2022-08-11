@@ -11,7 +11,7 @@ namespace AssertiveResults.Assertions
         internal Context()
         {
             Should = new Should(this);
-            RegularExpression = new RegexAssertion(this);
+            RegularExpression = new Regex(this);
         }
 
         public IValueCheck Should { get; internal set; }

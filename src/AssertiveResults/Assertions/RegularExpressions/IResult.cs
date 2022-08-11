@@ -2,8 +2,8 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.RegularExpressions
 {
-    public interface IRegexAssert : IRegexAssertion
+    public interface IResult : IMatch
     {
-        IRegexAssertion WithError(Error error);
+        IMatch WithError(Error error);
     }
 }
