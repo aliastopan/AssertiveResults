@@ -32,7 +32,7 @@ namespace AssertiveResults
         new IStep<U> Override<U>();
         IStep<U> Override<U>(out T value);
         IStep Override();
-        void Match(Action<T> onValue, Action<IError> onError);
-        U Match<U>(Func<T, U> onValue, Func<IError, U> onError);
+        void Match(Action<T> onValue, Action<IProblem> onError);
+        U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError);
     }
 }

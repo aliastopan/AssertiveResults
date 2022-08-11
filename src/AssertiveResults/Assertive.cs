@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult, IBegin, IStep, IResolve, IError
+    public class Assertive : IResult, IBegin, IStep, IResolve, IProblem
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
@@ -176,7 +176,7 @@ namespace AssertiveResults
             }
         }
 
-        public void Match(Action<T> onValue, Action<IError> onError)
+        public void Match(Action<T> onValue, Action<IProblem> onError)
         {
             if(HasError)
                 onError(this);
@@ -184,7 +184,7 @@ namespace AssertiveResults
                 onValue(Value);
         }
 
-        public U Match<U>(Func<T, U> onValue, Func<IError, U> onError)
+        public U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError)
         {
             if(HasError)
                 return onError(this);
