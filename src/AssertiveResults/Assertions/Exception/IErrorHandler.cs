@@ -2,8 +2,8 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.Exception
 {
-    public interface IException
+    public interface IErrorHandler
     {
-        IException Catch(Error error);
+        void Catch(Error error);
     }
 }

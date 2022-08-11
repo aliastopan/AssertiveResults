@@ -8,6 +8,6 @@ namespace AssertiveResults.Assertions
     {
         IValueCheck Should { get; }
         IRegex RegularExpression { get; }
-        IException Exception { get; }
+        IErrorHandler Exception { get; }
     }
 }

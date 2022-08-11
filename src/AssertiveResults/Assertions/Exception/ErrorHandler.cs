@@ -2,19 +2,18 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions.Exception
 {
-    internal class Exception : IException
+    internal sealed class ErrorHandler : IErrorHandler
     {
         private readonly Context _context;
 
-        internal Exception(Context assertion)
+        internal ErrorHandler(Context assertion)
         {
             _context = assertion;
         }
 
-        public IException Catch(Error error)
+        public void Catch(Error error)
         {
             _context.Errors.Add(error);
-            return this;
         }
     }
 }

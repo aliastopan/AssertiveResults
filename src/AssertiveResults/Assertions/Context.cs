@@ -12,11 +12,12 @@ namespace AssertiveResults.Assertions
         {
             Should = new Should(this);
             RegularExpression = new Regex(this);
+            Exception = new ErrorHandler(this);
         }
 
         public IValueCheck Should { get; internal set; }
         public IRegex RegularExpression { get; internal set; }
-        public IException Exception { get; internal set; }
+        public IErrorHandler Exception { get; internal set; }
 
         internal List<Error> Errors { get; } = new List<Error>();
         internal bool IsSatisfied { get; set; }
