@@ -6,9 +6,9 @@ namespace AssertiveResults.Assertions.ErrorHandling
     {
         private readonly Context _context;
 
-        internal ErrorHandler(Context assertion)
+        internal ErrorHandler(Context context)
         {
-            _context = assertion;
+            _context = context;
         }
 
         public void Catch(Error error)
