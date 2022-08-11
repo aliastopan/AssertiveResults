@@ -4,16 +4,16 @@ using Strength = AssertiveResults.PasswordStrength;
 
 namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
-    public class Format : IFormat
+    internal sealed class Format : IFormat
     {
-        private readonly RegexAssertion _regexAssertion;
+        private readonly Regex _regexAssertion;
 
-        internal Format(RegexAssertion regexAssertion)
+        internal Format(Regex regexAssertion)
         {
             _regexAssertion = regexAssertion;
         }
 
-        public IRegexAssert Username(int min = 1, int max = 32)
+        public IResult Username(int min = 1, int max = 32)
         {
             if(min < 0 || max <= min)
                 throw new InvalidOperationException();
@@ -22,10 +22,10 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Username.Validation";
             const string errorDescription = "Invalid username format.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.Regex(pattern, error);
+            return _regexAssertion.PatternMatching(pattern, error);
         }
 
-        public IRegexAssert StrongPassword(PasswordStrength strength = Strength.Standard)
+        public IResult StrongPassword(PasswordStrength strength = Strength.Standard)
         {
             string pattern;
             string errorDescription;
@@ -48,16 +48,16 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
             const string errorCode = "PasswordStrength.Validation";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.Regex(pattern, error);
+            return _regexAssertion.PatternMatching(pattern, error);
         }
 
-        public IRegexAssert EmailAddress()
+        public IResult EmailAddress()
         {
             string pattern = Expression.Email();
             const string errorCode = "Email.Validation";
             const string errorDescription = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.Regex(pattern, error);
+            return _regexAssertion.PatternMatching(pattern, error);
         }
     }
 }

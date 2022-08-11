@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IAssertiveResult, IAssertive, IResult, IResolve, IError
+    public class Assertive : IResult, IBegin, ISubject, IResolve, IProblem
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
@@ -28,17 +28,17 @@ namespace AssertiveResults
         public bool Success => errors.Count == 0;
         public bool Failed => !Success;
 
-        public static IAssertive Result()
+        public static IBegin Result()
         {
             return new Assertive();
         }
 
-        public static IAssertive<T> Result<T>()
+        public static IBegin<T> Result<T>()
         {
             return new Assertive<T>();
         }
 
-        public IResult Assert(Action<IContext> context)
+        public ISubject Assert(Action<IContext> context)
         {
             if(HasError)
                 return this;
@@ -52,22 +52,22 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Overload()
+        public ISubject Overload()
         {
             return this;
         }
 
-        public IResult<T> Override<T>()
+        public ISubject<T> Override<T>()
         {
             return new Assertive<T>(this);
         }
 
-        public IAssertiveResult Resolve()
+        public IResult Resolve()
         {
             return this;
         }
 
-        public IAssertiveResult WithMetadata(string metadataName, object metadataValue)
+        public IResult WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
                 return this;
@@ -98,7 +98,7 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IAssertiveResult<T>, IAssertive<T>, IResult<T>
+    internal class Assertive<T> : Assertive, IResult<T>, IBegin<T>, ISubject<T>
     {
         internal Assertive()
         {
@@ -114,7 +114,7 @@ namespace AssertiveResults
 
         public T Value { get; internal set; }
 
-        public new IResult<T> Assert(Action<IContext> context)
+        public new ISubject<T> Assert(Action<IContext> context)
         {
            if(HasError)
                 return this;
@@ -127,34 +127,34 @@ namespace AssertiveResults
             return this;
         }
 
-        public new IResult<T> Overload()
+        public new ISubject<T> Overload()
         {
             return this;
         }
 
-        public new IResult<U> Override<U>()
+        public new ISubject<U> Override<U>()
         {
             return new Assertive<U>(this);
         }
 
-        public IResult<U> Override<U>(out T value)
+        public ISubject<U> Override<U>(out T value)
         {
             value = this.Value;
             return new Assertive<U>(this);
         }
 
-        public IResult Override()
+        public ISubject Override()
         {
             return this;
         }
 
-        public IAssertiveResult<T> Resolve(Func<IResolve, T> result)
+        public IResult<T> Resolve(Func<IResolve, T> result)
         {
             Value = HasError ? default : result(this);
             return this;
         }
 
-        public IAssertiveResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
+        public IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
         {
             switch(resolveBehavior)
             {
@@ -169,14 +169,14 @@ namespace AssertiveResults
                 }
             }
 
-            IAssertiveResult<T> Result()
+            IResult<T> Result()
             {
                 Value = result(this);
                 return this;
             }
         }
 
-        public void Match(Action<T> onValue, Action<IError> onError)
+        public void Match(Action<T> onValue, Action<IProblem> onError)
         {
             if(HasError)
                 onError(this);
@@ -184,7 +184,7 @@ namespace AssertiveResults
                 onValue(Value);
         }
 
-        public U Match<U>(Func<T, U> onValue, Func<IError, U> onError)
+        public U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError)
         {
             if(HasError)
                 return onError(this);
@@ -192,7 +192,7 @@ namespace AssertiveResults
             return onValue(Value);
         }
 
-        public new IAssertiveResult<T> WithMetadata(string metadataName, object metadataValue)
+        public new IResult<T> WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
                 return this;

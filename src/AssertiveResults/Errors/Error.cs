@@ -15,11 +15,11 @@ namespace AssertiveResults.Errors
             Description = description;
         }
 
-        internal static Error Assertion(
-            string code = "Assertion.Error",
-            string description = "An assertion error has occurred.")
+        internal static Error ValueCheck(
+            string code = "ValueCheck.Error",
+            string description = "A value check error has occurred.")
         {
-            return new Error(ErrorType.Assertion, code, description);
+            return new Error(ErrorType.Failure, code, description);
         }
 
         public static Error Failure(

@@ -2,11 +2,11 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
     public interface IContains
     {
-        IRegexAssert LowerCase();
-        IRegexAssert UpperCase();
-        IRegexAssert Alphabet();
-        IRegexAssert Alphameric();
-        IRegexAssert Number();
-        IRegexAssert Symbol();
+        IResult LowerCase();
+        IResult UpperCase();
+        IResult Alphabet();
+        IResult Alphameric();
+        IResult Number();
+        IResult Symbol();
     }
 }

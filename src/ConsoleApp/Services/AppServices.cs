@@ -12,7 +12,7 @@ namespace ConsoleApp.Services;
 
 internal static class Assert
 {
-    internal static IResult ValidateDto(RegisterDto registerDto)
+    internal static ISubject ValidateDto(RegisterDto registerDto)
     {
         return Assertive.Result()
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
@@ -20,18 +20,19 @@ internal static class Assert
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress());
     }
 
-    internal static IResult UserAvailability(this IResult result, Database database, string username)
+    internal static ISubject UserAvailability(this ISubject subject, Database database, string username)
     {
-        return result.Assert(ctx => {
+        return subject.Assert(ctx =>
+        {
             var userSearch = database.Users.Find(x => x.Username == username);
             var available =  userSearch is null;
             ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
         });
     }
 
-    internal static IResult EmailAvailability(this IResult result, Database database, string email)
+    internal static ISubject EmailAvailability(this ISubject step, Database database, string email)
     {
-        return result.Assert(ctx => {
+        return step.Assert(ctx => {
             var emailSearch = database.Users.Find(x => x.Email == email);
             var available =  emailSearch is null;
             ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
@@ -50,7 +51,7 @@ public class AppService : IAppService
         Database = new Database();
     }
 
-    private IAssertiveResult<RegisterResult> RegisterUser(RegisterDto registerDto)
+    private IResult<RegisterResult> RegisterUser(RegisterDto registerDto)
     {
         var step1 = Assert.ValidateDto(registerDto);
         var step2 = step1.UserAvailability(Database, registerDto.Username);
@@ -76,42 +77,20 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var result1 = Assertive.Result<string>()
-            .Assert(ctx => ctx.Should.Satisfy(true).WithError(Errors.Invalid.PasswordFormat))
-            .Resolve(_ => "long_password");
+        var condition = true;
 
-        var result2 = result1
-            .Override<Mock>(out var wasString)
-            .Resolve(_ => new Mock(wasString));
+        var subject = Assertive.Result()
+            .Assert(_ =>
+            {
+                if(condition)
+                    _.Exception.Catch(Errors.Conflict.EmailInUse);
+                else
+                    _.Exception.Catch(Errors.Conflict.UsernameTaken);
+            });
 
-        var result3 = result2
-            .Override<string>(out var _wasMock)
-            .Resolve(_ => _wasMock.Value);
+        var result = subject.Resolve();
 
-        var result4 = result3
-            .Override<int>()
-            .Resolve(_ => 500);
-
-        result1.Match(
-            value => _logger.LogInformation("Value {value}", value),
-            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
-
-        result2.Match(
-            value => _logger.LogInformation("Value {value}", value),
-            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
-
-        result3.Match(
-            value => _logger.LogInformation("Value {value}", value),
-            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
-
-        result4.Match(
-            value => _logger.LogInformation("Value {value}", value),
-            error => _logger.LogInformation("Error {error}", error.FirstError.Description));
-        // var matchValue = result1.Match(
-        //     value => new Mock(value),
-        //     error => new Mock($"{error.FirstError.Description}"));
-
-        // _logger.LogInformation("Result, {x}", value);
+        LogConsole(result);
     }
 
     public void Run2()
@@ -124,7 +103,7 @@ public class AppService : IAppService
         _logger.LogInformation("Value: {value}", result.Value);
     }
 
-    private void LogConsole(IAssertiveResult result)
+    private void LogConsole(AssertiveResults.IResult result)
     {
         _logger.LogInformation("Status: {result}", result.Success ? "Success" : "Failed");
         _logger.LogInformation("Error(s): {count}", result.Errors.Count);

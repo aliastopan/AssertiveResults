@@ -1,0 +1,12 @@
+v2.0.0-preview
+    - BREAKING CHANGES: refactored namespaces
+    - BREAKING CHANGES: refactored interfaces name
+    - ADDED: error handling
+v1.2.1
+    - PATCH: fix typo
+v1.2.0
+    - ADDED: out parameter when performing generic overriding - IResult<T>.Override<U>(out T value);
+v1.1.0
+    - ADDED: action-based result
+v1.0.0
+    - initial release.
