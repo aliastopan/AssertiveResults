@@ -1,6 +1,6 @@
 using AssertiveResults.Errors;
 
-namespace AssertiveResults.Assertions.Exception
+namespace AssertiveResults.Assertions.ErrorHandling
 {
     public interface IErrorHandler
     {

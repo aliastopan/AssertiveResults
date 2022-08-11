@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AssertiveResults.Assertions.Exception;
+using AssertiveResults.Assertions.ErrorHandling;
 using AssertiveResults.Assertions.RegularExpressions;
 using AssertiveResults.Assertions.ValueCheck;
 using AssertiveResults.Errors;

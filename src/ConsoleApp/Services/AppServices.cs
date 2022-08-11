@@ -77,11 +77,20 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        var result0 = Assertive.Result()
-            .Assert(_ => _.Exception.Catch(Errors.Conflict.EmailInUse))
-            .Resolve();
+        var condition = true;
 
-        LogConsole(result0);
+        var subject = Assertive.Result()
+            .Assert(_ =>
+            {
+                if(condition)
+                    _.Exception.Catch(Errors.Conflict.EmailInUse);
+                else
+                    _.Exception.Catch(Errors.Conflict.UsernameTaken);
+            });
+
+        var result = subject.Resolve();
+
+        LogConsole(result);
     }
 
     public void Run2()
