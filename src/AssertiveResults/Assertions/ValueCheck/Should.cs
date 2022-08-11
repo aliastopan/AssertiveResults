@@ -2,18 +2,18 @@ using System;
 using System.Collections;
 using AssertiveResults.Errors;
 
-namespace AssertiveResults.Assertions
+namespace AssertiveResults.Assertions.ValueCheck
 {
-    internal sealed class Assertion : IAssertion, IAssert
+    internal sealed class Should : IValueCheck, IResult
     {
         private readonly Context _context;
 
-        internal Assertion(Context context)
+        public Should(Context context)
         {
             _context = context;
         }
 
-        public IAssert Satisfy(bool condition)
+        public IResult Satisfy(bool condition)
         {
             _context.IsSatisfied = condition;
             if(!_context.IsSatisfied)
@@ -27,7 +27,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotSatisfy(bool condition)
+        public IResult NotSatisfy(bool condition)
         {
             _context.IsSatisfied = !condition;
             if(!_context.IsSatisfied)
@@ -41,7 +41,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert Null(object @object)
+        public IResult Null(object @object)
         {
             _context.IsSatisfied = @object == null;
             if(!_context.IsSatisfied)
@@ -55,7 +55,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotNull(object @object)
+        public IResult NotNull(object @object)
         {
             _context.IsSatisfied = @object != null;
             if(!_context.IsSatisfied)
@@ -69,7 +69,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert Empty(IEnumerable collection)
+        public IResult Empty(IEnumerable collection)
         {
             _context.IsSatisfied = !collection.GetEnumerator().MoveNext();
             if(!_context.IsSatisfied)
@@ -83,7 +83,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotEmpty(IEnumerable collection)
+        public IResult NotEmpty(IEnumerable collection)
         {
             _context.IsSatisfied = collection.GetEnumerator().MoveNext();
             if(!_context.IsSatisfied)
@@ -97,7 +97,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert Equal<T>(T former, T latter)
+        public IResult Equal<T>(T former, T latter)
         {
             _context.IsSatisfied = former.Equals(latter);
             if(!_context.IsSatisfied)
@@ -111,7 +111,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotEqual<T>(T former, T latter)
+        public IResult NotEqual<T>(T former, T latter)
         {
             _context.IsSatisfied = !former.Equals(latter);
             if(!_context.IsSatisfied)
@@ -125,7 +125,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert StrictEqual<T>(IComparable<T> former, T latter)
+        public IResult StrictEqual<T>(IComparable<T> former, T latter)
         {
             int result = former.CompareTo(latter);
             _context.IsSatisfied = result == 0;
@@ -140,7 +140,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotStrictEqual<T>(IComparable<T> former, T latter)
+        public IResult NotStrictEqual<T>(IComparable<T> former, T latter)
         {
             int result = former.CompareTo(latter);
             _context.IsSatisfied = result != 0;
@@ -154,7 +154,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert Same(object former, object latter)
+        public IResult Same(object former, object latter)
         {
             _context.IsSatisfied = former == latter;
             if(!_context.IsSatisfied)
@@ -168,7 +168,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssert NotSame(object former, object latter)
+        public IResult NotSame(object former, object latter)
         {
             _context.IsSatisfied = former != latter;
             if(!_context.IsSatisfied)
@@ -182,7 +182,7 @@ namespace AssertiveResults.Assertions
             return this;
         }
 
-        public IAssertion WithError(Error error)
+        public IValueCheck WithError(Error error)
         {
             if(_context.Failed)
             {

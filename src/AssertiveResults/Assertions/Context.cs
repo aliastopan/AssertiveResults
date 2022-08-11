@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AssertiveResults.Assertions.Exception;
 using AssertiveResults.Assertions.RegularExpressions;
+using AssertiveResults.Assertions.ValueCheck;
 using AssertiveResults.Errors;
 
 namespace AssertiveResults.Assertions
@@ -9,11 +10,11 @@ namespace AssertiveResults.Assertions
     {
         internal Context()
         {
-            Should = new Assertion(this);
+            Should = new Should(this);
             RegularExpression = new RegexAssertion(this);
         }
 
-        public IAssertion Should { get; internal set; }
+        public IValueCheck Should { get; internal set; }
         public IRegex RegularExpression { get; internal set; }
         public IException Exception { get; internal set; }
 
