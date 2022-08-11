@@ -19,8 +19,8 @@ namespace AssertiveResults
 
         IResult WithMetadata(string metadataName, object metadataValue);
         object GetMetadata(string metadataName);
-        IStep Overload();
-        IStep<T> Override<T>();
+        ISubject Overload();
+        ISubject<T> Override<T>();
     }
 
     public interface IResult<T> : IResult
@@ -28,10 +28,10 @@ namespace AssertiveResults
         T Value { get; }
 
         new IResult<T> WithMetadata(string metadataName, object metadataValue);
-        new IStep<T> Overload();
-        new IStep<U> Override<U>();
-        IStep<U> Override<U>(out T value);
-        IStep Override();
+        new ISubject<T> Overload();
+        new ISubject<U> Override<U>();
+        ISubject<U> Override<U>(out T value);
+        ISubject Override();
         void Match(Action<T> onValue, Action<IProblem> onError);
         U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError);
     }

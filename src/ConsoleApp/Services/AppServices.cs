@@ -12,7 +12,7 @@ namespace ConsoleApp.Services;
 
 internal static class Assert
 {
-    internal static IStep ValidateDto(RegisterDto registerDto)
+    internal static ISubject ValidateDto(RegisterDto registerDto)
     {
         return Assertive.Result()
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Username).Format.Username())
@@ -20,18 +20,19 @@ internal static class Assert
             .Assert(ctx => ctx.RegularExpression.Validate(registerDto.Email).Format.EmailAddress());
     }
 
-    internal static IStep UserAvailability(this IStep result, Database database, string username)
+    internal static ISubject UserAvailability(this ISubject subject, Database database, string username)
     {
-        return result.Assert(ctx => {
+        return subject.Assert(ctx =>
+        {
             var userSearch = database.Users.Find(x => x.Username == username);
             var available =  userSearch is null;
             ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);
         });
     }
 
-    internal static IStep EmailAvailability(this IStep result, Database database, string email)
+    internal static ISubject EmailAvailability(this ISubject step, Database database, string email)
     {
-        return result.Assert(ctx => {
+        return step.Assert(ctx => {
             var emailSearch = database.Users.Find(x => x.Email == email);
             var available =  emailSearch is null;
             ctx.Should.Satisfy(available).WithError(Conflict.UsernameTaken);

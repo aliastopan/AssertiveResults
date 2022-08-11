@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult, IBegin, IStep, IResolve, IProblem
+    public class Assertive : IResult, IBegin, ISubject, IResolve, IProblem
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
@@ -38,7 +38,7 @@ namespace AssertiveResults
             return new Assertive<T>();
         }
 
-        public IStep Assert(Action<IContext> context)
+        public ISubject Assert(Action<IContext> context)
         {
             if(HasError)
                 return this;
@@ -52,12 +52,12 @@ namespace AssertiveResults
             return this;
         }
 
-        public IStep Overload()
+        public ISubject Overload()
         {
             return this;
         }
 
-        public IStep<T> Override<T>()
+        public ISubject<T> Override<T>()
         {
             return new Assertive<T>(this);
         }
@@ -98,7 +98,7 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IResult<T>, IBegin<T>, IStep<T>
+    internal class Assertive<T> : Assertive, IResult<T>, IBegin<T>, ISubject<T>
     {
         internal Assertive()
         {
@@ -114,7 +114,7 @@ namespace AssertiveResults
 
         public T Value { get; internal set; }
 
-        public new IStep<T> Assert(Action<IContext> context)
+        public new ISubject<T> Assert(Action<IContext> context)
         {
            if(HasError)
                 return this;
@@ -127,23 +127,23 @@ namespace AssertiveResults
             return this;
         }
 
-        public new IStep<T> Overload()
+        public new ISubject<T> Overload()
         {
             return this;
         }
 
-        public new IStep<U> Override<U>()
+        public new ISubject<U> Override<U>()
         {
             return new Assertive<U>(this);
         }
 
-        public IStep<U> Override<U>(out T value)
+        public ISubject<U> Override<U>(out T value)
         {
             value = this.Value;
             return new Assertive<U>(this);
         }
 
-        public IStep Override()
+        public ISubject Override()
         {
             return this;
         }
