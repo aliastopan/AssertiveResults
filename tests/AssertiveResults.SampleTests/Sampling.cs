@@ -1,14 +1,18 @@
-using Microsoft.Extensions.Logging;
-
 namespace AssertiveResults.SampleTests;
 
-public class Sampling
+public static class Sampling
 {
-    private readonly ILogger<Sampling> _logger;
-    public Sampling(ILogger<Sampling> logger) => _logger = logger;
-
-    public void Run()
+    public static void Run()
     {
-        _logger.LogInformation("Starting...");
+        Serilog.Log.Information("Starting...");
+
+        var result = Assertive.Result<string>()
+            .Assert(ctx => ctx.Should.Satisfy(true))
+            .Resolve(_ =>
+            {
+                return "sampling";
+            });
+
+        result.Log();
     }
 }

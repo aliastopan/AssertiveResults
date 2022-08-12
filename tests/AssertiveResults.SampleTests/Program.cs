@@ -15,13 +15,8 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateLogger();
 
-IHost host = Host.CreateDefaultBuilder()
-    .ConfigureServices((_, services) => {
-        services.AddTransient<Sampling>();
-    })
+Host.CreateDefaultBuilder()
     .UseSerilog()
     .Build();
 
-var app = ActivatorUtilities.CreateInstance<Sampling>(host.Services);
-
-app.Run();
+Sampling.Run();
