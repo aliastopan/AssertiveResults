@@ -68,7 +68,7 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(Action<IResolve> context)
+        public IResult Resolve(Action<IInspect> context)
         {
             if(!HasError)
                 context?.Invoke(this);
@@ -76,7 +76,7 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(Behavior behavior, Action<IResolve> context)
+        public IResult Resolve(Behavior behavior, Action<IInspect> context)
         {
             switch(behavior)
             {
@@ -173,13 +173,13 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult<T> Resolve(Func<IResolve, T> context)
+        public IResult<T> Resolve(Func<IInspect, T> context)
         {
             Value = HasError ? default : context(this);
             return this;
         }
 
-        public IResult<T> Resolve(Behavior behavior, Func<IResolve, T> context)
+        public IResult<T> Resolve(Behavior behavior, Func<IInspect, T> context)
         {
             switch(behavior)
             {

@@ -11,8 +11,8 @@ namespace AssertiveResults
         ISubject Overload();
         ISubject<T> Override<T>();
         IResult Resolve();
-        IResult Resolve(Action<IResolve> context);
-        IResult Resolve(Behavior behavior, Action<IResolve> context);
+        IResult Resolve(Action<IInspect> context);
+        IResult Resolve(Behavior behavior, Action<IInspect> context);
     }
 
     public interface ISubject<T> : ISubject
@@ -21,7 +21,7 @@ namespace AssertiveResults
         new ISubject<T> Overload();
         ISubject<U> Override<U>(out T value);
         ISubject Override(out T value);
-        IResult<T> Resolve(Func<IResolve, T> context);
-        IResult<T> Resolve(Behavior behavior, Func<IResolve, T> context);
+        IResult<T> Resolve(Func<IInspect, T> context);
+        IResult<T> Resolve(Behavior behavior, Func<IInspect, T> context);
     }
 }

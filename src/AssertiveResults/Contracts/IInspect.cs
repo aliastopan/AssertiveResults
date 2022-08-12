@@ -1,6 +1,6 @@
 namespace AssertiveResults.Contracts
 {
-    public interface IResolve : IProblem
+    public interface IInspect : IProblem
     {
         bool HasError { get; }
 

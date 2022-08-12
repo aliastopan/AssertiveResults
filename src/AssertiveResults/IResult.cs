@@ -2,7 +2,7 @@ using AssertiveResults.Contracts;
 
 namespace AssertiveResults
 {
-    public interface IResult : IBegin, ISubject, IProblem, IResolve, IMetadata
+    public interface IResult : IBegin, ISubject, IProblem, IMetadata, IInspect
     {
         bool IsSuccess { get; }
         bool HasFailed { get; }
