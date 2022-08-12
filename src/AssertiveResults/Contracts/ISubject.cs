@@ -15,10 +15,10 @@ namespace AssertiveResults
         IResult Resolve(Behavior behavior, Action<IInspect> context);
     }
 
-    public interface ISubject<T> : ISubject
+    public interface ISubject<T>
     {
-        new ISubject<T> Assert(Action<IContext> context);
-        new ISubject<T> Overload();
+        ISubject<T> Assert(Action<IContext> context);
+        ISubject<T> Overload();
         ISubject<U> Override<U>(out T value);
         ISubject Override(out T value);
         IResult<T> Resolve(Func<IInspect, T> context);
