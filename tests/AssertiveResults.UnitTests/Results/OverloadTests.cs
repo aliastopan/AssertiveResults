@@ -1,16 +1,7 @@
-using AssertiveResults;
+namespace AssertiveResults.UnitTests.Results;
 
-namespace AssertiveResults.UnitTests;
-
-public class AssertiveResultTests
+public class OverloadTests
 {
-    private readonly ITestOutputHelper output;
-
-    public AssertiveResultTests(ITestOutputHelper output)
-    {
-        this.output = output;
-    }
-
     [Fact]
     public void NonGenericOverloadTest1()
     {
@@ -166,7 +157,6 @@ public class AssertiveResultTests
             .Resolve(_ => r1.Value);
 
         Assert.True(r1.Failed);
-        output.WriteLine($"Output: {r1.Value}");
         Assert.Equal(default, r1.Value);
     }
 
@@ -189,7 +179,6 @@ public class AssertiveResultTests
             .Resolve(_ => r1.Value);
 
         Assert.True(r1.Success);
-        output.WriteLine($"Output: {r1.Value}");
         Assert.True(r1.Value == "TEXT");
     }
 }
