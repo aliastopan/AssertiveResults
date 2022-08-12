@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AssertiveResults.Assertions;
 using AssertiveResults.Contracts;
 using AssertiveResults.Errors;
+using Behavior = AssertiveResults.ResolveBehavior;
 
 namespace AssertiveResults
 {
@@ -75,11 +76,11 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(ResolveBehavior resolveBehavior, Action<IResolve> context)
+        public IResult Resolve(Behavior behavior, Action<IResolve> context)
         {
-            switch(resolveBehavior)
+            switch(behavior)
             {
-                case ResolveBehavior.Control:
+                case Behavior.Control:
                     context?.Invoke(this);
                     break;
                 default:
@@ -178,11 +179,11 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> context)
+        public IResult<T> Resolve(Behavior behavior, Func<IResolve, T> context)
         {
-            switch(resolveBehavior)
+            switch(behavior)
             {
-                case ResolveBehavior.Control:
+                case Behavior.Control:
                     return Result();
                 default:
                 {

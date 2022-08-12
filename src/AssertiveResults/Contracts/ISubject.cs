@@ -1,6 +1,7 @@
 using System;
 using AssertiveResults.Assertions;
 using AssertiveResults.Contracts;
+using Behavior = AssertiveResults.ResolveBehavior;
 
 namespace AssertiveResults
 {
@@ -11,7 +12,7 @@ namespace AssertiveResults
         ISubject<T> Override<T>();
         IResult Resolve();
         IResult Resolve(Action<IResolve> context);
-        IResult Resolve(ResolveBehavior resolveBehavior, Action<IResolve> context);
+        IResult Resolve(Behavior behavior, Action<IResolve> context);
     }
 
     public interface ISubject<T> : ISubject
@@ -21,6 +22,6 @@ namespace AssertiveResults
         ISubject<U> Override<U>(out T value);
         ISubject Override(out T value);
         IResult<T> Resolve(Func<IResolve, T> context);
-        IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> context);
+        IResult<T> Resolve(Behavior behavior, Func<IResolve, T> context);
     }
 }
