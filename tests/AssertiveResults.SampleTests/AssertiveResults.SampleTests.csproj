@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleApp</RootNamespace>
-    <AssemblyName>ConsoleApp</AssemblyName>
+    <RootNamespace>AssertiveResults.SampleTests</RootNamespace>
+    <AssemblyName>AssertiveResults.SampleTests</AssemblyName>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -17,6 +17,6 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AssertiveResults\AssertiveResults.csproj" />
+    <ProjectReference Include="..\..\src\AssertiveResults\AssertiveResults.csproj" />
   </ItemGroup>
 </Project>

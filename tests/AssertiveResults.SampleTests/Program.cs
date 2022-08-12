@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using ConsoleApp.Services;
+using AssertiveResults.SampleTests;
 
 IConfigurationRoot configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -16,11 +16,12 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder()
-    .ConfigureServices((_, services) =>
-        services.AddTransient<IAppService, AppService>())
+    .ConfigureServices((_, services) => {
+        services.AddTransient<Sampling>();
+    })
     .UseSerilog()
     .Build();
 
-var app = ActivatorUtilities.CreateInstance<AppService>(host.Services);
+var app = ActivatorUtilities.CreateInstance<Sampling>(host.Services);
 
 app.Run();
