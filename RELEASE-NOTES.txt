@@ -1,3 +1,5 @@
+v2.0.0-preview-2
+    - ADDED: action resolve
 v2.0.0-preview
     - BREAKING CHANGES: refactored namespaces
     - BREAKING CHANGES: refactored interfaces name
