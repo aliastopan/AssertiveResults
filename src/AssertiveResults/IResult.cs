@@ -1,16 +1,10 @@
 using System;
-using System.Collections.Generic;
 using AssertiveResults.Contracts;
-using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public interface IResult : IMetadata
+    public interface IResult : IMetadata, IProblem
     {
-        IReadOnlyCollection<Error> Errors { get; }
-        Error FirstError { get; }
-        Error LastError { get; }
-
         bool Success { get; }
         bool Failed { get; }
 

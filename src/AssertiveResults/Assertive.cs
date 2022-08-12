@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult, IBegin, ISubject, IResolve, IProblem
+    public class Assertive : IResult, IBegin, ISubject, IResolve
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
