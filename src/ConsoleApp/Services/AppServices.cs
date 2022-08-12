@@ -3,6 +3,7 @@ using System.Diagnostics;
 using AssertiveResults;
 using AssertiveResults.Errors;
 using AssertiveResults.Assertions.RegularExpressions;
+using Behavior = AssertiveResults.ResolveBehavior;
 using ConsoleApp.Errors;
 using ConsoleApp.Models;
 using Microsoft.Extensions.Logging;
@@ -78,9 +79,12 @@ public class AppService : IAppService
         _logger.LogInformation("Starting...");
 
         var result = Assertive.Result()
-            .Assert(ctx => ctx.Should.Satisfy(true))
-            .Resolve(() =>
+            .Assert(ctx => ctx.Should.Satisfy(false))
+            .Resolve(Behavior.Control, _ =>
             {
+                if(_.HasError)
+                    return;
+
                 _logger.LogCritical("Resolved.");
             });
         _logger.LogInformation("Resolved.");

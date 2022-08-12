@@ -67,10 +67,30 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(Action resolve)
+        public IResult Resolve(Action<IResolve> context)
         {
             if(!HasError)
-                resolve?.Invoke();
+                context?.Invoke(this);
+
+            return this;
+        }
+
+        public IResult Resolve(ResolveBehavior resolveBehavior, Action<IResolve> context)
+        {
+            switch(resolveBehavior)
+            {
+                case ResolveBehavior.Control:
+                    context?.Invoke(this);
+                    break;
+                default:
+                {
+                    if (!HasError)
+                        break;
+
+                    context?.Invoke(this);
+                    break;
+                }
+            }
 
             return this;
         }
@@ -156,13 +176,13 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult<T> Resolve(Func<IResolve, T> result)
+        public IResult<T> Resolve(Func<IResolve, T> context)
         {
-            Value = HasError ? default : result(this);
+            Value = HasError ? default : context(this);
             return this;
         }
 
-        public IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> result)
+        public IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> context)
         {
             switch(resolveBehavior)
             {
@@ -172,14 +192,14 @@ namespace AssertiveResults
                 {
                     if(HasError)
                         return this;
-                    else
-                        return Result();
+
+                    return Result();
                 }
             }
 
             IResult<T> Result()
             {
-                Value = result(this);
+                Value = context(this);
                 return this;
             }
         }
