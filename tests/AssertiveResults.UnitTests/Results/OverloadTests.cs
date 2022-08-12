@@ -121,21 +121,21 @@ public class OverloadTests
     {
         bool condition = true;
 
-        IResult<string> r1 = Assertive.Result<string>()
+        IResult<string> generic = Assertive.Result<string>()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve(_ => "TEXT");
 
-        Assert.True(r1.IsSuccess);
+        Assert.True(generic.IsSuccess);
 
-        IResult r2 = r1.Overload()
+        IResult nonGeneric = generic.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
-            .Resolve(_ => r1.Value);
+            .Resolve(_ => generic.Value);
 
-        Assert.True(r2.HasFailed);
-        Assert.Equal(default, r1.Value);
+        Assert.True(nonGeneric.HasFailed);
+        Assert.Equal(default, generic.Value);
     }
 
     [Fact]
