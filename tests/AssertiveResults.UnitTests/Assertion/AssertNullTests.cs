@@ -11,7 +11,7 @@ public class AssertNullTests
             .Assert(x => x.Should.Null(user))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
@@ -23,6 +23,6 @@ public class AssertNullTests
             .Assert(x => x.Should.NotNull(user))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

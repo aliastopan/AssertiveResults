@@ -13,13 +13,13 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
 
         r1.Overload()
             .Assert(x => x.Should.Satisfy(true))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
 
         r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
@@ -41,7 +41,7 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
 
         IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
@@ -63,7 +63,7 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r2.Failed);
+        Assert.True(r2.HasFailed);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(false))
             .Resolve();
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
 
         IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
@@ -89,7 +89,7 @@ public class OverloadTests
             })
             .Resolve();
 
-        Assert.True(r2.Failed);
+        Assert.True(r2.HasFailed);
         Assert.True(counter == 0);
         Assert.True(r2.Errors.Count == 1);
     }
@@ -105,14 +105,14 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r1.Success);
+        Assert.True(r1.IsSuccess);
 
         IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve();
 
-        Assert.True(r2.Success);
+        Assert.True(r2.IsSuccess);
         Assert.True(r2.Errors.Count == 0);
     }
 
@@ -127,14 +127,14 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve(_ => "TEXT");
 
-        Assert.True(r1.Success);
+        Assert.True(r1.IsSuccess);
 
         IResult r2 = r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => r1.Value);
 
-        Assert.True(r2.Failed);
+        Assert.True(r2.HasFailed);
         Assert.Equal(default, r1.Value);
     }
 
@@ -149,14 +149,14 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve(_ => "TEXT");
 
-        Assert.True(r1.Success);
+        Assert.True(r1.IsSuccess);
 
         r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(false))
             .Resolve(_ => r1.Value);
 
-        Assert.True(r1.Failed);
+        Assert.True(r1.HasFailed);
         Assert.Equal(default, r1.Value);
     }
 
@@ -171,14 +171,14 @@ public class OverloadTests
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve(_ => "TEXT");
 
-        Assert.True(r1.Success);
+        Assert.True(r1.IsSuccess);
 
         r1.Overload()
             .Assert(x => x.Should.Satisfy(condition))
             .Assert(x => x.Should.Satisfy(condition))
             .Resolve(_ => r1.Value);
 
-        Assert.True(r1.Success);
+        Assert.True(r1.IsSuccess);
         Assert.True(r1.Value == "TEXT");
     }
 }

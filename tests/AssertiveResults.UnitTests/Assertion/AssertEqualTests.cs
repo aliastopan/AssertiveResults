@@ -20,7 +20,7 @@ public class AssertEqualTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
@@ -39,6 +39,6 @@ public class AssertEqualTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

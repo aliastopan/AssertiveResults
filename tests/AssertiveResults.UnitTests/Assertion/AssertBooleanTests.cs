@@ -9,7 +9,7 @@ public class AssertBooleanTests
             .Assert(x => x.Should.Satisfy(true))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
@@ -19,6 +19,6 @@ public class AssertBooleanTests
             .Assert(x => x.Should.NotSatisfy(false))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

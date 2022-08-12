@@ -17,8 +17,8 @@ namespace AssertiveResults
             metadata = new Dictionary<string, object>();
         }
 
-        public bool Success => errors.Count == 0;
-        public bool Failed => !Success;
+        public bool IsSuccess => errors.Count == 0;
+        public bool HasFailed => !IsSuccess;
 
         public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
         public Error FirstError => GetError(index: 0);

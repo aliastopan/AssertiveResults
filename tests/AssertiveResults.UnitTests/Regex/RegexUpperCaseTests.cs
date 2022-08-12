@@ -15,7 +15,7 @@ public class RegexUpperCaseTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Theory]
@@ -33,6 +33,6 @@ public class RegexUpperCaseTests
             })
             .Resolve();
 
-        Assert.True(result.Failed);
+        Assert.True(result.HasFailed);
     }
 }

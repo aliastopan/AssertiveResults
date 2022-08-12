@@ -24,7 +24,7 @@ public class RegexUsernameTests
             .Assert(x => x.RegularExpression.Validate(username).Format.Username(3, 12))
             .Resolve();
 
-        Assert.True(result.Failed);
+        Assert.True(result.HasFailed);
     }
 
     [Theory]
@@ -43,6 +43,6 @@ public class RegexUsernameTests
             .Assert(x => x.RegularExpression.Validate(username).Format.Username(3, 12))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

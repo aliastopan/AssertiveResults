@@ -17,7 +17,7 @@ public class RegexLowerCaseTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Theory]
@@ -33,6 +33,6 @@ public class RegexLowerCaseTests
             })
             .Resolve();
 
-        Assert.True(result.Failed);
+        Assert.True(result.HasFailed);
     }
 }

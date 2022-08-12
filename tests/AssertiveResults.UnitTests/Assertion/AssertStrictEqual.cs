@@ -35,7 +35,7 @@ public class AssertStrictEqual
             }))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
@@ -49,6 +49,6 @@ public class AssertStrictEqual
             }))
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

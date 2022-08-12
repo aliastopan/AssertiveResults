@@ -14,7 +14,7 @@ public class AssertSameTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
@@ -29,6 +29,6 @@ public class AssertSameTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

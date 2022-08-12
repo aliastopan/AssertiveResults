@@ -43,6 +43,6 @@ public class RegexSpecialCharTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }

@@ -29,6 +29,6 @@ public class RegexMatchesTests
             })
             .Resolve();
 
-        Assert.True(result.Success);
+        Assert.True(result.IsSuccess);
     }
 }
