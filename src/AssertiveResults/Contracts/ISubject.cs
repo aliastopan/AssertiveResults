@@ -9,6 +9,7 @@ namespace AssertiveResults
         ISubject Assert(Action<IContext> context);
         ISubject<T> Override<T>();
         IResult Resolve();
+        IResult Resolve(Action resolve);
     }
 
     public interface ISubject<T>

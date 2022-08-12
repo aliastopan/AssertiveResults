@@ -67,6 +67,14 @@ namespace AssertiveResults
             return this;
         }
 
+        public IResult Resolve(Action resolve)
+        {
+            if(!HasError)
+                resolve?.Invoke();
+
+            return this;
+        }
+
         public IResult WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
