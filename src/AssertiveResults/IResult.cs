@@ -3,7 +3,7 @@ using AssertiveResults.Contracts;
 
 namespace AssertiveResults
 {
-    public interface IResult : IMetadata, IProblem
+    public interface IResult : IProblem, IResolve, IMetadata
     {
         bool Success { get; }
         bool Failed { get; }
