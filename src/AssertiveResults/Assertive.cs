@@ -160,11 +160,6 @@ namespace AssertiveResults
             return this;
         }
 
-        public new ISubject<U> Override<U>()
-        {
-            return new Assertive<U>(this);
-        }
-
         public ISubject<U> Override<U>(out T value)
         {
             value = this.Value;
