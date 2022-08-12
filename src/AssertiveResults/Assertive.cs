@@ -166,8 +166,9 @@ namespace AssertiveResults
             return new Assertive<U>(this);
         }
 
-        public ISubject Override()
+        public ISubject Override(out T value)
         {
+            value = this.Value;
             return this;
         }
 

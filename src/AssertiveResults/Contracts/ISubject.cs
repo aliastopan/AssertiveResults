@@ -19,7 +19,7 @@ namespace AssertiveResults
         new ISubject<T> Assert(Action<IContext> context);
         new ISubject<T> Overload();
         ISubject<U> Override<U>(out T value);
-        ISubject Override();
+        ISubject Override(out T value);
         IResult<T> Resolve(Func<IResolve, T> context);
         IResult<T> Resolve(ResolveBehavior resolveBehavior, Func<IResolve, T> context);
     }
