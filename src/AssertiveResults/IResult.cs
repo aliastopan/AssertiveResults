@@ -3,13 +3,13 @@ using AssertiveResults.Contracts;
 
 namespace AssertiveResults
 {
-    public interface IResult : ISubject, IProblem, IResolve, IMetadata
+    public interface IResult : IBegin, ISubject, IProblem, IResolve, IMetadata
     {
         bool Success { get; }
         bool Failed { get; }
     }
 
-    public interface IResult<T> : IResult, ISubject<T>, IMetadata<T>
+    public interface IResult<T> : IResult, IBegin<T>, ISubject<T>, IMetadata<T>
     {
         T Value { get; }
 

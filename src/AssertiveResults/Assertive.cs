@@ -6,7 +6,7 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult, IBegin
+    public class Assertive : IResult
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;
@@ -126,7 +126,7 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IResult<T>, IBegin<T>
+    internal class Assertive<T> : Assertive, IResult<T>
     {
         internal Assertive()
         {
