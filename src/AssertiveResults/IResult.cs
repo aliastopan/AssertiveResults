@@ -5,29 +5,23 @@ using AssertiveResults.Errors;
 
 namespace AssertiveResults
 {
-    public interface IResult
+    public interface IResult : IMetadata
     {
         IReadOnlyCollection<Error> Errors { get; }
         Error FirstError { get; }
         Error LastError { get; }
 
-        IReadOnlyDictionary<string, object> Metadata { get; }
-        bool HasMetadata { get; }
-
         bool Success { get; }
         bool Failed { get; }
 
-        IResult WithMetadata(string metadataName, object metadataValue);
-        object GetMetadata(string metadataName);
         ISubject Overload();
         ISubject<T> Override<T>();
     }
 
-    public interface IResult<T> : IResult
+    public interface IResult<T> : IResult, IMetadata<T>
     {
         T Value { get; }
 
-        new IResult<T> WithMetadata(string metadataName, object metadataValue);
         new ISubject<T> Overload();
         new ISubject<U> Override<U>();
         ISubject<U> Override<U>(out T value);
