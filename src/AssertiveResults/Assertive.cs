@@ -125,6 +125,14 @@ namespace AssertiveResults
             errors.Clear();
             return count;
         }
+
+        public void Match(Action<IMetadata> onSuccess, Action<(IMetadata metadata, IProblem problem)> onFailure)
+        {
+            if(HasError)
+                onSuccess(this);
+            else
+                onFailure((this, this));
+        }
     }
 
     internal class Assertive<T> : Assertive, IResult<T>

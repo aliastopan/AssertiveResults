@@ -7,6 +7,7 @@ namespace AssertiveResults
         ISubject,
         IProblem,
         IInspect,
+        IMatch,
         IMetadata
     {
         bool IsSuccess { get; }
