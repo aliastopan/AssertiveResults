@@ -15,14 +15,11 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
         public IResult Username(int min = 1, int max = 32)
         {
-            if(min < 0 || max <= min)
-                throw new InvalidOperationException();
+            if(min < 0 || max <= min) throw new InvalidOperationException();
 
-            string pattern = RegexPattern.Username(min, max);
-            const string errorCode = "Username.Validation";
-            const string errorDescription = "Invalid username format.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return _regex.PatternMatching(pattern, error);
+            return _regex.Assert(RegexPattern.Username(min, max),
+                "Username.Validation",
+                "Invalid username format.");
         }
 
         public IResult StrongPassword(Strength strength = Strength.Standard)
@@ -46,18 +43,16 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
                     break;
             }
 
-            const string errorCode = "PasswordStrength.Validation";
-            var error = Error.Validation(errorCode, errorDescription);
-            return _regex.PatternMatching(pattern, error);
+            return _regex.Assert(pattern,
+                "PasswordStrength.Validation",
+                errorDescription);
         }
 
         public IResult EmailAddress()
         {
-            string pattern = RegexPattern.EmailAddress;
-            const string errorCode = "Email.Validation";
-            const string errorDescription = "Invalid email address format.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return _regex.PatternMatching(pattern, error);
+            return _regex.Assert(RegexPattern.EmailAddress,
+                "EmailAddress.Validation",
+                "Invalid email address format.");
         }
     }
 }

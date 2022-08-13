@@ -27,45 +27,38 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IResult Matches(string pattern)
         {
-            var errorCode = "Regex.Validation";
-            var errorDescription = $"String doesn't match with the given {pattern} expression.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return PatternMatching(pattern, error);
+            return Assert(pattern,
+                "Regex.Validation",
+                string.Format("String doesn't match with the given {0} expression.", pattern));
         }
 
         public IResult MatchesIllegal(string pattern)
         {
-            var errorCode = "Regex.Validation";
-            var errorDescription = $"String match with the given illegal {pattern} expression.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return PatternMatching(pattern, error, illegal: true);
+            return Assert(pattern,
+                "Regex.Validation",
+                string.Format("String match with the given illegal {0} expression.", pattern),
+                illegal: true);
         }
 
         public IResult Length(int min, int max)
         {
-            var pattern = RegexPattern.Length(min, max);
-            var errorCode = "Length.Validation";
-            var errorDescription = $"String must be between {min} and {max} characters.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return PatternMatching(pattern, error);
+            return Assert(RegexPattern.Length(min, max),
+                "Regex.Validation",
+                string.Format("String must be between {0} and {1} characters.", min, max));
         }
 
         public IResult MinLength(int min)
         {
-            var pattern = RegexPattern.MinLength(min);
-            var errorCode = "MinLength.Validation";
-            var errorDescription = $"String must be least {min} characters.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return PatternMatching(pattern, error);
+            return Assert(RegexPattern.MinLength(min),
+                "Regex.Validation",
+                string.Format("String must be least {0} characters.", min));
         }
 
         public IResult MaxLength(int max)
         {
-            var pattern = RegexPattern.MaxLength(max);
-            var errorCode = "MaxLength.Validation";
-            var errorDescription = $"String cannot be more than {max} characters.";
-            var error = Error.Validation(errorCode, errorDescription);
-            return PatternMatching(pattern, error);
+            return Assert(RegexPattern.MaxLength(max),
+                "Regex.Validation",
+                string.Format("String cannot be more than {0} characters.", max));
         }
 
         public IMatch WithError(Error error)
@@ -74,14 +67,15 @@ namespace AssertiveResults.Assertions.RegularExpressions
             return this;
         }
 
-        internal IResult PatternMatching(string pattern, Error error, bool illegal = false)
+        internal IResult Assert(string pattern, string errorCode, string errorMessages, bool illegal = false)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
             _context.AllCorrect = illegal ? !isMatch : isMatch;
-            if(!_context.AllCorrect)
-                _context.Errors.Add(error);
+            if(_context.AllCorrect)
+                return this;
 
+            _context.Errors.Add(Error.Validation(errorCode, errorMessages));
             return this;
         }
     }
