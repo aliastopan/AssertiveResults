@@ -47,7 +47,7 @@ namespace AssertiveResults
             var ctx = new Context();
             context?.Invoke(ctx);
 
-            if(ctx.Failed)
+            if(ctx.HasError)
                 errors.AddRange(ctx.Errors);
 
             return this;
@@ -159,7 +159,7 @@ namespace AssertiveResults
 
             var ctx = new Context();
             context?.Invoke(ctx);
-            if(ctx.Failed)
+            if(ctx.HasError)
                 errors.AddRange(ctx.Errors);
 
             return this;

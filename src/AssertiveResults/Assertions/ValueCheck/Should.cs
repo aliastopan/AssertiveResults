@@ -99,7 +99,7 @@ namespace AssertiveResults.Assertions.ValueCheck
 
         public IValueCheck WithError(Error error)
         {
-            if(_context.Failed)
+            if(_context.HasError)
             {
                 _context.Errors.RemoveAt(_context.Errors.Count - 1);
                 _context.Errors.Add(error);
@@ -110,8 +110,8 @@ namespace AssertiveResults.Assertions.ValueCheck
 
         internal IResult Assert(bool assertion, string errorCode, string errorMessages)
         {
-            _context.IsSatisfied = assertion;
-            if(_context.IsSatisfied)
+            _context.AllCorrect = assertion;
+            if(_context.AllCorrect)
                 return this;
 
             _context.Errors.Add(Error.ValueCheck(errorCode, errorMessages));

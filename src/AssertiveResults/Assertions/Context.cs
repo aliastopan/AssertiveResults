@@ -20,7 +20,7 @@ namespace AssertiveResults.Assertions
         public IErrorHandler Exception { get; internal set; }
 
         internal List<Error> Errors { get; } = new List<Error>();
-        internal bool IsSatisfied { get; set; }
-        internal bool Failed => Errors.Count > 0;
+        internal bool AllCorrect { get; set; }
+        internal bool HasError => Errors.Count > 0;
     }
 }

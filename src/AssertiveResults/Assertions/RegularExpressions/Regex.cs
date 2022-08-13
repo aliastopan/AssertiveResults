@@ -70,7 +70,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IMatch WithError(Error error)
         {
-            if(_context.Failed)
+            if(_context.HasError)
             {
                 _context.Errors.RemoveAt(_context.Errors.Count - 1);
                 _context.Errors.Add(error);
@@ -83,8 +83,8 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
-            _context.IsSatisfied = illegal ? !isMatch : isMatch;
-            if(!_context.IsSatisfied)
+            _context.AllCorrect = illegal ? !isMatch : isMatch;
+            if(!_context.AllCorrect)
                 _context.Errors.Add(error);
 
             return this;
