@@ -11,7 +11,10 @@ public static class Logging
         {
             foreach (var error in result.Errors)
             {
-                Serilog.Log.Logger.Information("Error [{type}][{code}]: {message}", error.ErrorType, error.Code, error.Description);
+                Serilog.Log.Logger.Information(
+                    "Error [{code}]: {description}",
+                    error.Code,
+                    error.Description);
             }
         }
 
@@ -19,7 +22,10 @@ public static class Logging
         {
             foreach (var metadata in result.Metadata)
             {
-                Serilog.Log.Logger.Information("[{key}]: {value}", metadata.Key, metadata.Value);
+                Serilog.Log.Logger.Information(
+                    "[{key}]: {value}",
+                    metadata.Key,
+                    metadata.Value);
             }
         }
     }
