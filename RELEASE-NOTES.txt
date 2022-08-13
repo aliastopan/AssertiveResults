@@ -1,10 +1,7 @@
 v2.0.0-rc
-    - PATCH: better action resolve
-v2.0.0-preview-2
-    - ADDED: action resolve
-v2.0.0-preview
     - BREAKING CHANGES: refactored namespaces
     - BREAKING CHANGES: refactored interfaces name
+    - ADDED: action resolve
     - ADDED: error handling
 v1.2.1
     - PATCH: fix typo
