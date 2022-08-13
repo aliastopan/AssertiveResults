@@ -67,7 +67,11 @@ namespace AssertiveResults.Assertions.RegularExpressions
             return this;
         }
 
-        internal IResult Assert(string pattern, string errorCode, string errorMessages, bool illegal = false)
+        internal IResult Assert(
+            string pattern,
+            string errorCode,
+            string errorMessages,
+            bool illegal = false)
         {
             var regex = new RegularExpression(pattern);
             var isMatch = regex.IsMatch(_input);
