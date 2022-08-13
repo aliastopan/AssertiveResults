@@ -43,7 +43,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IResult Length(int min, int max)
         {
-            var pattern = Expression.Length(min, max);
+            var pattern = RegexPattern.Length(min, max);
             var errorCode = "Length.Validation";
             var errorDescription = $"String must be between {min} and {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -52,7 +52,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IResult MinLength(int min)
         {
-            var pattern = Expression.MinLength(min);
+            var pattern = RegexPattern.MinLength(min);
             var errorCode = "MinLength.Validation";
             var errorDescription = $"String must be least {min} characters.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -61,7 +61,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         public IResult MaxLength(int max)
         {
-            var pattern = Expression.MaxLength(max);
+            var pattern = RegexPattern.MaxLength(max);
             var errorCode = "MaxLength.Validation";
             var errorDescription = $"String cannot be more than {max} characters.";
             var error = Error.Validation(errorCode, errorDescription);

@@ -18,7 +18,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             if(min < 0 || max <= min)
                 throw new InvalidOperationException();
 
-            string pattern = Expression.Username(min, max);
+            string pattern = RegexPattern.Username(min, max);
             const string errorCode = "Username.Validation";
             const string errorDescription = "Invalid username format.";
             var error = Error.Validation(errorCode, errorDescription);
@@ -33,15 +33,15 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             switch(strength)
             {
                 case Strength.Complex:
-                    pattern = Expression.Password.Complex();
+                    pattern = RegexPattern.Password.Complex;
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
                     break;
                 case Strength.Maximum:
-                    pattern = Expression.Password.Maximum();
+                    pattern = RegexPattern.Password.Maximum;
                     errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
                     break;
                 default:
-                    pattern = Expression.Password.Standard();
+                    pattern = RegexPattern.Password.Standard;
                     errorDescription = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
                     break;
             }
@@ -53,7 +53,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
         public IResult EmailAddress()
         {
-            string pattern = Expression.Email();
+            string pattern = RegexPattern.EmailAddress;
             const string errorCode = "Email.Validation";
             const string errorDescription = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorDescription);
