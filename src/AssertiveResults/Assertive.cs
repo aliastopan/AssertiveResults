@@ -217,6 +217,14 @@ namespace AssertiveResults
                 onValue(Value);
         }
 
+        public void Match(Action<(T value, IMetadata metadata)> onSuccess, Action<(IMetadata metadata, IProblem problem)> onFailure)
+        {
+            if(HasError)
+                onFailure((this, this));
+            else
+                onSuccess((Value, this));
+        }
+
         public U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError)
         {
             if(HasError)

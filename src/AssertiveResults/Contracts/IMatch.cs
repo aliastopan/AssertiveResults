@@ -9,7 +9,7 @@ namespace AssertiveResults.Contracts
 
     public interface IMatch<T>
     {
-        void Match(Action<T> onValue, Action<IProblem> onError);
+        void Match(Action<(T value, IMetadata metadata)> onSuccess, Action<(IMetadata metadata, IProblem problem)> onFailure);
         U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError);
     }
 }
