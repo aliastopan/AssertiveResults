@@ -22,5 +22,14 @@ namespace AssertiveResults.Assertions
         internal List<Error> Errors { get; } = new List<Error>();
         internal bool AllCorrect { get; set; }
         internal bool HasError => Errors.Count > 0;
+
+        internal void WithError(Error error)
+        {
+            if(AllCorrect)
+                return;
+
+            Errors.RemoveAt(Errors.Count - 1);
+            Errors.Add(error);
+        }
     }
 }

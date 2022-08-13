@@ -99,12 +99,7 @@ namespace AssertiveResults.Assertions.ValueCheck
 
         public IValueCheck WithError(Error error)
         {
-            if(_context.HasError)
-            {
-                _context.Errors.RemoveAt(_context.Errors.Count - 1);
-                _context.Errors.Add(error);
-            }
-
+            _context.WithError(error);
             return this;
         }
 
