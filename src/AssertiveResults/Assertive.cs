@@ -228,13 +228,13 @@ namespace AssertiveResults
                 onSuccess((Value, this));
         }
 
-        public U Match<U>(Func<T, U> onValue,
-                          Func<IProblem, U> onError)
+        public U Match<U>(Func<(T value, IMetadata metadata), U> onSuccess,
+                          Func<(IMetadata metadata, IProblem problem), U> onFailure)
         {
             if(HasError)
-                return onError(this);
+                return onFailure((this, this));
 
-            return onValue(Value);
+            return onSuccess((Value, this));
         }
 
         public new IResult<T> WithMetadata(string metadataName, object metadataValue)

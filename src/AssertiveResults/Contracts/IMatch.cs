@@ -13,6 +13,7 @@ namespace AssertiveResults.Contracts
         void Match(Action<(T value, IMetadata metadata)> onSuccess,
                    Action<(IMetadata metadata, IProblem problem)> onFailure);
 
-        U Match<U>(Func<T, U> onValue, Func<IProblem, U> onError);
+        U Match<U>(Func<(T value, IMetadata metadata), U> onSuccess,
+                   Func<(IMetadata metadata, IProblem problem), U> onFailure);
     }
 }
