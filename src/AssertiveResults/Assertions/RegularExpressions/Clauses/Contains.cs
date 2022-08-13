@@ -4,11 +4,11 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
     internal sealed class Contains : IContains
     {
-        private readonly Regex _regexAssertion;
+        private readonly Regex _regex;
 
-        internal Contains(Regex regexAssertion)
+        internal Contains(Regex regex)
         {
-            _regexAssertion = regexAssertion;
+            _regex = regex;
         }
 
         public IResult LowerCase()
@@ -17,7 +17,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "LowerCase.Validation";
             const string errorDescription = "String must contain lower case character.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult UpperCase()
@@ -26,7 +26,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "UpperCase.Validation";
             const string errorDescription = "String must contain upper case character.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult Alphabet()
@@ -35,7 +35,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Alphabet.Validation";
             const string errorDescription = "String must contain alphabet.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult Alphameric()
@@ -44,7 +44,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Alphameric.Validation";
             const string errorDescription = "String must contain alphabet or number.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult Number()
@@ -53,7 +53,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Number.Validation";
             const string errorDescription = "String must contain number.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult Symbol()
@@ -62,7 +62,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Symbol.Validation";
             const string errorDescription = "String must contain symbol.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
     }
 }

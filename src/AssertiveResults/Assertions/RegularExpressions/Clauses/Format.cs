@@ -6,11 +6,11 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 {
     internal sealed class Format : IFormat
     {
-        private readonly Regex _regexAssertion;
+        private readonly Regex _regex;
 
-        internal Format(Regex regexAssertion)
+        internal Format(Regex regex)
         {
-            _regexAssertion = regexAssertion;
+            _regex = regex;
         }
 
         public IResult Username(int min = 1, int max = 32)
@@ -22,7 +22,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Username.Validation";
             const string errorDescription = "Invalid username format.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult StrongPassword(Strength strength = Strength.Standard)
@@ -48,7 +48,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
             const string errorCode = "PasswordStrength.Validation";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
 
         public IResult EmailAddress()
@@ -57,7 +57,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             const string errorCode = "Email.Validation";
             const string errorDescription = "Invalid email address format.";
             var error = Error.Validation(errorCode, errorDescription);
-            return _regexAssertion.PatternMatching(pattern, error);
+            return _regex.PatternMatching(pattern, error);
         }
     }
 }
