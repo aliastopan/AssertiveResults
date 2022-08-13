@@ -25,7 +25,7 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             return _regexAssertion.PatternMatching(pattern, error);
         }
 
-        public IResult StrongPassword(PasswordStrength strength = Strength.Standard)
+        public IResult StrongPassword(Strength strength = Strength.Standard)
         {
             string pattern;
             string errorDescription;
