@@ -1,15 +1,15 @@
 namespace AssertiveResults.Errors
 {
-    public struct Error
+    public struct Error : IError
     {
-        public ErrorType ErrorType { get; }
+        public ErrorType Type { get; }
         public int NumericType { get; }
         public string Code { get; }
         public string Description { get; }
 
         private Error(ErrorType type, string code, string description)
         {
-            ErrorType = type;
+            Type = type;
             NumericType = (int) type;
             Code = code;
             Description = description;

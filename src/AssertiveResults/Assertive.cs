@@ -9,21 +9,21 @@ namespace AssertiveResults
 {
     public class Assertive : IResult, IInspect
     {
-        protected internal List<Error> errors;
+        protected internal List<IError> errors;
         protected internal Dictionary<string, object> metadata;
 
         protected Assertive()
         {
-            errors = new List<Error>();
+            errors = new List<IError>();
             metadata = new Dictionary<string, object>();
         }
 
         public bool IsSuccess => errors.Count == 0;
         public bool HasFailed => !IsSuccess;
 
-        public IReadOnlyCollection<Error> Errors => errors.AsReadOnly();
-        public Error FirstError => GetError(index: 0);
-        public Error LastError => GetError(index: errors.Count - 1);
+        public IReadOnlyCollection<IError> Errors => errors.AsReadOnly();
+        public IError FirstError => GetError(index: 0);
+        public IError LastError => GetError(index: errors.Count - 1);
         public bool HasError => errors.Count > 0;
 
         public bool HasMetadata => metadata.Count > 0;
@@ -111,7 +111,7 @@ namespace AssertiveResults
             return value;
         }
 
-        private Error GetError(int index)
+        private IError GetError(int index)
         {
             if(!HasError)
                 throw new InvalidOperationException();

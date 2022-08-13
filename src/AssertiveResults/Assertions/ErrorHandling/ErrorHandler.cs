@@ -11,7 +11,7 @@ namespace AssertiveResults.Assertions.ErrorHandling
             _context = context;
         }
 
-        public void Catch(Error error)
+        public void Catch(IError error)
         {
             _context.Errors.Add(error);
         }

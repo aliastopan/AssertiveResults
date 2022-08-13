@@ -4,6 +4,6 @@ namespace AssertiveResults.Assertions.RegularExpressions
 {
     public interface IResult : IMatch
     {
-        IMatch WithError(Error error);
+        IMatch WithError(IError error);
     }
 }

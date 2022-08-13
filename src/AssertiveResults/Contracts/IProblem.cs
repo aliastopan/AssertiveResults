@@ -5,8 +5,8 @@ namespace AssertiveResults.Contracts
 {
     public interface IProblem
     {
-        IReadOnlyCollection<Error> Errors { get; }
-        Error FirstError { get; }
-        Error LastError { get; }
+        IReadOnlyCollection<IError> Errors { get; }
+        IError FirstError { get; }
+        IError LastError { get; }
     }
 }

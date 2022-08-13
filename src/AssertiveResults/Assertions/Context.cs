@@ -19,11 +19,11 @@ namespace AssertiveResults.Assertions
         public IRegex RegularExpression { get; internal set; }
         public IErrorHandler Exception { get; internal set; }
 
-        internal List<Error> Errors { get; } = new List<Error>();
+        internal List<IError> Errors { get; } = new List<IError>();
         internal bool AllCorrect { get; set; }
         internal bool HasError => Errors.Count > 0;
 
-        internal void WithError(Error error)
+        internal void WithError(IError error)
         {
             if(AllCorrect)
                 return;

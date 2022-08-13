@@ -61,7 +61,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
                 string.Format(ErrorDescription.StringTooLong, max));
         }
 
-        public IMatch WithError(Error error)
+        public IMatch WithError(IError error)
         {
             _context.WithError(error);
             return this;

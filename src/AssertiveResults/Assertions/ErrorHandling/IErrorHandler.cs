@@ -4,6 +4,6 @@ namespace AssertiveResults.Assertions.ErrorHandling
 {
     public interface IErrorHandler
     {
-        void Catch(Error error);
+        void Catch(IError error);
     }
 }

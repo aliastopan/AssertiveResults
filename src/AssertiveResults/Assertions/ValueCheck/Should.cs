@@ -97,7 +97,7 @@ namespace AssertiveResults.Assertions.ValueCheck
                 ErrorDescription.ReferencesAreTheSame);
         }
 
-        public IValueCheck WithError(Error error)
+        public IValueCheck WithError(IError error)
         {
             _context.WithError(error);
             return this;
