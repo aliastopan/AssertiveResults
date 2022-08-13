@@ -16,85 +16,85 @@ namespace AssertiveResults.Assertions.ValueCheck
         public IResult Satisfy(bool condition)
         {
             return Assert(condition,
-                "Boolean.ValueCheck",
-                "Value must satisfy the specified condition.");
+                ErrorCode.Assertion.Boolean,
+                ErrorDescription.UnsatisfiedCondition);
         }
 
         public IResult NotSatisfy(bool condition)
         {
             return Assert(!condition,
-                "Boolean.ValueCheck",
-                "Value must not satisfy the illegal condition.");
+                ErrorCode.Assertion.Boolean,
+                ErrorDescription.SatisfiedIllegalCondition);
         }
 
         public IResult Null(object @object)
         {
             return Assert(@object == null,
-                "Null.ValueCheck",
-                "Value must be null.");
+                ErrorCode.Assertion.ObjectReference,
+                ErrorDescription.ReferenceIsNotNull);
         }
 
         public IResult NotNull(object @object)
         {
             return Assert(@object != null,
-                "NotNull.ValueCheck",
-                "Value must not be null.");
+                ErrorCode.Assertion.ObjectReference,
+                ErrorDescription.ReferenceIsNull);
         }
 
         public IResult Empty(IEnumerable collection)
         {
             return Assert(!collection.GetEnumerator().MoveNext(),
-                "Empty.ValueCheck",
-                "Value must be empty.");
+                ErrorCode.Assertion.Collection,
+                ErrorDescription.CollectionIsNotEmpty);
         }
 
         public IResult NotEmpty(IEnumerable collection)
         {
             return Assert(collection.GetEnumerator().MoveNext(),
-                "NotEmpty.ValueCheck",
-                "Value must not be empty.");
+                ErrorCode.Assertion.Collection,
+                ErrorDescription.CollectionIsEmpty);
         }
 
         public IResult Equal<T>(T former, T latter)
         {
             return Assert(former.Equals(latter),
-                "Equal.ValueCheck",
-                "Value(s) must be equal.");
+                ErrorCode.Assertion.Value,
+                ErrorDescription.ObjectsAreNotEqual);
         }
 
         public IResult NotEqual<T>(T former, T latter)
         {
             return Assert(!former.Equals(latter),
-                "NotEqual.ValueCheck",
-                "Value(s) must not be equal.");
+                ErrorCode.Assertion.Value,
+                ErrorDescription.ObjectsAreEqual);
         }
 
         public IResult StrictEqual<T>(IComparable<T> former, T latter)
         {
             return Assert(former.CompareTo(latter) == 0,
-                "StrictEqual.ValueCheck",
-                "Value(s) must have identical values.");
+                ErrorCode.Assertion.Value,
+                ErrorDescription.ObjectsAreNotStrictlyEqual);
         }
 
         public IResult NotStrictEqual<T>(IComparable<T> former, T latter)
         {
             return Assert(former.CompareTo(latter) != 0,
-                "NotStrictEqual.ValueCheck",
-                "Value(s) must not have identical values.");
+                ErrorCode.Assertion.Value,
+                ErrorDescription.ObjectsAreStrictlyEqual);
         }
 
         public IResult Same(object former, object latter)
         {
             return Assert(former == latter,
-                "Same.ReferenceCheck",
-                "Value(s) must be the same instance.");
+                ErrorCode.Assertion.ObjectReference,
+                ErrorDescription.ReferencesNotAreTheSame);
         }
 
         public IResult NotSame(object former, object latter)
         {
             return Assert(former != latter,
-                "NotSame.ReferenceCheck",
-                "Value(s) must not be the same instance.");
+                ErrorCode.Assertion.ObjectReference,
+                ErrorDescription.ReferencesAreTheSame);
         }
 
         public IValueCheck WithError(Error error)

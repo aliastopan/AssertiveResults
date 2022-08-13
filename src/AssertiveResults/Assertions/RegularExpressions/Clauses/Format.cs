@@ -18,8 +18,8 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             if(min < 0 || max <= min) throw new InvalidOperationException();
 
             return _regex.Assert(RegexPattern.Username(min, max),
-                "Username.Validation",
-                "Invalid username format.");
+                ErrorCode.Assertion.UsernameStandard,
+                ErrorDescription.InvalidUsernameFormat);
         }
 
         public IResult StrongPassword(Strength strength = Strength.Standard)
@@ -31,28 +31,28 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             {
                 case Strength.Complex:
                     pattern = RegexPattern.Password.Complex;
-                    errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long.";
+                    errorDescription = ErrorDescription.WeakPasswordComplex;
                     break;
                 case Strength.Maximum:
                     pattern = RegexPattern.Password.Maximum;
-                    errorDescription = "Password must contain 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.";
+                    errorDescription = ErrorDescription.WeakPasswordMaximum;
                     break;
                 default:
                     pattern = RegexPattern.Password.Standard;
-                    errorDescription = "Password must contain 1 lowercase letter, 1 number, and be at least 8 characters long.";
+                    errorDescription = ErrorDescription.WeakPasswordStandard;
                     break;
             }
 
             return _regex.Assert(pattern,
-                "PasswordStrength.Validation",
+                ErrorCode.Assertion.PasswordStrength,
                 errorDescription);
         }
 
         public IResult EmailAddress()
         {
             return _regex.Assert(RegexPattern.EmailAddress,
-                "EmailAddress.Validation",
-                "Invalid email address format.");
+                ErrorCode.Assertion.EmailAddressFormat,
+                ErrorDescription.InvalidEmailAddressFormat);
         }
     }
 }

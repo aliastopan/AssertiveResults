@@ -28,37 +28,37 @@ namespace AssertiveResults.Assertions.RegularExpressions
         public IResult Matches(string pattern)
         {
             return Assert(pattern,
-                "Regex.Validation",
-                string.Format("String doesn't match with the given {0} expression.", pattern));
+                ErrorCode.Assertion.RegularExpression,
+                string.Format(ErrorDescription.StringNotMatchesRegularExpression, pattern));
         }
 
         public IResult MatchesIllegal(string pattern)
         {
             return Assert(pattern,
-                "Regex.Validation",
-                string.Format("String match with the given illegal {0} expression.", pattern),
+                ErrorCode.Assertion.RegularExpression,
+                string.Format(ErrorDescription.StringMatchesIllegalRegularExpression, pattern),
                 illegal: true);
         }
 
         public IResult Length(int min, int max)
         {
             return Assert(RegexPattern.Length(min, max),
-                "Regex.Validation",
-                string.Format("String must be between {0} and {1} characters.", min, max));
+                ErrorCode.Assertion.RegularExpression,
+                string.Format(ErrorDescription.StringInvalidLength, min, max));
         }
 
         public IResult MinLength(int min)
         {
             return Assert(RegexPattern.MinLength(min),
-                "Regex.Validation",
-                string.Format("String must be least {0} characters.", min));
+                ErrorCode.Assertion.RegularExpression,
+                string.Format(ErrorDescription.StringTooShort, min));
         }
 
         public IResult MaxLength(int max)
         {
             return Assert(RegexPattern.MaxLength(max),
-                "Regex.Validation",
-                string.Format("String cannot be more than {0} characters.", max));
+                ErrorCode.Assertion.RegularExpression,
+                string.Format(ErrorDescription.StringTooLong, max));
         }
 
         public IMatch WithError(Error error)

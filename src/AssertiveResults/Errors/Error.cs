@@ -16,43 +16,43 @@ namespace AssertiveResults.Errors
         }
 
         internal static Error ValueCheck(
-            string code = "ValueCheck.Error",
-            string description = "A value check error has occurred.")
+            string code = ErrorCode.Assertion.Value,
+            string description = ErrorDescription.ValueCheck)
         {
             return new Error(ErrorType.Failure, code, description);
         }
 
         public static Error Failure(
-            string code = "General.Failure",
-            string description = "A failure has occurred.")
+            string code = ErrorCode.Failure,
+            string description = ErrorDescription.Failure)
         {
             return new Error(ErrorType.Failure, code, description);
         }
 
         public static Error Conflict(
-            string code = "General.Conflict",
-            string description = "A conflict error has occurred.")
+            string code = ErrorCode.Conflict,
+            string description = ErrorDescription.Conflict)
         {
             return new Error(ErrorType.Conflict, code, description);
         }
 
         public static Error NotFound(
-            string code = "General.NotFound",
-            string description = "A 'Not Found' error has occurred.")
+            string code = ErrorCode.NotFound,
+            string description = ErrorDescription.NotFound)
         {
             return new Error(ErrorType.NotFound, code, description);
         }
 
         public static Error Unexpected(
-            string code = "General.Unexpected",
-            string description = "An unexpected error has occurred.")
+            string code = ErrorCode.Unexpected,
+            string description = ErrorDescription.Unexpected)
         {
             return new Error(ErrorType.Unexpected, code, description);
         }
 
         public static Error Validation(
-            string code = "General.Validation",
-            string description = "A validation error has occurred.")
+            string code = ErrorCode.Validation,
+            string description = ErrorDescription.Validation)
         {
             return new Error(ErrorType.Validation, code, description);
         }

@@ -14,43 +14,43 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
         public IResult LowerCase()
         {
             return _regex.Assert(RegexPattern.LowerCase,
-                "LowerCase.Validation",
-                "String must contain lower case character.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingLowerCase);
         }
 
         public IResult UpperCase()
         {
             return _regex.Assert(RegexPattern.UpperCase,
-                "UpperCase.Validation",
-                "String must contain upper case character.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingUpperCase);
         }
 
         public IResult Alphabet()
         {
             return _regex.Assert(RegexPattern.Alphabet,
-                "Alphabet.Validation",
-                "String must contain alphabet.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingAlphabet);
         }
 
         public IResult Alphameric()
         {
             return _regex.Assert(RegexPattern.Alphameric,
-                "Alphameric.Validation",
-                "String must contain alphabet or number.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingAlphameric);
         }
 
         public IResult Number()
         {
             return _regex.Assert(RegexPattern.Number,
-                "Number.Validation",
-                "String must contain number.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingNumber);
         }
 
         public IResult Symbol()
         {
             return _regex.Assert(RegexPattern.Symbols,
-                "Symbol.Validation",
-                "String must contain symbol.");
+                ErrorCode.Assertion.RegularExpression,
+                ErrorDescription.StringMissingSpecialCharacter);
         }
     }
 }
