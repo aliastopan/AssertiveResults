@@ -7,7 +7,7 @@ using Behavior = AssertiveResults.ResolveBehavior;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult
+    public class Assertive : IResult, IInspect
     {
         protected internal List<Error> errors;
         protected internal Dictionary<string, object> metadata;

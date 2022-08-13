@@ -6,7 +6,6 @@ namespace AssertiveResults
         IBegin,
         ISubject,
         IProblem,
-        IInspect,
         IMatch,
         IMetadata
     {
