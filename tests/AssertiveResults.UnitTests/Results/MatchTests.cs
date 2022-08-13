@@ -10,8 +10,8 @@ public class MatchTests
             .Resolve(_ => "something");
 
         var value = result.Match(
-            value => value + "-something",
-            error => $"{error.FirstError.Description}");
+            ok => ok.value + "-something",
+            fail => $"{fail.problem.FirstError.Description}");
 
         Assert.Equal("something-something", value);
     }
