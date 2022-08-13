@@ -15,171 +15,86 @@ namespace AssertiveResults.Assertions.ValueCheck
 
         public IResult Satisfy(bool condition)
         {
-            _context.IsSatisfied = condition;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Boolean.ValueCheck";
-                const string errorDescription = "Value must satisfy the specified condition.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(condition,
+                "Boolean.ValueCheck",
+                "Value must satisfy the specified condition.");
         }
 
         public IResult NotSatisfy(bool condition)
         {
-            _context.IsSatisfied = !condition;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Boolean.ValueCheck";
-                const string errorDescription = "Value must not satisfy the illegal condition.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(!condition,
+                "Boolean.ValueCheck",
+                "Value must not satisfy the illegal condition.");
         }
 
         public IResult Null(object @object)
         {
-            _context.IsSatisfied = @object == null;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Null.ValueCheck";
-                const string errorDescription = "Value must be null.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(@object == null,
+                "Null.ValueCheck",
+                "Value must be null.");
         }
 
         public IResult NotNull(object @object)
         {
-            _context.IsSatisfied = @object != null;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "NotNull.ValueCheck";
-                const string errorDescription = "Value must not be null.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(@object != null,
+                "NotNull.ValueCheck",
+                "Value must not be null.");
         }
 
         public IResult Empty(IEnumerable collection)
         {
-            _context.IsSatisfied = !collection.GetEnumerator().MoveNext();
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Empty.ValueCheck";
-                const string errorDescription = "Value must be empty.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(!collection.GetEnumerator().MoveNext(),
+                "Empty.ValueCheck",
+                "Value must be empty.");
         }
 
         public IResult NotEmpty(IEnumerable collection)
         {
-            _context.IsSatisfied = collection.GetEnumerator().MoveNext();
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "NotEmpty.ValueCheck";
-                const string errorDescription = "Value must not be empty.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(collection.GetEnumerator().MoveNext(),
+                "NotEmpty.ValueCheck",
+                "Value must not be empty.");
         }
 
         public IResult Equal<T>(T former, T latter)
         {
-            _context.IsSatisfied = former.Equals(latter);
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Equal.ValueCheck";
-                const string errorDescription = "Value(s) must be equal.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(former.Equals(latter),
+                "Equal.ValueCheck",
+                "Value(s) must be equal.");
         }
 
         public IResult NotEqual<T>(T former, T latter)
         {
-            _context.IsSatisfied = !former.Equals(latter);
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "NotEqual.ValueCheck";
-                const string errorDescription = "Value(s) must not be equal.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(!former.Equals(latter),
+                "NotEqual.ValueCheck",
+                "Value(s) must not be equal.");
         }
 
         public IResult StrictEqual<T>(IComparable<T> former, T latter)
         {
-            int result = former.CompareTo(latter);
-            _context.IsSatisfied = result == 0;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "StrictEqual.ValueCheck";
-                const string errorDescription = "Value(s) must have identical values.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(former.CompareTo(latter) == 0,
+                "StrictEqual.ValueCheck",
+                "Value(s) must have identical values.");
         }
 
         public IResult NotStrictEqual<T>(IComparable<T> former, T latter)
         {
-            int result = former.CompareTo(latter);
-            _context.IsSatisfied = result != 0;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "NotStrictEqual.ValueCheck";
-                const string errorDescription = "Value(s) must not have identical values.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-            return this;
+            return Assert(former.CompareTo(latter) != 0,
+                "NotStrictEqual.ValueCheck",
+                "Value(s) must not have identical values.");
         }
 
         public IResult Same(object former, object latter)
         {
-            _context.IsSatisfied = former == latter;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Equal.ValueCheck";
-                const string errorDescription = "Value(s) must be the same instance.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(former == latter,
+                "Same.ReferenceCheck",
+                "Value(s) must be the same instance.");
         }
 
         public IResult NotSame(object former, object latter)
         {
-            _context.IsSatisfied = former != latter;
-            if(!_context.IsSatisfied)
-            {
-                const string errorCode = "Equal.ValueCheck";
-                const string errorDescription = "Value(s) must not be the same instance.";
-                var error = Error.ValueCheck(errorCode, errorDescription);
-                _context.Errors.Add(error);
-            }
-
-            return this;
+            return Assert(former != latter,
+                "NotSame.ReferenceCheck",
+                "Value(s) must not be the same instance.");
         }
 
         public IValueCheck WithError(Error error)
@@ -190,6 +105,16 @@ namespace AssertiveResults.Assertions.ValueCheck
                 _context.Errors.Add(error);
             }
 
+            return this;
+        }
+
+        internal IResult Assert(bool assertion, string errorCode, string errorMessages)
+        {
+            _context.IsSatisfied = assertion;
+            if(_context.IsSatisfied)
+                return this;
+
+            _context.Errors.Add(Error.ValueCheck(errorCode, errorMessages));
             return this;
         }
     }
