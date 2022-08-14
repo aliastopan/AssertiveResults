@@ -1,6 +1,6 @@
 namespace AssertiveResults.Errors
 {
-    internal static class ErrorDescription
+    internal static class ErrorDetail
     {
         // GENERAL
         internal const string Failure = "A failure has occurred.";

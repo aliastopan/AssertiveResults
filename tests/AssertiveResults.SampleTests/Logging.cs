@@ -12,9 +12,9 @@ public static class Logging
             foreach (var error in result.Errors)
             {
                 Serilog.Log.Logger.Information(
-                    "Error [{code}]: {description}",
-                    error.Code,
-                    error.Description);
+                    "Error [{title}]: {detail}",
+                    error.Title,
+                    error.Detail);
             }
         }
 

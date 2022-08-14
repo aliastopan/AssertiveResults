@@ -1,6 +1,6 @@
 namespace AssertiveResults.Errors
 {
-    internal static class ErrorCode
+    internal static class ErrorTitle
     {
         internal const string Failure = "General.Failure";
         internal const string Conflict = "General.Conflict";

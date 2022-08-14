@@ -14,43 +14,43 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
         public IResult LowerCase()
         {
             return _regex.Assert(RegexPattern.LowerCase,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingLowerCase);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingLowerCase);
         }
 
         public IResult UpperCase()
         {
             return _regex.Assert(RegexPattern.UpperCase,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingUpperCase);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingUpperCase);
         }
 
         public IResult Alphabet()
         {
             return _regex.Assert(RegexPattern.Alphabet,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingAlphabet);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingAlphabet);
         }
 
         public IResult Alphameric()
         {
             return _regex.Assert(RegexPattern.Alphameric,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingAlphameric);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingAlphameric);
         }
 
         public IResult Number()
         {
             return _regex.Assert(RegexPattern.Number,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingNumber);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingNumber);
         }
 
         public IResult Symbol()
         {
             return _regex.Assert(RegexPattern.Symbols,
-                ErrorCode.Assertion.RegularExpression,
-                ErrorDescription.StringMissingSpecialCharacter);
+                ErrorTitle.Assertion.RegularExpression,
+                ErrorDetail.StringMissingSpecialCharacter);
         }
     }
 }

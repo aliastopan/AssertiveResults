@@ -28,37 +28,37 @@ namespace AssertiveResults.Assertions.RegularExpressions
         public IResult Matches(string pattern)
         {
             return Assert(pattern,
-                ErrorCode.Assertion.RegularExpression,
-                string.Format(ErrorDescription.StringNotMatchesRegularExpression, pattern));
+                ErrorTitle.Assertion.RegularExpression,
+                string.Format(ErrorDetail.StringNotMatchesRegularExpression, pattern));
         }
 
         public IResult MatchesIllegal(string pattern)
         {
             return Assert(pattern,
-                ErrorCode.Assertion.RegularExpression,
-                string.Format(ErrorDescription.StringMatchesIllegalRegularExpression, pattern),
+                ErrorTitle.Assertion.RegularExpression,
+                string.Format(ErrorDetail.StringMatchesIllegalRegularExpression, pattern),
                 illegal: true);
         }
 
         public IResult Length(int min, int max)
         {
             return Assert(RegexPattern.Length(min, max),
-                ErrorCode.Assertion.RegularExpression,
-                string.Format(ErrorDescription.StringInvalidLength, min, max));
+                ErrorTitle.Assertion.RegularExpression,
+                string.Format(ErrorDetail.StringInvalidLength, min, max));
         }
 
         public IResult MinLength(int min)
         {
             return Assert(RegexPattern.MinLength(min),
-                ErrorCode.Assertion.RegularExpression,
-                string.Format(ErrorDescription.StringTooShort, min));
+                ErrorTitle.Assertion.RegularExpression,
+                string.Format(ErrorDetail.StringTooShort, min));
         }
 
         public IResult MaxLength(int max)
         {
             return Assert(RegexPattern.MaxLength(max),
-                ErrorCode.Assertion.RegularExpression,
-                string.Format(ErrorDescription.StringTooLong, max));
+                ErrorTitle.Assertion.RegularExpression,
+                string.Format(ErrorDetail.StringTooLong, max));
         }
 
         public IMatch WithError(IError error)
@@ -69,8 +69,8 @@ namespace AssertiveResults.Assertions.RegularExpressions
 
         internal IResult Assert(
             string pattern,
-            string errorCode,
-            string errorMessages,
+            string errorTitle,
+            string errorDetail,
             bool illegal = false)
         {
             var regex = new RegularExpression(pattern);
@@ -79,7 +79,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
             if(_context.AllCorrect)
                 return this;
 
-            _context.Errors.Add(Error.Validation(errorCode, errorMessages));
+            _context.Errors.Add(Error.Validation(errorTitle, errorDetail));
             return this;
         }
     }

@@ -4,65 +4,65 @@ namespace AssertiveResults.Errors
     {
         public ErrorType Type { get; }
         public int NumericType { get; }
-        public string Code { get; }
-        public string Description { get; }
+        public string Title { get; }
+        public string Detail { get; }
 
-        private Error(ErrorType type, string code, string description)
+        private Error(ErrorType type, string title, string detail)
         {
             Type = type;
             NumericType = (int) type;
-            Code = code;
-            Description = description;
+            Title = title;
+            Detail = detail;
         }
 
         internal static Error ValueCheck(
-            string code = ErrorCode.Assertion.Value,
-            string description = ErrorDescription.ValueCheck)
+            string title = ErrorTitle.Assertion.Value,
+            string detail = ErrorDetail.ValueCheck)
         {
-            return new Error(ErrorType.Failure, code, description);
+            return new Error(ErrorType.Failure, title, detail);
         }
 
         public static Error Failure(
-            string code = ErrorCode.Failure,
-            string description = ErrorDescription.Failure)
+            string title = ErrorTitle.Failure,
+            string detail = ErrorDetail.Failure)
         {
-            return new Error(ErrorType.Failure, code, description);
+            return new Error(ErrorType.Failure, title, detail);
         }
 
         public static Error Conflict(
-            string code = ErrorCode.Conflict,
-            string description = ErrorDescription.Conflict)
+            string title = ErrorTitle.Conflict,
+            string detail = ErrorDetail.Conflict)
         {
-            return new Error(ErrorType.Conflict, code, description);
+            return new Error(ErrorType.Conflict, title, detail);
         }
 
         public static Error NotFound(
-            string code = ErrorCode.NotFound,
-            string description = ErrorDescription.NotFound)
+            string title = ErrorTitle.NotFound,
+            string detail = ErrorDetail.NotFound)
         {
-            return new Error(ErrorType.NotFound, code, description);
+            return new Error(ErrorType.NotFound, title, detail);
         }
 
         public static Error Unexpected(
-            string code = ErrorCode.Unexpected,
-            string description = ErrorDescription.Unexpected)
+            string title = ErrorTitle.Unexpected,
+            string detail = ErrorDetail.Unexpected)
         {
-            return new Error(ErrorType.Unexpected, code, description);
+            return new Error(ErrorType.Unexpected, title, detail);
         }
 
         public static Error Validation(
-            string code = ErrorCode.Validation,
-            string description = ErrorDescription.Validation)
+            string title = ErrorTitle.Validation,
+            string detail = ErrorDetail.Validation)
         {
-            return new Error(ErrorType.Validation, code, description);
+            return new Error(ErrorType.Validation, title, detail);
         }
 
         public static Error Custom(
             int type,
-            string code,
-            string description)
+            string title,
+            string detail)
         {
-            return new Error((ErrorType)type, code, description);
+            return new Error((ErrorType)type, title, detail);
         }
     }
 }

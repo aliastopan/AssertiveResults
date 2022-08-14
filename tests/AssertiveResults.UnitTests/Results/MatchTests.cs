@@ -11,7 +11,7 @@ public class MatchTests
 
         var value = result.Match(
             ok => ok.value + "-something",
-            fail => $"{fail.problem.FirstError.Description}");
+            fail => $"{fail.problem.FirstError.Detail}");
 
         Assert.Equal("something-something", value);
     }

@@ -19,7 +19,7 @@ public static class ResultResolving
 
         result.Match(
             ok => Serilog.Log.Information("Success<{1}>: {0}", ok.value, ok.value.GetType().Name),
-            fail => Serilog.Log.Information("Failure<{1}>: {0}", fail.problem.FirstError.Description, fail.problem.FirstError.GetType().Name)
+            fail => Serilog.Log.Information("Failure<{1}>: {0}", fail.problem.FirstError.Detail, fail.problem.FirstError.GetType().Name)
         );
     }
 }

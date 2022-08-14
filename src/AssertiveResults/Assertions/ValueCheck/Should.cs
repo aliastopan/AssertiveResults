@@ -16,85 +16,85 @@ namespace AssertiveResults.Assertions.ValueCheck
         public IResult Satisfy(bool condition)
         {
             return Assert(condition,
-                ErrorCode.Assertion.Boolean,
-                ErrorDescription.UnsatisfiedCondition);
+                ErrorTitle.Assertion.Boolean,
+                ErrorDetail.UnsatisfiedCondition);
         }
 
         public IResult NotSatisfy(bool condition)
         {
             return Assert(!condition,
-                ErrorCode.Assertion.Boolean,
-                ErrorDescription.SatisfiedIllegalCondition);
+                ErrorTitle.Assertion.Boolean,
+                ErrorDetail.SatisfiedIllegalCondition);
         }
 
         public IResult Null(object @object)
         {
             return Assert(@object == null,
-                ErrorCode.Assertion.ObjectReference,
-                ErrorDescription.ReferenceIsNotNull);
+                ErrorTitle.Assertion.ObjectReference,
+                ErrorDetail.ReferenceIsNotNull);
         }
 
         public IResult NotNull(object @object)
         {
             return Assert(@object != null,
-                ErrorCode.Assertion.ObjectReference,
-                ErrorDescription.ReferenceIsNull);
+                ErrorTitle.Assertion.ObjectReference,
+                ErrorDetail.ReferenceIsNull);
         }
 
         public IResult Empty(IEnumerable collection)
         {
             return Assert(!collection.GetEnumerator().MoveNext(),
-                ErrorCode.Assertion.Collection,
-                ErrorDescription.CollectionIsNotEmpty);
+                ErrorTitle.Assertion.Collection,
+                ErrorDetail.CollectionIsNotEmpty);
         }
 
         public IResult NotEmpty(IEnumerable collection)
         {
             return Assert(collection.GetEnumerator().MoveNext(),
-                ErrorCode.Assertion.Collection,
-                ErrorDescription.CollectionIsEmpty);
+                ErrorTitle.Assertion.Collection,
+                ErrorDetail.CollectionIsEmpty);
         }
 
         public IResult Equal<T>(T former, T latter)
         {
             return Assert(former.Equals(latter),
-                ErrorCode.Assertion.Value,
-                ErrorDescription.ObjectsAreNotEqual);
+                ErrorTitle.Assertion.Value,
+                ErrorDetail.ObjectsAreNotEqual);
         }
 
         public IResult NotEqual<T>(T former, T latter)
         {
             return Assert(!former.Equals(latter),
-                ErrorCode.Assertion.Value,
-                ErrorDescription.ObjectsAreEqual);
+                ErrorTitle.Assertion.Value,
+                ErrorDetail.ObjectsAreEqual);
         }
 
         public IResult StrictEqual<T>(IComparable<T> former, T latter)
         {
             return Assert(former.CompareTo(latter) == 0,
-                ErrorCode.Assertion.Value,
-                ErrorDescription.ObjectsAreNotStrictlyEqual);
+                ErrorTitle.Assertion.Value,
+                ErrorDetail.ObjectsAreNotStrictlyEqual);
         }
 
         public IResult NotStrictEqual<T>(IComparable<T> former, T latter)
         {
             return Assert(former.CompareTo(latter) != 0,
-                ErrorCode.Assertion.Value,
-                ErrorDescription.ObjectsAreStrictlyEqual);
+                ErrorTitle.Assertion.Value,
+                ErrorDetail.ObjectsAreStrictlyEqual);
         }
 
         public IResult Same(object former, object latter)
         {
             return Assert(former == latter,
-                ErrorCode.Assertion.ObjectReference,
-                ErrorDescription.ReferencesNotAreTheSame);
+                ErrorTitle.Assertion.ObjectReference,
+                ErrorDetail.ReferencesNotAreTheSame);
         }
 
         public IResult NotSame(object former, object latter)
         {
             return Assert(former != latter,
-                ErrorCode.Assertion.ObjectReference,
-                ErrorDescription.ReferencesAreTheSame);
+                ErrorTitle.Assertion.ObjectReference,
+                ErrorDetail.ReferencesAreTheSame);
         }
 
         public IValueCheck WithError(IError error)
@@ -103,13 +103,13 @@ namespace AssertiveResults.Assertions.ValueCheck
             return this;
         }
 
-        internal IResult Assert(bool assertion, string errorCode, string errorMessages)
+        internal IResult Assert(bool assertion, string errorTitle, string errorDetail)
         {
             _context.AllCorrect = assertion;
             if(_context.AllCorrect)
                 return this;
 
-            _context.Errors.Add(Error.ValueCheck(errorCode, errorMessages));
+            _context.Errors.Add(Error.ValueCheck(errorTitle, errorDetail));
             return this;
         }
     }

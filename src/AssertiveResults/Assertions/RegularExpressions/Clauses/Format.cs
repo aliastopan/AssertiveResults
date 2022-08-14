@@ -18,8 +18,8 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             if(min < 0 || max <= min) throw new InvalidOperationException();
 
             return _regex.Assert(RegexPattern.Username(min, max),
-                ErrorCode.Assertion.UsernameStandard,
-                ErrorDescription.InvalidUsernameFormat);
+                ErrorTitle.Assertion.UsernameStandard,
+                ErrorDetail.InvalidUsernameFormat);
         }
 
         public IResult StrongPassword(Strength strength = Strength.Standard)
@@ -31,28 +31,28 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
             {
                 case Strength.Complex:
                     pattern = RegexPattern.Password.Complex;
-                    errorDescription = ErrorDescription.WeakPasswordComplex;
+                    errorDescription = ErrorDetail.WeakPasswordComplex;
                     break;
                 case Strength.Maximum:
                     pattern = RegexPattern.Password.Maximum;
-                    errorDescription = ErrorDescription.WeakPasswordMaximum;
+                    errorDescription = ErrorDetail.WeakPasswordMaximum;
                     break;
                 default:
                     pattern = RegexPattern.Password.Standard;
-                    errorDescription = ErrorDescription.WeakPasswordStandard;
+                    errorDescription = ErrorDetail.WeakPasswordStandard;
                     break;
             }
 
             return _regex.Assert(pattern,
-                ErrorCode.Assertion.PasswordStrength,
+                ErrorTitle.Assertion.PasswordStrength,
                 errorDescription);
         }
 
         public IResult EmailAddress()
         {
             return _regex.Assert(RegexPattern.EmailAddress,
-                ErrorCode.Assertion.EmailAddressFormat,
-                ErrorDescription.InvalidEmailAddressFormat);
+                ErrorTitle.Assertion.EmailAddressFormat,
+                ErrorDetail.InvalidEmailAddressFormat);
         }
     }
 }
