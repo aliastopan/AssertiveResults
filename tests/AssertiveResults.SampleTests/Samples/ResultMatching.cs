@@ -12,8 +12,8 @@ public static class ResultMatching
             });
 
         result.Match(
-            ok => Serilog.Log.Information("Success<T>: {0}", ok.value),
-            fail => Serilog.Log.Information("Failure<T>: {0}", fail.problem.FirstError.Description)
+            ok => Serilog.Log.Information("Success<{1}>: {0}", ok.value, ok.value.GetType().Name),
+            fail => Serilog.Log.Information("Failure<{1}>: {0}", fail.problem.FirstError.Description, fail.problem.FirstError.GetType().Name)
         );
 
         var matchResult = result.Match(
