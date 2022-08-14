@@ -85,10 +85,9 @@ namespace AssertiveResults
                     break;
                 default:
                 {
-                    if (!HasError)
-                        break;
+                    if(!HasError)
+                        context?.Invoke(this);
 
-                    context?.Invoke(this);
                     break;
                 }
             }
@@ -196,10 +195,11 @@ namespace AssertiveResults
                     return Result();
                 default:
                 {
-                    if(HasError)
-                        return this;
+                    if(!HasError)
+                        return Result();
 
-                    return Result();
+                    Value = default;
+                    return this;
                 }
             }
 
