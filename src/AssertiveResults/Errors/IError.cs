@@ -5,6 +5,7 @@ namespace AssertiveResults.Errors
         ErrorType Type { get; }
         int NumericType { get; }
         string Title { get; }
+        string Status { get; }
         string Detail { get; }
     }
 }
