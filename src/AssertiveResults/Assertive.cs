@@ -26,8 +26,8 @@ namespace AssertiveResults
         public IError LastError => GetError(index: errors.Count - 1);
         public bool HasError => errors.Count > 0;
 
-        public bool HasMetadata => metadata.Count > 0;
         public IReadOnlyDictionary<string, object> Metadata => metadata;
+        public bool HasMetadata => metadata.Count > 0;
 
         public static IBegin Result()
         {
