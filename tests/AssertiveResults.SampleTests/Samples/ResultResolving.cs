@@ -1,3 +1,5 @@
+using AssertiveResults.SampleTests.Errors;
+
 namespace AssertiveResults.SampleTests.Samples;
 
 public static class ResultResolving
@@ -7,7 +9,7 @@ public static class ResultResolving
         var result = Assertive.Result<string>()
             .Assert(ctx =>
             {
-                ctx.Should.Satisfy(false);
+                ctx.Should.Satisfy(false).WithError(Error.Authentication.UserNotFound);
             })
             .Resolve(ResolveBehavior.Strict, _ =>
             {

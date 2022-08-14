@@ -12,7 +12,8 @@ public static class Logging
             foreach (var error in result.Errors)
             {
                 Serilog.Log.Logger.Information(
-                    "Error [{title}]: {detail}",
+                    "Error [{status}][{title}]: {detail}",
+                    error.Status,
                     error.Title,
                     error.Detail);
             }
