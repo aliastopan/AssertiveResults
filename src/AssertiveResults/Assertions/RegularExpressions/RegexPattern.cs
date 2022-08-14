@@ -6,7 +6,7 @@ namespace AssertiveResults.Assertions.RegularExpressions
         {
             public const string Standard = @"^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$";
             public const string Complex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
-            public static string Maximum = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]).{8,}$";
+            public const string Maximum = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~!@#$%^&*\-+=_(){}<>'"":;,.\/\[\]|\\?]).{8,}$";
         }
 
         public const string LowerCase = "[a-z]+";
