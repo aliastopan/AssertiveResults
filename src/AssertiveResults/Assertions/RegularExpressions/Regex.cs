@@ -87,7 +87,8 @@ namespace AssertiveResults.Assertions.RegularExpressions
                 return this;
             }
 
-            _context.Errors.Add(Error.Validation(errorTitle, errorDetail));
+            const string badRequest = "400";
+            _context.Errors.Add(Error.Validation(status: badRequest, errorTitle, errorDetail));
             return this;
         }
     }

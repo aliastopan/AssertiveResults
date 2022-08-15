@@ -115,7 +115,8 @@ namespace AssertiveResults.Assertions.ValueCheck
             if(_context.AllCorrect)
                 return this;
 
-            _context.Errors.Add(Error.ValueCheck(errorTitle, errorDetail));
+            const string badRequest = "400";
+            _context.Errors.Add(Error.ValueCheck(status: badRequest, errorTitle, errorDetail));
             return this;
         }
     }
