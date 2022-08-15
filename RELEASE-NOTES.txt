@@ -1,4 +1,4 @@
-v2.0.0-rc-2
+v2.0.0
     - BREAKING CHANGES: refactored namespaces
     - BREAKING CHANGES: refactored interfaces name
     - BREAKING CHANGES: refactored action-based result
