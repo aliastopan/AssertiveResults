@@ -42,13 +42,17 @@ namespace AssertiveResults
         public ISubject Assert(Action<IContext> context)
         {
             if(HasError)
+            {
                 return this;
+            }
 
             var ctx = new Context();
             context?.Invoke(ctx);
 
             if(ctx.HasError)
+            {
                 errors.AddRange(ctx.Errors);
+            }
 
             return this;
         }
@@ -70,9 +74,12 @@ namespace AssertiveResults
 
         public IResult Resolve(Action<IInspect> context)
         {
-            if(!HasError)
-                context?.Invoke(this);
+            if(HasError)
+            {
+                return this;
+            }
 
+            context?.Invoke(this);
             return this;
         }
 
@@ -81,24 +88,29 @@ namespace AssertiveResults
             switch(behavior)
             {
                 case Behavior.Control:
+                {
                     context?.Invoke(this);
-                    break;
+                    return this;
+                }
                 default:
                 {
-                    if(!HasError)
-                        context?.Invoke(this);
+                    if(HasError)
+                    {
+                        return this;
+                    }
 
-                    break;
+                    context?.Invoke(this);
+                    return this;
                 }
             }
-
-            return this;
         }
 
         public IResult WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
+            {
                 return this;
+            }
 
             metadata.Add(metadataName, metadataValue);
             return this;
@@ -110,12 +122,16 @@ namespace AssertiveResults
             return value;
         }
 
-        private IError GetError(int index)
+        public void Match(Action<IMetadata> onSuccess,
+                          Action<(IMetadata metadata, IProblem problem)> onFailure)
         {
-            if(!HasError)
-                throw new InvalidOperationException();
+            if(HasError)
+            {
+                onFailure((this, this));
+                return;
+            }
 
-            return errors[index];
+            onSuccess(this);
         }
 
         public int PurgeErrors()
@@ -125,13 +141,14 @@ namespace AssertiveResults
             return count;
         }
 
-        public void Match(Action<IMetadata> onSuccess,
-                          Action<(IMetadata metadata, IProblem problem)> onFailure)
+        private IError GetError(int index)
         {
-            if(HasError)
-                onFailure((this, this));
-            else
-                onSuccess(this);
+            if(!HasError)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return errors[index];
         }
     }
 
@@ -154,12 +171,17 @@ namespace AssertiveResults
         public new ISubject<T> Assert(Action<IContext> context)
         {
            if(HasError)
+           {
                 return this;
+           }
 
             var ctx = new Context();
             context?.Invoke(ctx);
+
             if(ctx.HasError)
+            {
                 errors.AddRange(ctx.Errors);
+            }
 
             return this;
         }
@@ -192,47 +214,43 @@ namespace AssertiveResults
             switch(behavior)
             {
                 case Behavior.Control:
-                    return Result();
+                {
+                    Value = context(this);
+                    return this;
+                }
                 default:
                 {
-                    if(!HasError)
-                        return Result();
+                    if(HasError)
+                    {
+                        Value = default;
+                        return this;
+                    }
 
-                    Value = default;
+                    Value = context(this);
                     return this;
                 }
             }
-
-            IResult<T> Result()
-            {
-                Value = context(this);
-                return this;
-            }
-        }
-
-        public void Match(Action<T> onValue,
-                          Action<IProblem> onError)
-        {
-            if(HasError)
-                onError(this);
-            else
-                onValue(Value);
         }
 
         public void Match(Action<(T value, IMetadata metadata)> onSuccess,
                           Action<(IMetadata metadata, IProblem problem)> onFailure)
         {
             if(HasError)
+            {
                 onFailure((this, this));
-            else
-                onSuccess((Value, this));
+                return;
+            }
+
+            onSuccess((Value, this));
         }
 
         public U Match<U>(Func<(T value, IMetadata metadata), U> onSuccess,
                           Func<(IMetadata metadata, IProblem problem), U> onFailure)
         {
             if(HasError)
+            {
                 return onFailure((this, this));
+            }
 
             return onSuccess((Value, this));
         }
@@ -240,7 +258,9 @@ namespace AssertiveResults
         public new IResult<T> WithMetadata(string metadataName, object metadataValue)
         {
             if(metadata.ContainsKey(metadataName))
+            {
                 return this;
+            }
 
             metadata.Add(metadataName, metadataValue);
             return this;

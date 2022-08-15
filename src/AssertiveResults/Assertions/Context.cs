@@ -26,7 +26,9 @@ namespace AssertiveResults.Assertions
         internal void WithError(IError error)
         {
             if(AllCorrect)
+            {
                 return;
+            }
 
             Errors.RemoveAt(Errors.Count - 1);
             Errors.Add(error);

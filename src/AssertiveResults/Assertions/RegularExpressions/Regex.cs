@@ -77,7 +77,9 @@ namespace AssertiveResults.Assertions.RegularExpressions
             var isMatch = regex.IsMatch(_input);
             _context.AllCorrect = illegal ? !isMatch : isMatch;
             if(_context.AllCorrect)
+            {
                 return this;
+            }
 
             _context.Errors.Add(Error.Validation(errorTitle, errorDetail));
             return this;

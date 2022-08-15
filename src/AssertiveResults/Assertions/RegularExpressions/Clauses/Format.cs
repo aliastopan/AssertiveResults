@@ -15,7 +15,10 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
         public IResult Username(int min = 1, int max = 32)
         {
-            if(min < 0 || max <= min) throw new InvalidOperationException();
+            if(min < 0 || max <= min)
+            {
+                throw new InvalidOperationException();
+            }
 
             return _regex.Assert(RegexPattern.Username(min, max),
                 ErrorTitle.Assertion.UsernameStandard,
@@ -24,28 +27,27 @@ namespace AssertiveResults.Assertions.RegularExpressions.Clauses
 
         public IResult StrongPassword(Strength strength = Strength.Standard)
         {
-            string pattern;
-            string errorDescription;
-
             switch(strength)
             {
                 case Strength.Complex:
-                    pattern = RegexPattern.Password.Complex;
-                    errorDescription = ErrorDetail.WeakPasswordComplex;
-                    break;
+                {
+                    return _regex.Assert(RegexPattern.Password.Complex,
+                        ErrorTitle.Assertion.PasswordStrength,
+                        ErrorDetail.WeakPasswordComplex);
+                }
                 case Strength.Maximum:
-                    pattern = RegexPattern.Password.Maximum;
-                    errorDescription = ErrorDetail.WeakPasswordMaximum;
-                    break;
+                {
+                    return _regex.Assert(RegexPattern.Password.Maximum,
+                        ErrorTitle.Assertion.PasswordStrength,
+                        ErrorDetail.WeakPasswordComplex);
+                }
                 default:
-                    pattern = RegexPattern.Password.Standard;
-                    errorDescription = ErrorDetail.WeakPasswordStandard;
-                    break;
+                {
+                    return _regex.Assert(RegexPattern.Password.Standard,
+                        ErrorTitle.Assertion.PasswordStrength,
+                        ErrorDetail.WeakPasswordComplex);
+                }
             }
-
-            return _regex.Assert(pattern,
-                ErrorTitle.Assertion.PasswordStrength,
-                errorDescription);
         }
 
         public IResult EmailAddress()
