@@ -11,7 +11,7 @@ public static partial class Error
             .NotFound(
                 status: HttpStatusCode.Unauthorized,
                 title: "User.NotFound",
-                detail: "User not found");
+                detail: "User '{0}' not found.");
 
         public static ErrorResult IncorrectPassword => ErrorResult
             .Validation(
