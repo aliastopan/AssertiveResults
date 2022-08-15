@@ -5,6 +5,7 @@ v2.0.0-rc-2
     - BREAKING CHANGES: refactored error structure
     - ADDED: IError interface
     - ADDED: http status code implementation (Error)
+    - ADDED: error type 'Authentication' and 'Authorization'
     - ADDED: action resolve
     - ADDED: error handling
 v1.2.1
