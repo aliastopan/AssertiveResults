@@ -4,12 +4,6 @@ namespace AssertiveResults.Errors
 {
     public struct Error : IError
     {
-        public ErrorType Type { get; }
-        public int NumericType { get; }
-        public string Title { get; }
-        public string Status { get; }
-        public string Detail { get; }
-
         private Error(ErrorType type, string status, string title, string detail)
         {
             Type = type;
@@ -18,6 +12,12 @@ namespace AssertiveResults.Errors
             Title = title;
             Detail = detail;
         }
+
+        public ErrorType Type { get; }
+        public int NumericType { get; }
+        public string Title { get; }
+        public string Status { get; }
+        public string Detail { get; }
 
         internal static IError FormatDetail(IError error, params object[] args)
         {
