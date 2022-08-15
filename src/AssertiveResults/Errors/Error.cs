@@ -19,6 +19,15 @@ namespace AssertiveResults.Errors
             Detail = detail;
         }
 
+        internal static IError FormatDetail(IError error, params object[] args)
+        {
+            return new Error(
+                error.Type,
+                error.Status,
+                error.Title,
+                string.Format(error.Detail, args));
+        }
+
         internal static Error ValueCheck(
             string status = "",
             string title = ErrorTitle.Assertion.Value,

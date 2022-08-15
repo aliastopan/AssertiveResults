@@ -67,6 +67,12 @@ namespace AssertiveResults.Assertions.RegularExpressions
             return this;
         }
 
+        public IMatch WithError(IError error, params object[] args)
+        {
+            _context.WithError(Error.FormatDetail(error, args));
+            return this;
+        }
+
         internal IResult Assert(
             string pattern,
             string errorTitle,

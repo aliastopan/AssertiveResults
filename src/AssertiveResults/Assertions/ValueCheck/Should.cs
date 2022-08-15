@@ -103,6 +103,12 @@ namespace AssertiveResults.Assertions.ValueCheck
             return this;
         }
 
+        public IValueCheck WithError(IError error, params object[] args)
+        {
+            _context.WithError(Error.FormatDetail(error, args));
+            return this;
+        }
+
         internal IResult Assert(bool assertion, string errorTitle, string errorDetail)
         {
             _context.AllCorrect = assertion;
