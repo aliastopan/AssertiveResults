@@ -129,9 +129,9 @@ namespace AssertiveResults
                           Action<(IMetadata metadata, IProblem problem)> onFailure)
         {
             if(HasError)
-                onSuccess(this);
-            else
                 onFailure((this, this));
+            else
+                onSuccess(this);
         }
     }
 
