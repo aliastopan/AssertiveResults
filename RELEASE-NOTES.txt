@@ -1,8 +1,10 @@
-v2.0.0-rc
+v2.0.0-rc-2
     - BREAKING CHANGES: refactored namespaces
     - BREAKING CHANGES: refactored interfaces name
     - BREAKING CHANGES: refactored action-based result
+    - BREAKING CHANGES: refactored error structure
     - ADDED: IError interface
+    - ADDED: http status code implementation (Error)
     - ADDED: action resolve
     - ADDED: error handling
 v1.2.1
