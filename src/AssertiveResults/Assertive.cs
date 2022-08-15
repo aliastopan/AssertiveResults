@@ -123,7 +123,7 @@ namespace AssertiveResults
         }
 
         public void Match(Action<IMetadata> onSuccess,
-                          Action<(IMetadata metadata, IProblem problem)> onFailure)
+                          Action<(IProblem problem, IMetadata metadata)> onFailure)
         {
             if(HasError)
             {
@@ -233,7 +233,7 @@ namespace AssertiveResults
         }
 
         public void Match(Action<(T value, IMetadata metadata)> onSuccess,
-                          Action<(IMetadata metadata, IProblem problem)> onFailure)
+                          Action<(IProblem problem, IMetadata metadata)> onFailure)
         {
             if(HasError)
             {
@@ -245,7 +245,7 @@ namespace AssertiveResults
         }
 
         public U Match<U>(Func<(T value, IMetadata metadata), U> onSuccess,
-                          Func<(IMetadata metadata, IProblem problem), U> onFailure)
+                          Func<(IProblem problem, IMetadata metadata), U> onFailure)
         {
             if(HasError)
             {
