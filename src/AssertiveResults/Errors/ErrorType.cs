@@ -1,3 +1,6 @@
+using System.Security.Authentication;
+using System.Net.Security;
+using System.Net;
 namespace AssertiveResults.Errors
 {
     public enum ErrorType
@@ -6,6 +9,8 @@ namespace AssertiveResults.Errors
         Conflict,
         NotFound,
         Unexpected,
-        Validation
+        Validation,
+        Authentication,
+        Authorization,
     }
 }
