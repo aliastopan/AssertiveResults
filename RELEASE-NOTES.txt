@@ -1,3 +1,5 @@
+v2.0.1
+    - FIXES: static error template to return IError
 v2.0.0
     - BREAKING CHANGES: refactored namespaces
     - BREAKING CHANGES: refactored interfaces name
