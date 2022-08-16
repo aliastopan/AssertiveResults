@@ -7,6 +7,8 @@ namespace AssertiveResults.Errors
         internal const string NotFound = "General.NotFound";
         internal const string Unexpected = "General.Unexpected";
         internal const string Validation = "General.Validation";
+        internal const string Authentication = "General.Authentication";
+        internal const string Authorization = "General.Authorization";
 
         internal static class Assertion
         {

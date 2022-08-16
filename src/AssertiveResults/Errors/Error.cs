@@ -156,6 +156,38 @@ namespace AssertiveResults.Errors
             return Validation((int)status, title, detail);
         }
 
+        public static IError Authentication(
+            int status = 401,
+            string title = ErrorTitle.Authentication,
+            string detail = ErrorDetail.Authentication)
+        {
+            return new Error(ErrorType.Authentication, status.ToString(), title, detail);
+        }
+
+        public static IError Authentication(
+            HttpStatusCode status = HttpStatusCode.Unauthorized,
+            string title = ErrorTitle.Authentication,
+            string detail = ErrorDetail.Authentication)
+        {
+            return Authentication((int)status, title, detail);
+        }
+
+        public static IError Authorization(
+            int status = 401,
+            string title = ErrorTitle.Authorization,
+            string detail = ErrorDetail.Authorization)
+        {
+            return new Error(ErrorType.Authorization, status.ToString(), title, detail);
+        }
+
+        public static IError Authorization(
+            HttpStatusCode status = HttpStatusCode.Unauthorized,
+            string title = ErrorTitle.Authorization,
+            string detail = ErrorDetail.Authorization)
+        {
+            return Authorization((int)status, title, detail);
+        }
+
         public static IError Custom(
             int type,
             string status,

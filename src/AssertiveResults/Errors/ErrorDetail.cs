@@ -8,6 +8,8 @@ namespace AssertiveResults.Errors
         internal const string NotFound = "A 'Not Found' error has occurred.";
         internal const string Unexpected = "An unexpected error has occurred.";
         internal const string Validation = "A validation error has occurred.";
+        internal const string Authentication = "Unable to authenticate user.";
+        internal const string Authorization = "Unable authorize user.";
 
         // VALUE CHECK
         internal const string ValueCheck = "A value check error has occurred.";
