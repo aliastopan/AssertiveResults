@@ -6,4 +6,9 @@ namespace AssertiveResults.Contracts
 
         int PurgeErrors();
     }
+
+    public interface IInspect<T> : IInspect
+    {
+        T Value { get;}
+    }
 }

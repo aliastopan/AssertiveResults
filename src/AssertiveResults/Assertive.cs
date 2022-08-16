@@ -152,7 +152,7 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IResult<T>
+    internal class Assertive<T> : Assertive, IResult<T>, IInspect<T>
     {
         internal Assertive()
         {
