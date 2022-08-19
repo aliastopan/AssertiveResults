@@ -8,6 +8,7 @@ public static class Sampling
     {
         Serilog.Log.Information("Starting...");
         // ResultMatching.Run();
-        ResultResolving.Run();
+        // ResultResolving.Run();
+        ResultErrorStack.Run();
     }
 }
