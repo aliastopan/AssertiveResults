@@ -5,7 +5,7 @@
     <AssemblyName>AssertiveResults</AssemblyName>
     <PackageId>AssertiveResults</PackageId>
     <Description>A lightweight generalized object container built to handle assertion, validation, and error handling in fluent fashion.</Description>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/../../RELEASE-NOTES.txt"))</PackageReleaseNotes>
     <Authors>Taufan Augusta</Authors>
     <Copyright>Copyright 2022 (c) Taufan Augusta. All rights reserved.</Copyright>

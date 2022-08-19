@@ -1,3 +1,5 @@
+v2.0.2
+    - PATCH: resolve examination
 v2.0.1
     - FIXES: static error template to return IError
 v2.0.0
