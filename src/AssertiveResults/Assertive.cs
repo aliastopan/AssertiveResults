@@ -72,24 +72,24 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(Action<IInspect> context)
+        public IResult Resolve(Action<IInspect> check)
         {
             if(HasError)
             {
                 return this;
             }
 
-            context?.Invoke(this);
+            check?.Invoke(this);
             return this;
         }
 
-        public IResult Resolve(Behavior behavior, Action<IInspect> context)
+        public IResult Resolve(Behavior behavior, Action<IInspect> check)
         {
             switch(behavior)
             {
                 case Behavior.Control:
                 {
-                    context?.Invoke(this);
+                    check?.Invoke(this);
                     return this;
                 }
                 default:
@@ -99,7 +99,7 @@ namespace AssertiveResults
                         return this;
                     }
 
-                    context?.Invoke(this);
+                    check?.Invoke(this);
                     return this;
                 }
             }
@@ -203,19 +203,19 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult<T> Resolve(Func<IInspect, T> context)
+        public IResult<T> Resolve(Func<IInspect<T>, T> check)
         {
-            Value = HasError ? default : context(this);
+            Value = HasError ? default : check(this);
             return this;
         }
 
-        public IResult<T> Resolve(Behavior behavior, Func<IInspect, T> context)
+        public IResult<T> Resolve(Behavior behavior, Func<IInspect<T>, T> check)
         {
             switch(behavior)
             {
                 case Behavior.Control:
                 {
-                    Value = context(this);
+                    Value = check(this);
                     return this;
                 }
                 default:
@@ -226,7 +226,7 @@ namespace AssertiveResults
                         return this;
                     }
 
-                    Value = context(this);
+                    Value = check(this);
                     return this;
                 }
             }
