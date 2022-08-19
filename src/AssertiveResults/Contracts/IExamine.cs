@@ -1,13 +1,13 @@
 namespace AssertiveResults.Contracts
 {
-    public interface IInspect : IProblem, IMetadata
+    public interface IExamine : IProblem, IMetadata
     {
         bool HasError { get; }
 
         int PurgeErrors();
     }
 
-    public interface IInspect<T> : IInspect
+    public interface IExamine<T> : IExamine
     {
         T Value { get;}
     }

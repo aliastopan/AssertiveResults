@@ -7,7 +7,7 @@ using Behavior = AssertiveResults.ResolveBehavior;
 
 namespace AssertiveResults
 {
-    public class Assertive : IResult, IInspect
+    public class Assertive : IResult, IExamine
     {
         protected internal List<IError> errors;
         protected internal Dictionary<string, object> metadata;
@@ -72,24 +72,24 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult Resolve(Action<IInspect> check)
+        public IResult Resolve(Action<IExamine> examine)
         {
             if(HasError)
             {
                 return this;
             }
 
-            check?.Invoke(this);
+            examine?.Invoke(this);
             return this;
         }
 
-        public IResult Resolve(Behavior behavior, Action<IInspect> check)
+        public IResult Resolve(Behavior behavior, Action<IExamine> examine)
         {
             switch(behavior)
             {
                 case Behavior.Control:
                 {
-                    check?.Invoke(this);
+                    examine?.Invoke(this);
                     return this;
                 }
                 default:
@@ -99,7 +99,7 @@ namespace AssertiveResults
                         return this;
                     }
 
-                    check?.Invoke(this);
+                    examine?.Invoke(this);
                     return this;
                 }
             }
@@ -152,7 +152,7 @@ namespace AssertiveResults
         }
     }
 
-    internal class Assertive<T> : Assertive, IResult<T>, IInspect<T>
+    internal class Assertive<T> : Assertive, IResult<T>, IExamine<T>
     {
         internal Assertive()
         {
@@ -203,19 +203,19 @@ namespace AssertiveResults
             return this;
         }
 
-        public IResult<T> Resolve(Func<IInspect<T>, T> check)
+        public IResult<T> Resolve(Func<IExamine<T>, T> examine)
         {
-            Value = HasError ? default : check(this);
+            Value = HasError ? default : examine(this);
             return this;
         }
 
-        public IResult<T> Resolve(Behavior behavior, Func<IInspect<T>, T> check)
+        public IResult<T> Resolve(Behavior behavior, Func<IExamine<T>, T> examine)
         {
             switch(behavior)
             {
                 case Behavior.Control:
                 {
-                    Value = check(this);
+                    Value = examine(this);
                     return this;
                 }
                 default:
@@ -226,7 +226,7 @@ namespace AssertiveResults
                         return this;
                     }
 
-                    Value = check(this);
+                    Value = examine(this);
                     return this;
                 }
             }
